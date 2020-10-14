@@ -1,0 +1,14 @@
+C:\Users\320087165\source\repos\AlertToCare\AlertToCare\bin\Debug\netcoreapp2.1\AlertToCare.deps.json
+C:\Users\320087165\source\repos\AlertToCare\AlertToCare\bin\Debug\netcoreapp2.1\AlertToCare.runtimeconfig.json
+C:\Users\320087165\source\repos\AlertToCare\AlertToCare\bin\Debug\netcoreapp2.1\AlertToCare.runtimeconfig.dev.json
+C:\Users\320087165\source\repos\AlertToCare\AlertToCare\bin\Debug\netcoreapp2.1\AlertToCare.dll
+C:\Users\320087165\source\repos\AlertToCare\AlertToCare\obj\Debug\netcoreapp2.1\AlertToCare.csprojAssemblyReference.cache
+C:\Users\320087165\source\repos\AlertToCare\AlertToCare\obj\Debug\netcoreapp2.1\AlertToCare.csproj.CoreCompileInputs.cache
+C:\Users\320087165\source\repos\AlertToCare\AlertToCare\obj\Debug\netcoreapp2.1\AlertToCare.RazorAssemblyInfo.cache
+C:\Users\320087165\source\repos\AlertToCare\AlertToCare\obj\Debug\netcoreapp2.1\AlertToCare.RazorAssemblyInfo.cs
+C:\Users\320087165\source\repos\AlertToCare\AlertToCare\obj\Debug\netcoreapp2.1\AlertToCare.AssemblyInfoInputs.cache
+C:\Users\320087165\source\repos\AlertToCare\AlertToCare\obj\Debug\netcoreapp2.1\AlertToCare.AssemblyInfo.cs
+C:\Users\320087165\source\repos\AlertToCare\AlertToCare\obj\Debug\netcoreapp2.1\AlertToCare.RazorTargetAssemblyInfo.cache
+C:\Users\320087165\source\repos\AlertToCare\AlertToCare\bin\Debug\netcoreapp2.1\AlertToCare.pdb
+C:\Users\320087165\source\repos\AlertToCare\AlertToCare\obj\Debug\netcoreapp2.1\AlertToCare.dll
+C:\Users\320087165\source\repos\AlertToCare\AlertToCare\obj\Debug\netcoreapp2.1\AlertToCare.pdb
