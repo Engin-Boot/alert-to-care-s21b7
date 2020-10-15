@@ -3,22 +3,25 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Data.SQLite;
+
 
 namespace AlertToCare.Occupancy
 {
     public class OccupancyService : IOccupancyService
     {
-        List<Models.PatientModel> _patientList = new List<PatientModel>();
-        List<Models.BedModel> _bedList = new List<BedModel>();
-        List<Models.IcuModel> _icuList = new List<IcuModel>();
-        
+       public List<Models.PatientModel> _patientList = new List<PatientModel>();
+       public List<Models.BedModel> _bedList = new List<BedModel>();
+       public List<Models.IcuModel> _icuList = new List<IcuModel>();
+
+       public List<Models.PatientVital> _patientVitalList = new List<Models.PatientVital>();
+
         public string AddNewPatient(PatientModel newPatient,string layout)
         {
                 try
                 {
                     _patientList.Add(newPatient);
                     _bedList.Add(new BedModel {BedId=newPatient.BedId,BedStatus="Occupied",BedLayout=layout,ICUId=newPatient.IcuId});
+                     _patientVitalList.Add(new PatientVital { PId = newPatient.PId, VitalBpm = newPatient.VitalBpm, VitalSpo2 = newPatient.VitalSpo2, VitalResperate = newPatient.VitalResperate });
                     return "Patient Added Succesfully";
                 }
                 catch(Exception e)
@@ -27,6 +30,12 @@ namespace AlertToCare.Occupancy
                     return "Unable to Add Patient";
                 }
         }
+
+        public List<PatientVital> Display()
+        {
+            return _patientVitalList;
+        }
+
         public string CheckBedStatus(string BedId)
         {
             foreach(Models.BedModel _bedTemp in _bedList)

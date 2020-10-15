@@ -8,10 +8,11 @@ namespace AlertToCare.Occupancy
 {
     public interface IOccupancyService
     {
-        public string CheckBedStatus(string BedId);
-        public string AddNewPatient(Models.PatientModel newPatient,string layout);
-        public string DishchargePatient(string Pid);
-        public List<PatientModel> GetPatientsDetails();
-        public List<BedModel> GetBedDetails();
+         string CheckBedStatus(string BedId);
+         string AddNewPatient(Models.PatientModel newPatient,string layout);
+         string DishchargePatient(string Pid);
+        List<PatientModel> GetPatientsDetails();
+        List<BedModel> GetBedDetails();
+        List<PatientVital> Display();
     }
 }

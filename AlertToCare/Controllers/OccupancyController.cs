@@ -53,5 +53,11 @@ namespace AlertToCare.Controllers
         {
             return this._occupancyService.DishchargePatient(PId);
         }
+        [HttpGet]
+        [Route("[action]")]
+        public IEnumerable<Models.PatientVital> check()
+        {
+            return this._occupancyService.Display();
+        }
     }
 }
