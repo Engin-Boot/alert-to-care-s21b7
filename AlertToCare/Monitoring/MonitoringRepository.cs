@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 
 namespace AlertToCare.Monitoring
 {
-   
     public  class MonitoringRepository :IMonitoringRepository
     {
         Occupancy.OccupancyService _occupancyVital = new Occupancy.OccupancyService();
@@ -14,7 +13,6 @@ namespace AlertToCare.Monitoring
         {
 
         }
-        
         #region vitalCheck
         float minBpm, maxBpm;
         float minSpo2;
