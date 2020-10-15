@@ -7,13 +7,17 @@ namespace AlertToCare.Models
 {
     public class PatientModel
     {
+        public string PId { get; set; }
         public string Name { get; set; }
+        public int Age { get; set; }
+        public string Gender { get; set; }
         public string Email { get; set; }
-
         public string PhoneNumber { get; set; }
         public string Address { get; set; }
-        public string VitalBpm { get; set; }
-        public string VitalSpo2 { get; set; }
-        public string VitalResperate { get; set; }
+        public double VitalBpm { get; set; }
+        public double VitalSpo2 { get; set; }
+        public double VitalResperate { get; set; }
+        public string IcuId { get; set; }
+        public string BedId { get; set; }
     }
 }

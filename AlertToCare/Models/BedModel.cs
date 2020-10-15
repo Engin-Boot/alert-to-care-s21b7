@@ -8,9 +8,8 @@ namespace AlertToCare.Models
     public class BedModel
     {
         public string BedId { get; set; }
-        public string BedCount { get; set; }
-
+        public string ICUId { get; set; }
         public string BedLayout { get; set; }
-      
+        public string BedStatus { get; set; }
     }
 }
