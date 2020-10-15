@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AlertToCare.Controllers
@@ -11,8 +7,7 @@ namespace AlertToCare.Controllers
     [ApiController]
     public class ConfigurationController : ControllerBase
     {
-       
-        Configuration.IConfigurationRepository _config;
+        private readonly Configuration.IConfigurationRepository _config;
         public ConfigurationController(Configuration.IConfigurationRepository config)
         {
             this._config = config;
@@ -21,7 +16,7 @@ namespace AlertToCare.Controllers
         [HttpGet]
         public IEnumerable<Models.BedModel> Get()
         {
-            return this._config.GetbedConfigurationInformation();
+            return this._config.GetBedConfigurationInformation();
         }
         [HttpGet]
         [Route("[action]")]
@@ -36,11 +31,11 @@ namespace AlertToCare.Controllers
         public Models.IcuModel GetEachIcu(string id)
         {
             Models.IcuModel icu = default(Models.IcuModel);
-            foreach (Models.IcuModel icutemp in _config.GetIcuConfiguration())
+            foreach (Models.IcuModel icuTemp in _config.GetIcuConfiguration())
             {
-                if (icutemp.IcuId == id)
+                if (icuTemp.IcuId == id)
                 {
-                    icu = icutemp;
+                    icu = icuTemp;
                     break;
                 }
 
@@ -53,11 +48,11 @@ namespace AlertToCare.Controllers
         public Models.BedModel Get(string id)
         {
             Models.BedModel bed = default(Models.BedModel);
-            foreach (Models.BedModel bedtemp in _config.GetbedConfigurationInformation())
+            foreach (Models.BedModel bedTemp in _config.GetBedConfigurationInformation())
             {
-                if (bedtemp.BedId == id)
+                if (bedTemp.BedId == id)
                 {
-                    bed = bedtemp;
+                    bed = bedTemp;
                     break;
                 }
 
@@ -68,7 +63,7 @@ namespace AlertToCare.Controllers
         [HttpPost]
         public void Post([FromBody] Models.BedModel newBedModel)
         {
-            this._config.AddNewbedConfiguration(newBedModel);
+            this._config.AddNewBedConfiguration(newBedModel);
         }
 
         [HttpPost]

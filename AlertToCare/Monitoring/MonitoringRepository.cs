@@ -1,35 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace AlertToCare.Monitoring
 {
     public  class MonitoringRepository :IMonitoringRepository
     {
-        Occupancy.OccupancyService _occupancyVital = new Occupancy.OccupancyService();
+        private readonly Occupancy.OccupancyService _occupancyVital = new Occupancy.OccupancyService();
         List<Models.PatientVital> _patientVital = new List<Models.PatientVital>();
-        public MonitoringRepository()
-        {
 
-        }
         #region vitalCheck
-        float minBpm, maxBpm;
-        float minSpo2;
-        float minRespirate, MaxRespirate;
+
+        private float _minBpm, _maxBpm;
+        private float _minSpo2;
+        private float _minRespRate, _maxRespRate;
        
-        public void VitalsRangeChecker(float _minBpm, float _maxBpm, float _minSpo2, float _minRespirate, float _maxRespirate)
+        public void VitalsRangeChecker(float minBpm, float maxBpm, float minSpo2, float minRespRate, float maxRespRate)
         {
-            minBpm = _minBpm;
-            maxBpm = _maxBpm;
-            minSpo2 = _minSpo2;
-            minRespirate = _minRespirate;
-            MaxRespirate = _maxRespirate;
+            this._minBpm = minBpm;
+            this._maxBpm = maxBpm;
+            this._minSpo2 = minSpo2;
+            this._minRespRate = minRespRate;
+            this._maxRespRate = maxRespRate;
         }
 
        public bool Check_BPM(float bpm)
         {
-            if (bpm > maxBpm || bpm < minBpm)
+            if (bpm > _maxBpm || bpm < _minBpm)
             {
                 return false;
             }
@@ -37,16 +33,16 @@ namespace AlertToCare.Monitoring
         }
        public bool Check_SPO2(float spo2)
         {
-            if (spo2 > minSpo2)
+            if (spo2 > _minSpo2)
             {
                 return true;
             }
             return false;
         }
 
-       public bool Check_Resperate(float respirate)
+       public bool Check_RespRate(float respRate)
         {
-            if (respirate < minRespirate || respirate > MaxRespirate)
+            if (respRate < _minRespRate || respRate > _maxRespRate)
             {
                 return false;
             }
@@ -56,15 +52,15 @@ namespace AlertToCare.Monitoring
         {
             bool checkBpm =Check_BPM(bpm);
             bool checkSpo2 = Check_SPO2(spo2);
-            bool checkRespirate = Check_Resperate(respRate);
-           return new Tuple<bool, bool,bool>(checkBpm,checkSpo2,checkRespirate);
+            bool checkRespiration = Check_RespRate(respRate);
+           return new Tuple<bool, bool,bool>(checkBpm,checkSpo2,checkRespiration);
         }
 
 #endregion 
       
-        public IEnumerable<Models.PatientVital> GetMonitoringformation()
+        public IEnumerable<Models.PatientVital> GetMonitoringInformation()
         {
-            _patientVital = _occupancyVital._patientVitalList;
+            _patientVital = _occupancyVital.PatientVitalList;
             return _patientVital;
         }
     }

@@ -1,28 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using AlertToCare.Models;
 
 namespace AlertToCare.Configuration
 {
     public class ConfigurationRepository :IConfigurationRepository
     {
-        Occupancy.OccupancyService _occupancy = new Occupancy.OccupancyService();
-        RemovedBedThenUpdateICU _updateICU = new RemovedBedThenUpdateICU();
+        private readonly Occupancy.OccupancyService _occupancy = new Occupancy.OccupancyService();
+        private readonly RemovedBedThenUpdateIcu _updateIcu = new RemovedBedThenUpdateIcu();
 
        
-        public IEnumerable<Models.BedModel> GetbedConfigurationInformation() { return _occupancy._bedList; }
-        public IEnumerable<Models.IcuModel> GetIcuConfiguration() { return _occupancy._icuList; }
+        public IEnumerable<BedModel> GetBedConfigurationInformation() { return _occupancy.BedList; }
+        public IEnumerable<IcuModel> GetIcuConfiguration() { return _occupancy.IcuList; }
 
-        public void AddNewbedConfiguration(Models.BedModel newbed)
+        public void AddNewBedConfiguration(BedModel newBed)
         {
-            _occupancy._bedList.Add(newbed);
+            _occupancy.BedList.Add(newBed);
         }
 
-        public void AddNewIcuConfiguration(Models.IcuModel newIcu)
+        public void AddNewIcuConfiguration(IcuModel newIcu)
         {
-            _occupancy._icuList.Add(newIcu);
+            _occupancy.IcuList.Add(newIcu);
         }
 
         public string RemoveBed(string bedId)
@@ -30,16 +29,16 @@ namespace AlertToCare.Configuration
             string tempIcuId=" ";
             try
             {
-                foreach (BedModel bedTemp in _occupancy._bedList.ToList())
+                foreach (BedModel bedTemp in _occupancy.BedList.ToList())
                 {
                     if (bedTemp.BedId == bedId)
                     {
-                        tempIcuId = bedTemp.ICUId;
-                        _occupancy._bedList.Remove(bedTemp);
+                        tempIcuId = bedTemp.IcuId;
+                        _occupancy.BedList.Remove(bedTemp);
                         
                     }
                 }
-                _updateICU.UpdateICUAfterBedRemoval(tempIcuId); 
+                _updateIcu.UpdateIcuAfterBedRemoval(tempIcuId); 
                 return "bed removed";
             }
             catch(Exception e)

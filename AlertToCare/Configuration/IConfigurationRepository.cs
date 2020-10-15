@@ -5,11 +5,10 @@ namespace AlertToCare.Configuration
 {
    public interface IConfigurationRepository
     {
-        IEnumerable<BedModel> GetbedConfigurationInformation();
-        void AddNewbedConfiguration(BedModel newBed);
+        IEnumerable<BedModel> GetBedConfigurationInformation();
+        void AddNewBedConfiguration(BedModel newBed);
         IEnumerable<IcuModel> GetIcuConfiguration();
         void AddNewIcuConfiguration(IcuModel newIcu);
         string RemoveBed(string bedId);
-
         }
 }

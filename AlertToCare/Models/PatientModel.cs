@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace AlertToCare.Models
+﻿namespace AlertToCare.Models
 {
     public class PatientModel
     {
@@ -16,7 +11,7 @@ namespace AlertToCare.Models
         public string Address { get; set; }
         public double VitalBpm { get; set; }
         public double VitalSpo2 { get; set; }
-        public double VitalResperate { get; set; }
+        public double VitalRespRate { get; set; }
         public string IcuId { get; set; }
         public string BedId { get; set; }
     }

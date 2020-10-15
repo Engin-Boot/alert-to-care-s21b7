@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -12,7 +9,7 @@ namespace AlertToCare.Controllers
     [ApiController]
     public class OccupancyController : ControllerBase
     {
-        Occupancy.IOccupancyService _occupancyService;
+        private readonly Occupancy.IOccupancyService _occupancyService;
 
         public OccupancyController(Occupancy.IOccupancyService occupancyService)
         {
@@ -35,9 +32,9 @@ namespace AlertToCare.Controllers
 
         // GET api/<OccupancyController>/5
         [HttpGet("{BedId}")]
-        public string Get(string BedId)
+        public string Get(string bedId)
         {
-            return this._occupancyService.CheckBedStatus(BedId);
+            return this._occupancyService.CheckBedStatus(bedId);
         }
 
         // POST api/<OccupancyController>
@@ -49,13 +46,13 @@ namespace AlertToCare.Controllers
 
         // DELETE api/<OccupancyController>/5
         [HttpDelete("{PId}")]
-        public string Delete(string PId)
+        public string Delete(string pId)
         {
-            return this._occupancyService.DishchargePatient(PId);
+            return this._occupancyService.DishchargePatient(pId);
         }
         [HttpGet]
         [Route("[action]")]
-        public IEnumerable<Models.PatientVital> check()
+        public IEnumerable<Models.PatientVital> Check()
         {
             return this._occupancyService.Display();
         }

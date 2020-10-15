@@ -1,26 +1,24 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using AlertToCare.Models;
 
 namespace AlertToCare.Configuration
 {
-    public class RemovedBedThenUpdateICU
+    public class RemovedBedThenUpdateIcu
     {
-        Occupancy.OccupancyService _occupancy = new Occupancy.OccupancyService();
-        public bool UpdateICUAfterBedRemoval(string tempIcuId)
+        private readonly Occupancy.OccupancyService _occupancy = new Occupancy.OccupancyService();
+        public bool UpdateIcuAfterBedRemoval(string tempIcuId)
         {
             try 
             { 
-            foreach (IcuModel icuTemp in _occupancy._icuList.ToList())
-            {
-                if (icuTemp.IcuId == tempIcuId)
+                foreach (IcuModel icuTemp in _occupancy.IcuList.ToList())
                 {
-                    icuTemp.BedCount -= 1;
+                    if (icuTemp.IcuId == tempIcuId)
+                    {
+                        icuTemp.BedCount -= 1;
+                    }
                 }
-            }
-             return true;
+                return true;
             }
             catch(Exception e)
             {

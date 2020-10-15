@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AlertToCare.Controllers
@@ -11,7 +7,7 @@ namespace AlertToCare.Controllers
     [ApiController]
     public class MonitorController : ControllerBase
     {
-        Monitoring.IMonitoringRepository _monitoring;
+        private readonly Monitoring.IMonitoringRepository _monitoring;
 
         public MonitorController(Monitoring.IMonitoringRepository monitoring)
         {
@@ -22,7 +18,7 @@ namespace AlertToCare.Controllers
         [HttpGet]
         public IEnumerable<Models.PatientVital> Get()
         {
-            return this._monitoring.GetMonitoringformation();
+            return this._monitoring.GetMonitoringInformation();
         }
         //public string Post([FromBody] Models.PatientVital 
         //{

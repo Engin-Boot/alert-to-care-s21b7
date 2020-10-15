@@ -2,27 +2,26 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 
 namespace AlertToCare.Occupancy
 {
     public class OccupancyService : IOccupancyService
     {
-       public List<Models.PatientModel> _patientList = new List<PatientModel>();
-       public List<Models.BedModel> _bedList = new List<BedModel>();
-       public List<Models.IcuModel> _icuList = new List<IcuModel>();
+       public List<PatientModel> PatientList = new List<PatientModel>();
+       public List<BedModel> BedList = new List<BedModel>();
+       public List<IcuModel> IcuList = new List<IcuModel>();
 
-       public List<Models.PatientVital> _patientVitalList = new List<Models.PatientVital>();
+       public List<PatientVital> PatientVitalList = new List<PatientVital>();
 
         public string AddNewPatient(PatientModel newPatient,string layout)
         {
                 try
                 {
-                    _patientList.Add(newPatient);
-                    _bedList.Add(new BedModel {BedId=newPatient.BedId,BedStatus="Occupied",BedLayout=layout,ICUId=newPatient.IcuId});
-                     _patientVitalList.Add(new PatientVital { PId = newPatient.PId, VitalBpm = newPatient.VitalBpm, VitalSpo2 = newPatient.VitalSpo2, VitalResperate = newPatient.VitalResperate });
-                    return "Patient Added Succesfully";
+                    PatientList.Add(newPatient);
+                    BedList.Add(new BedModel {BedId=newPatient.BedId,BedStatus="Occupied",BedLayout=layout,IcuId=newPatient.IcuId});
+                     PatientVitalList.Add(new PatientVital { PId = newPatient.PId, VitalBpm = newPatient.VitalBpm, VitalSpo2 = newPatient.VitalSpo2, VitalRespRate = newPatient.VitalRespRate });
+                    return "Patient Added Successful";
                 }
                 catch(Exception e)
                 {
@@ -33,33 +32,31 @@ namespace AlertToCare.Occupancy
 
         public List<PatientVital> Display()
         {
-            return _patientVitalList;
+            return PatientVitalList;
         }
 
-        public string CheckBedStatus(string BedId)
+        public string CheckBedStatus(string bedId)
         {
-            foreach(Models.BedModel _bedTemp in _bedList)
+            foreach(var bedTemp in BedList)
             {
-                if (_bedTemp.BedId == BedId)
-                    if (_bedTemp.BedStatus == "Occupied")
+                if (bedTemp.BedId == bedId)
+                    if (bedTemp.BedStatus == "Occupied")
                         return "Occupied";
                     else
                         return "Free";
             }
             return "Does Not Exist";
         }
-        public string DishchargePatient(string Pid)
+        public string DishchargePatient(string pid)
         {
-            string tempBedId;
             try
             {
-                foreach (Models.PatientModel _patientTemp in _patientList.ToList())
+                foreach (var patientTemp in PatientList.ToList())
                 {
 
-                    if (_patientTemp.PId == Pid)
+                    if (patientTemp.PId == pid)
                     {
-                        tempBedId = _patientTemp.BedId;
-                        _patientList.Remove(_patientTemp);
+                        PatientList.Remove(patientTemp);
                     }
                 }
                 return "Patient Discharged";
@@ -72,12 +69,12 @@ namespace AlertToCare.Occupancy
         }
         public List<PatientModel> GetPatientsDetails()
         {
-            return _patientList;
+            return PatientList;
         }
 
         public List<BedModel> GetBedDetails()
         {
-            return _bedList;
+            return BedList;
         }
     }
 }

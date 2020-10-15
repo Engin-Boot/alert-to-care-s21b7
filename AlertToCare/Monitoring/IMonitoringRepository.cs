@@ -5,6 +5,6 @@ namespace AlertToCare.Monitoring
 {
     public interface IMonitoringRepository
     {
-        IEnumerable<PatientVital> GetMonitoringformation();
+        IEnumerable<PatientVital> GetMonitoringInformation();
     }
 }
