@@ -9,7 +9,7 @@ namespace AlertToCare.Configuration
     public class ConfigurationRepository :IConfigurationRepository
     {
         Occupancy.OccupancyService _occupancy = new Occupancy.OccupancyService();
-       
+        RemovedBedThenUpdateICU _updateICU = new RemovedBedThenUpdateICU();
 
        
         public IEnumerable<Models.BedModel> GetbedConfigurationInformation() { return _occupancy._bedList; }
@@ -39,13 +39,7 @@ namespace AlertToCare.Configuration
                         
                     }
                 }
-                foreach(IcuModel icuTemp in _occupancy._icuList.ToList())
-                {
-                    if(icuTemp.IcuId==tempIcuId)
-                    {
-                        icuTemp.BedCount -= 1;
-                    }
-                }
+                _updateICU.UpdateICUAfterBedRemoval(tempIcuId); 
                 return "bed removed";
             }
             catch(Exception e)
