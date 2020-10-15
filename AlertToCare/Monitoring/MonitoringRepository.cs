@@ -64,7 +64,7 @@ namespace AlertToCare.Monitoring
 
 #endregion 
       
-        public List<Models.PatientVital> GetMonitoringformation()
+        public IEnumerable<Models.PatientVital> GetMonitoringformation()
         {
             _patientVital = _occupancyVital._patientVitalList;
             return _patientVital;
