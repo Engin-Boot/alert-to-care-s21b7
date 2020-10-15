@@ -3,7 +3,7 @@ name: Resharper Code Analysis
  
 on: 
     push:
-        branches: [master]
+        branches: [main]
  
 jobs:
   resharper:
