@@ -8,11 +8,11 @@ namespace AlertToCare.Occupancy
 {
     public class OccupancyService : IOccupancyService
     {
-       public List<PatientModel> PatientList = new List<PatientModel>();
-       public List<BedModel> BedList = new List<BedModel>();
-       public List<IcuModel> IcuList = new List<IcuModel>();
+       public readonly List<PatientModel> PatientList = new List<PatientModel>();
+        public readonly List<BedModel> BedList = new List<BedModel>();
+        public readonly List<IcuModel> IcuList = new List<IcuModel>();
 
-       public List<PatientVital> PatientVitalList = new List<PatientVital>();
+        public readonly List<PatientVital> PatientVitalList = new List<PatientVital>();
 
         public string AddNewPatient(PatientModel newPatient,string layout)
         {

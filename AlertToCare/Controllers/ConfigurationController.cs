@@ -13,6 +13,7 @@ namespace AlertToCare.Controllers
             this._config = config;
         }
         // GET: api/Configuration
+        //GET Bed Model
         [HttpGet]
         public IEnumerable<Models.BedModel> Get()
         {
@@ -24,42 +25,46 @@ namespace AlertToCare.Controllers
         {
             return this._config.GetIcuConfiguration();
         }
-
+        #region getIcuById
         // GET: api/Configuration/5
-        [HttpGet("{id}", Name = "Get")]
-        [Route("[action]")]
-        public Models.IcuModel GetEachIcu(string id)
-        {
-            Models.IcuModel icu = default(Models.IcuModel);
-            foreach (Models.IcuModel icuTemp in _config.GetIcuConfiguration())
-            {
-                if (icuTemp.IcuId == id)
-                {
-                    icu = icuTemp;
-                    break;
-                }
+        //[HttpGet("{id}", Name = "Get")]
+        //[Route("[action]")]
+        //public Models.IcuModel GetEachIcu(string id)
+        //{
+        //    Models.IcuModel icu = default(Models.IcuModel);
+        //    foreach (Models.IcuModel icuTemp in _config.GetIcuConfiguration())
+        //    {
+        //        if (icuTemp.IcuId == id)
+        //        {
+        //            icu = icuTemp;
+        //            break;
+        //        }
 
-            }
-            return icu;
-        }
+        //    }
+        //    return icu;
+        //}
+        #endregion
+        #region getbedById
 
-        [HttpGet("{id}", Name = "Get")]
-       
-        public Models.BedModel Get(string id)
-        {
-            Models.BedModel bed = default(Models.BedModel);
-            foreach (Models.BedModel bedTemp in _config.GetBedConfigurationInformation())
-            {
-                if (bedTemp.BedId == id)
-                {
-                    bed = bedTemp;
-                    break;
-                }
+        //[HttpGet("{id}", Name = "Get")]
 
-            }
-            return bed;
-        }
+        //public Models.BedModel Get(string id)
+        //{
+        //    Models.BedModel bed = default(Models.BedModel);
+        //    foreach (Models.BedModel bedTemp in _config.GetBedConfigurationInformation())
+        //    {
+        //        if (bedTemp.BedId == id)
+        //        {
+        //            bed = bedTemp;
+        //            break;
+        //        }
+
+        //    }
+        //    return bed;
+        //}
+        #endregion
         // POST: api/Configuration
+        //post Bed Model
         [HttpPost]
         public void Post([FromBody] Models.BedModel newBedModel)
         {
@@ -73,13 +78,8 @@ namespace AlertToCare.Controllers
             this._config.AddNewIcuConfiguration(newIcuModel);
         }
 
-        // PUT: api/Configuration/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
         // DELETE: api/ApiWithActions/5
+        //Delete Bed
         [HttpDelete("{id}")]
         public string Delete(string id)
         {
