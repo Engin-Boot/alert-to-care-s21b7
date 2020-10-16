@@ -38,7 +38,7 @@ namespace AlertToCare.Controllers
         }
 
         // POST api/<OccupancyController>
-        [HttpPost]
+        [HttpPost("{layout}")]
         public string Post([FromBody] Models.PatientModel newPatient,string layout)
         {
             return this._occupancyService.AddNewPatient(newPatient, layout);
@@ -48,7 +48,7 @@ namespace AlertToCare.Controllers
         [HttpDelete("{PId}")]
         public string Delete(string pId)
         {
-            return this._occupancyService.DishchargePatient(pId);
+            return this._occupancyService.DischargePatient(pId);
         }
         [HttpGet]
         [Route("[action]")]

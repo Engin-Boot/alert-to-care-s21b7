@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AlertToCare.Controllers
@@ -19,6 +20,12 @@ namespace AlertToCare.Controllers
         public IEnumerable<Models.PatientVital> Get()
         {
             return this._monitoring.GetMonitoringInformation();
+        }
+        [HttpGet]
+        [Route("[action]")]
+        public List<Tuple<string, string, string, string>> GeAllPatientVitals()
+        {
+            return this._monitoring.CheckVitalOfAllPatients();
         }
         //public string Post([FromBody] Models.PatientVital 
         //{

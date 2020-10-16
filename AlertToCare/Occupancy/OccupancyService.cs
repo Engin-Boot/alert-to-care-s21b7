@@ -8,19 +8,18 @@ namespace AlertToCare.Occupancy
 {
     public class OccupancyService : IOccupancyService
     {
-       public readonly List<PatientModel> PatientList = new List<PatientModel>();
+        private readonly List<PatientModel> _PatientList = new List<PatientModel>();
         public readonly List<BedModel> BedList = new List<BedModel>();
         public readonly List<IcuModel> IcuList = new List<IcuModel>();
-
-        public readonly List<PatientVital> PatientVitalList = new List<PatientVital>();
+        public static readonly List<PatientVital> PatientVitalList = new List<PatientVital>();
 
         public string AddNewPatient(PatientModel newPatient,string layout)
         {
                 try
                 {
-                    PatientList.Add(newPatient);
+                    _PatientList.Add(newPatient);
                     BedList.Add(new BedModel {BedId=newPatient.BedId,BedStatus="Occupied",BedLayout=layout,IcuId=newPatient.IcuId});
-                     PatientVitalList.Add(new PatientVital { PId = newPatient.PId, VitalBpm = newPatient.VitalBpm, VitalSpo2 = newPatient.VitalSpo2, VitalRespRate = newPatient.VitalRespRate });
+                    PatientVitalList.Add(new PatientVital { PId = newPatient.PId, VitalBpm = newPatient.VitalBpm, VitalSpo2 = newPatient.VitalSpo2, VitalRespRate = newPatient.VitalRespRate});
                     return "Patient Added Successful";
                 }
                 catch(Exception e)
@@ -47,16 +46,16 @@ namespace AlertToCare.Occupancy
             }
             return "Does Not Exist";
         }
-        public string DishchargePatient(string pid)
+        public string DischargePatient(string pid)
         {
             try
             {
-                foreach (var patientTemp in PatientList.ToList())
+                foreach (var patientTemp in _PatientList.ToList())
                 {
 
                     if (patientTemp.PId == pid)
                     {
-                        PatientList.Remove(patientTemp);
+                        _PatientList.Remove(patientTemp);
                     }
                 }
                 return "Patient Discharged";
@@ -69,7 +68,7 @@ namespace AlertToCare.Occupancy
         }
         public List<PatientModel> GetPatientsDetails()
         {
-            return PatientList;
+            return _PatientList;
         }
 
         public List<BedModel> GetBedDetails()

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using AlertToCare.Models;
 
 namespace AlertToCare.Monitoring
@@ -6,5 +7,6 @@ namespace AlertToCare.Monitoring
     public interface IMonitoringRepository
     {
         IEnumerable<PatientVital> GetMonitoringInformation();
+        List<Tuple<string, string, string, string>> CheckVitalOfAllPatients();
     }
 }

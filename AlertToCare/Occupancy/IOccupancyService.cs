@@ -7,7 +7,7 @@ namespace AlertToCare.Occupancy
     {
          string CheckBedStatus(string bedId);
          string AddNewPatient(PatientModel newPatient,string layout);
-         string DishchargePatient(string pid);
+         string DischargePatient(string pid);
         List<PatientModel> GetPatientsDetails();
         List<BedModel> GetBedDetails();
         List<PatientVital> Display();

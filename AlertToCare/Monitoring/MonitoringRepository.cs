@@ -1,67 +1,70 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace AlertToCare.Monitoring
 {
     public  class MonitoringRepository :IMonitoringRepository
     {
-        private readonly Occupancy.OccupancyService _occupancyVital = new Occupancy.OccupancyService();
-        List<Models.PatientVital> _patientVital = new List<Models.PatientVital>();
+        static List<Models.PatientVital> _patientVital = new List<Models.PatientVital>();
 
-     //   #region vitalCheck
+        #region vitalCheck
 
-//        private float _minBpm, _maxBpm;
-//        private float _minSpo2;
-//        private float _minRespRate, _maxRespRate;
-       
-//        public void VitalsRangeChecker(float minBpm, float maxBpm, float minSpo2, float minRespRate, float maxRespRate)
-//        {
-//            this._minBpm = minBpm;
-//            this._maxBpm = maxBpm;
-//            this._minSpo2 = minSpo2;
-//            this._minRespRate = minRespRate;
-//            this._maxRespRate = maxRespRate;
-//        }
+        private double _minBpm=70, _maxBpm=150;
+        private double _minSpo2=90;
+        private double _minRespRate=30, _maxRespRate=95;
+        private readonly List<Tuple<string, string, string, string>> _checkVitals = new List<Tuple<string, string, string, string>>();
 
-//       private bool Check_BPM(float bpm)
-//        {
-//            if (bpm > _maxBpm || bpm < _minBpm)
-//            {
-//                return false;
-//            }
-//            return true;
-//        }
-//        private bool Check_SPO2(float spo2)
-//        {
-//            if (spo2 > _minSpo2)
-//            {
-//                return true;
-//            }
-//            return false;
-//        }
 
-//        private bool Check_RespRate(float respRate)
-//        {
-//            if (respRate < _minRespRate || respRate > _maxRespRate)
-//            {
-//                return false;
-//            }
-//            return true;
-//        }
-//     public  Tuple<bool,bool,bool> VitalsAreOk(float bpm, float spo2, float respRate)
-//        {
-//            bool checkBpm =Check_BPM(bpm);
-//            bool checkSpo2 = Check_SPO2(spo2);
-//            bool checkRespiration = Check_RespRate(respRate);
-//           return new Tuple<bool, bool,bool>(checkBpm,checkSpo2,checkRespiration);
-//        }
+        private string Check_BPM(double bpm)
+        {
+            if (bpm > _maxBpm || bpm < _minBpm)
+            {
+                return "Patient BPM is "+bpm+ " which is not in range between "+_minBpm+" and "+_maxBpm;
+            }
+            return "Patient BPM "+bpm+" OK";
+        }
+        private string Check_SPO2(double spo2)
+        {
+            if (spo2 > _minSpo2)
+            {
+                return "Patient SPO2 is " + spo2 + " OK";
+            }
+            return "Patient SPO2 is " + spo2 + " which is lesser than minimum SPO2 of " + _minSpo2;
+        }
 
-//#endregion 
-      
+        private string Check_RespRate(double respRate)
+        {
+            if (respRate < _minRespRate || respRate > _maxRespRate)
+            {
+                return "Patient RespRate is " + respRate + " which is not in range between " + _minRespRate + " and " + _maxRespRate;
+            }
+            return "Patient RespRate is " + respRate + " OK";
+        }
+        private Tuple<string, string, string> VitalsAreOk(double bpm, double spo2, double respRate)
+        {
+            string bpmStatus = Check_BPM(bpm);
+            string spo2Status = Check_SPO2(spo2);
+            string respirationStatus = Check_RespRate(respRate);
+            return new Tuple<string, string, string>(bpmStatus, spo2Status, respirationStatus);
+        }
+
+        #endregion
+
         public IEnumerable<Models.PatientVital> GetMonitoringInformation()
         {
-            _patientVital = _occupancyVital.PatientVitalList;
+            _patientVital =Occupancy.OccupancyService.PatientVitalList;
             return _patientVital;
+        }
+        public List<Tuple<string,string,string,string>> CheckVitalOfAllPatients()
+        {
+            foreach (Models.PatientVital patientTemp in _patientVital.ToList())
+            {
+                var status = (VitalsAreOk(patientTemp.VitalBpm, patientTemp.VitalSpo2, patientTemp.VitalRespRate));
+                
+                _checkVitals.Add(new Tuple<string, string, string, string>(patientTemp.PId, status.Item1, status.Item2, status.Item3));
+            }
+            return _checkVitals;
         }
     }
 }
