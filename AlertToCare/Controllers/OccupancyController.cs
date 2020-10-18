@@ -32,23 +32,27 @@ namespace AlertToCare.Controllers
 
         // GET api/<OccupancyController>/5
         [HttpGet("{BedId}")]
-        public string Get(string bedId)
+        public IActionResult Get(string bedId)
         {
-            return this._occupancyService.CheckBedStatus(bedId);
+            string bedStatus= this._occupancyService.CheckBedStatus(bedId);
+            return Ok(bedStatus);
         }
 
         // POST api/<OccupancyController>
         [HttpPost("{layout}")]
-        public string Post([FromBody] Models.PatientModel newPatient,string layout)
+        public IActionResult Post([FromBody] Models.PatientModel newPatient,string layout)
         {
-            return this._occupancyService.AddNewPatient(newPatient, layout);
+           string patientModelData= this._occupancyService.AddNewPatient(newPatient, layout);
+           return Ok(patientModelData);
+
         }
 
         // DELETE api/<OccupancyController>/5
         [HttpDelete("{PId}")]
-        public string Delete(string pId)
+        public IActionResult Delete(string pId)
         {
-            return this._occupancyService.DischargePatient(pId);
+            string dischargePatient= this._occupancyService.DischargePatient(pId);
+            return Ok(dischargePatient);
         }
         [HttpGet]
         [Route("[action]")]

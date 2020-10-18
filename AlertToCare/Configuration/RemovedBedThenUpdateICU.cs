@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using AlertToCare.Models;
+
 
 namespace AlertToCare.Configuration
 {
@@ -11,7 +11,7 @@ namespace AlertToCare.Configuration
         {
             try 
             { 
-                foreach (IcuModel icuTemp in _occupancy.IcuList.ToList())
+                foreach (Models.IcuModel icuTemp in _occupancy.IcuList.ToList())
                 {
                     if (icuTemp.IcuId == tempIcuId)
                     {

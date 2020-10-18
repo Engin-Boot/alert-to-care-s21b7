@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using AlertToCare.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AlertToCare.Controllers
@@ -15,15 +16,18 @@ namespace AlertToCare.Controllers
         // GET: api/Configuration
         //GET Bed Model
         [HttpGet]
-        public IEnumerable<Models.BedModel> Get()
+        [Route("[action]")]
+        public IActionResult GetBedModelInformation()
         {
-            return this._config.GetBedConfigurationInformation();
+            IEnumerable<BedModel> bedData = this._config.GetBedConfigurationInformation();
+            return Ok(bedData);
         }
         [HttpGet]
         [Route("[action]")]
-        public IEnumerable<Models.IcuModel> GetIcu()
+        public IActionResult GetIcuModelInformation()
         {
-            return this._config.GetIcuConfiguration();
+           IEnumerable<IcuModel> icuData =this._config.GetIcuConfiguration() ;
+            return Ok(icuData);
         }
         #region getIcuById
         // GET: api/Configuration/5
@@ -66,24 +70,29 @@ namespace AlertToCare.Controllers
         // POST: api/Configuration
         //post Bed Model
         [HttpPost]
-        public void Post([FromBody] Models.BedModel newBedModel)
+        [Route("[action]")]
+        public IActionResult PostBedModelData([FromBody] BedModel newBedModel)
         {
             this._config.AddNewBedConfiguration(newBedModel);
+            return Ok();
         }
 
         [HttpPost]
         [Route("[action]")]
-        public void PostIcu([FromBody] Models.IcuModel newIcuModel)
+        public IActionResult PostIcuModelData([FromBody] IcuModel newIcuModel)
         {
             this._config.AddNewIcuConfiguration(newIcuModel);
+            return Ok();
         }
 
         // DELETE: api/ApiWithActions/5
         //Delete Bed
         [HttpDelete("{id}")]
-        public string Delete(string id)
+        [Route("[action]")]
+        public IActionResult RemoveBedandUpdateBedCountInIcu(string id)
         {
-            return this._config.RemoveBed(id);
+            string removeBed = this._config.RemoveBed(id);
+            return Ok(removeBed);
         }
     }
 }

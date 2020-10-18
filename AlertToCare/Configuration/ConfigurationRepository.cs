@@ -1,27 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using AlertToCare.Models;
+
 
 namespace AlertToCare.Configuration
 {
-    public class ConfigurationRepository :IConfigurationRepository
+    public class ConfigurationRepository:IConfigurationRepository
     {
         private readonly Occupancy.OccupancyService _occupancy = new Occupancy.OccupancyService();
         private readonly RemovedBedThenUpdateIcu _updateIcu = new RemovedBedThenUpdateIcu();
 
        
-        public IEnumerable<BedModel> GetBedConfigurationInformation() { return _occupancy.BedList; }
-        public IEnumerable<IcuModel> GetIcuConfiguration() { return _occupancy.IcuList; }
+        public IEnumerable<Models.BedModel> GetBedConfigurationInformation() { return _occupancy.BedList; }
+        public IEnumerable<Models.IcuModel> GetIcuConfiguration() { return _occupancy.IcuList; }
 
-        public void AddNewBedConfiguration(BedModel newBed)
+        public string AddNewBedConfiguration(Models.BedModel newBed)
         {
             _occupancy.BedList.Add(newBed);
+            return "Bed Added Sucessfully";
         }
 
-        public void AddNewIcuConfiguration(IcuModel newIcu)
+        public string AddNewIcuConfiguration(Models.IcuModel newIcu)
         {
             _occupancy.IcuList.Add(newIcu);
+            return "Icu Added Sucessfully";
         }
 
         public string RemoveBed(string bedId)
@@ -29,7 +31,7 @@ namespace AlertToCare.Configuration
             string tempIcuId=" ";
             try
             {
-                foreach (BedModel bedTemp in _occupancy.BedList.ToList())
+                foreach (Models.BedModel bedTemp in _occupancy.BedList.ToList())
                 {
                     if (bedTemp.BedId == bedId)
                     {

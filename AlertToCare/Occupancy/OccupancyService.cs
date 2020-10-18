@@ -8,7 +8,7 @@ namespace AlertToCare.Occupancy
 {
     public class OccupancyService : IOccupancyService
     {
-        private readonly List<PatientModel> _PatientList = new List<PatientModel>();
+        private readonly List<PatientModel> _patientList = new List<PatientModel>();
         public readonly List<BedModel> BedList = new List<BedModel>();
         public readonly List<IcuModel> IcuList = new List<IcuModel>();
         public static readonly List<PatientVital> PatientVitalList = new List<PatientVital>();
@@ -17,7 +17,7 @@ namespace AlertToCare.Occupancy
         {
                 try
                 {
-                    _PatientList.Add(newPatient);
+                    _patientList.Add(newPatient);
                     BedList.Add(new BedModel {BedId=newPatient.BedId,BedStatus="Occupied",BedLayout=layout,IcuId=newPatient.IcuId});
                     PatientVitalList.Add(new PatientVital { PId = newPatient.PId, VitalBpm = newPatient.VitalBpm, VitalSpo2 = newPatient.VitalSpo2, VitalRespRate = newPatient.VitalRespRate});
                     return "Patient Added Successful";
@@ -50,12 +50,12 @@ namespace AlertToCare.Occupancy
         {
             try
             {
-                foreach (var patientTemp in _PatientList.ToList())
+                foreach (var patientTemp in _patientList.ToList())
                 {
 
                     if (patientTemp.PId == pid)
                     {
-                        _PatientList.Remove(patientTemp);
+                        _patientList.Remove(patientTemp);
                     }
                 }
                 return "Patient Discharged";
@@ -68,7 +68,7 @@ namespace AlertToCare.Occupancy
         }
         public List<PatientModel> GetPatientsDetails()
         {
-            return _PatientList;
+            return _patientList;
         }
 
         public List<BedModel> GetBedDetails()

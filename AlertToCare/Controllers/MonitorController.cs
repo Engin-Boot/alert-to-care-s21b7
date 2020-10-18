@@ -17,19 +17,18 @@ namespace AlertToCare.Controllers
 
         // GET: api/<UsersController>
         [HttpGet]
-        public IEnumerable<Models.PatientVital> Get()
+        public IActionResult Get()
         {
-            return this._monitoring.GetMonitoringInformation();
+            IEnumerable <Models.PatientVital> patientVitalData= this._monitoring.GetMonitoringInformation();
+            return Ok(patientVitalData);
         }
         [HttpGet]
         [Route("[action]")]
-        public List<Tuple<string, string, string, string>> GeAllPatientVitals()
+        public IActionResult GeAllPatientVitals()
         {
-            return this._monitoring.CheckVitalOfAllPatients();
+            List < Tuple<string, string, string, string> > vitalUpdateOfPatient= this._monitoring.CheckVitalOfAllPatients();
+            return Ok(vitalUpdateOfPatient);
         }
-        //public string Post([FromBody] Models.PatientVital 
-        //{
-        //    return this._occupancyService.AddNewPatient(newPatient, layout);
-        //}
+        
     }
 }
