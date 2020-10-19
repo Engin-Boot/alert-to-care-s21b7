@@ -3,6 +3,7 @@ using AlertToCare.Models;
 using System.Collections.Generic;
 using AlertToCare.Occupancy;
 using Microsoft.VisualBasic;
+using System;
 
 namespace AlertToCare_Tests.OccupancyTests
 {
@@ -13,7 +14,7 @@ namespace AlertToCare_Tests.OccupancyTests
         public static  List<PatientVital> PatientVitalListExpected = new List<PatientVital>();
         public static  List<PatientVital> PatientVitalListActual = new List<PatientVital>();
         string layout = "right";
-        PatientModel patientModel = new PatientModel();
+        static PatientModel patientModel = new PatientModel();
        
         [Fact]
         public void AddNewPatientTest1()
@@ -35,6 +36,12 @@ namespace AlertToCare_Tests.OccupancyTests
 
             string result2 = occupancyService.CheckBedStatus("B0002");
             Assert.Equal("Occupied", result2);
+        }
+        [Fact]
+        public void CheckBedStatusTests()
+        {
+            string result2 = occupancyService.CheckBedStatus("B0004");
+            Assert.Equal("Does Not Exist", result2);
         }
         [Fact]
         public void DisplayTest()

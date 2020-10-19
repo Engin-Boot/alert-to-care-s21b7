@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AlertToCare.Occupancy;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -7,7 +8,7 @@ namespace AlertToCare.Monitoring
     public  class MonitoringRepository :IMonitoringRepository
     {
         static List<Models.PatientVital> _patientVital = new List<Models.PatientVital>();
-
+        Occupancy.OccupancyService occupancyService = new Occupancy.OccupancyService();
         #region vitalCheck
 
         private double _minBpm=70, _maxBpm=150;
@@ -53,7 +54,7 @@ namespace AlertToCare.Monitoring
 
         public IEnumerable<Models.PatientVital> GetMonitoringInformation()
         {
-            _patientVital =Occupancy.OccupancyService.PatientVitalList;
+            _patientVital = OccupancyService.PatientVitalList;
             return _patientVital;
         }
         public List<Tuple<string,string,string,string>> CheckVitalOfAllPatients()

@@ -57,6 +57,10 @@
               "target": "Package",
               "version": "[4.14.7, )"
             },
+            "System.Runtime": {
+              "target": "Package",
+              "version": "[4.3.1, )"
+            },
             "coverlet.collector": {
               "target": "Package",
               "version": "[1.2.0, )"

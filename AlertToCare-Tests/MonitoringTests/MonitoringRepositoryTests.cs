@@ -1,9 +1,11 @@
 ﻿using AlertToCare.Monitoring;
+using AlertToCare.Models;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.View;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using Xunit;
+using AlertToCare.Occupancy;
 
 namespace AlertToCare_Tests.MonitoringTests
 {
@@ -12,7 +14,9 @@ namespace AlertToCare_Tests.MonitoringTests
         MonitoringRepository monitoringRepository = new MonitoringRepository();
         static List<AlertToCare.Models.PatientVital> _patientVitalActual = new List<AlertToCare.Models.PatientVital>();
         static List<AlertToCare.Models.PatientVital> _patientVitalExpected = new List<AlertToCare.Models.PatientVital>();
-      
+        static PatientModel patientModel = new PatientModel();
+        OccupancyService occupancyService = new OccupancyService();
+
 
         [Fact]
         public void GetMonitoringInformationTests()
