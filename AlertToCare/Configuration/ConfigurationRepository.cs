@@ -17,13 +17,13 @@ namespace AlertToCare.Configuration
         public string AddNewBedConfiguration(Models.BedModel newBed)
         {
             Occupancy.OccupancyService.BedList.Add(newBed);
-            return "Bed Added Sucessfully";
+            return "Bed Added Successfully";
         }
 
         public string AddNewIcuConfiguration(Models.IcuModel newIcu)
         {
             Occupancy.OccupancyService.IcuList.Add(newIcu);
-            return "Icu Added Sucessfully";
+            return "Icu Added Successfully";
         }
 
         public string RemoveBed(string bedId)

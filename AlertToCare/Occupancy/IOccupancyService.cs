@@ -10,6 +10,5 @@ namespace AlertToCare.Occupancy
          string DischargePatient(string pid);
         List<PatientModel> GetPatientsDetails();
         List<BedModel> GetBedDetails();
-        List<PatientVital> Display();
     }
 }

@@ -7,15 +7,14 @@ namespace AlertToCare.Monitoring
 {
     public  class MonitoringRepository :IMonitoringRepository
     {
-        static List<Models.PatientVital> _patientVital = new List<Models.PatientVital>();
-        Occupancy.OccupancyService occupancyService = new Occupancy.OccupancyService();
+        public static List<Models.PatientVital> PatientVital = new List<Models.PatientVital>();
+        //Occupancy.OccupancyService _occupancyService = new Occupancy.OccupancyService();
         #region vitalCheck
 
         private double _minBpm=70, _maxBpm=150;
         private double _minSpo2=90;
         private double _minRespRate=30, _maxRespRate=95;
         private readonly List<Tuple<string, string, string, string>> _checkVitals = new List<Tuple<string, string, string, string>>();
-
 
         public string Check_BPM(double bpm)
         {
@@ -33,7 +32,6 @@ namespace AlertToCare.Monitoring
             }
             return "Patient SPO2 is " + spo2 + " which is lesser than minimum SPO2 of " + _minSpo2;
         }
-
         public string Check_RespRate(double respRate)
         {
             if (respRate < _minRespRate || respRate > _maxRespRate)
@@ -54,12 +52,12 @@ namespace AlertToCare.Monitoring
 
         public IEnumerable<Models.PatientVital> GetMonitoringInformation()
         {
-            _patientVital = OccupancyService.PatientVitalList;
-            return _patientVital;
+            PatientVital = OccupancyService.PatientVitalList;
+            return PatientVital;
         }
         public List<Tuple<string,string,string,string>> CheckVitalOfAllPatients()
         {
-            foreach (Models.PatientVital patientTemp in _patientVital.ToList())
+            foreach (Models.PatientVital patientTemp in PatientVital.ToList())
             {
                 var status = (VitalsAreOk(patientTemp.VitalBpm, patientTemp.VitalSpo2, patientTemp.VitalRespRate));
                 

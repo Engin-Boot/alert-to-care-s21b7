@@ -9,7 +9,7 @@ namespace AlertToCare_Tests.Controller.Tests
 {
    public class ConfigurationControllerTest
     {
-        private BedModel _bedModel = new BedModel()
+        public readonly BedModel BedModel = new BedModel()
         {
             BedId = "b0001",
             IcuId = "I0001",
@@ -17,7 +17,7 @@ namespace AlertToCare_Tests.Controller.Tests
             BedStatus = "Free"
         };
 
-        private IcuModel _icuModel = new IcuModel()
+        public readonly IcuModel IcuModel = new IcuModel()
         {
             IcuId = "I0001",
             BedCount = 10
@@ -56,7 +56,7 @@ namespace AlertToCare_Tests.Controller.Tests
         [Fact]
         public void PostBedModelDataTest()
         {
-            var addBedModel = _configurationController.PostBedModelData(_bedModel);
+            var addBedModel = _configurationController.PostBedModelData(BedModel);
             var addBedModelStatusCode = addBedModel as OkResult;
             if (addBedModelStatusCode != null) Assert.Equal(200, addBedModelStatusCode.StatusCode);
         }
@@ -64,8 +64,8 @@ namespace AlertToCare_Tests.Controller.Tests
         [Fact]
         public void PostIcuModelDataTest()
         {
-            var addIcuModell = _configurationController.PostIcuModelData(_icuModel);
-            var addIcuModelStatusCode = addIcuModell as OkResult;
+            var addIcuModel = _configurationController.PostIcuModelData(IcuModel);
+            var addIcuModelStatusCode = addIcuModel as OkResult;
             if (addIcuModelStatusCode != null)
                 Assert.Equal(200, addIcuModelStatusCode.StatusCode);
         }
@@ -74,7 +74,7 @@ namespace AlertToCare_Tests.Controller.Tests
         [Fact]
         public void RemoveBedUpdateBedCountInIcuTest()
         {
-            var removeBed = _configurationController.RemoveBedandUpdateBedCountInIcu(_bedModel.BedId);
+            var removeBed = _configurationController.RemoveBedAndUpdateBedCountInIcu(BedModel.BedId);
           var removeBedStatusCode =removeBed as OkObjectResult;
           if (removeBedStatusCode != null) Assert.Equal(200, removeBedStatusCode.StatusCode);
         }

@@ -8,10 +8,10 @@ namespace AlertToCare_Tests.Configuration.Tests
    {
        private readonly ConfigurationRepository _configRepo = new ConfigurationRepository();
 
-       private readonly RemovedBedThenUpdateIcu _updatebedCountInIcu = new RemovedBedThenUpdateIcu();
-      
+       private readonly RemovedBedThenUpdateIcu _updateBedCountInIcu = new RemovedBedThenUpdateIcu();
 
-        private static BedModel _bedModel = new BedModel()
+
+       private static readonly BedModel BedModel = new BedModel()
        {
            BedId = "b0001",
            IcuId = "I0001",
@@ -19,7 +19,7 @@ namespace AlertToCare_Tests.Configuration.Tests
            BedStatus = "Free"
        };
 
-       private static IcuModel _icuModel = new IcuModel()
+       public static readonly IcuModel IcuModel = new IcuModel()
        {
           IcuId="I0001",
           BedCount = 10
@@ -42,8 +42,8 @@ namespace AlertToCare_Tests.Configuration.Tests
         [Fact]
         public void AddNewBedConfigurationTest()
         {
-            string expected = "Bed Added Sucessfully";
-            string actual= _configRepo.AddNewBedConfiguration(_bedModel);
+            string expected = "Bed Added Successfully";
+            string actual= _configRepo.AddNewBedConfiguration(BedModel);
             Assert.Equal(expected,actual);
 
 
@@ -52,8 +52,8 @@ namespace AlertToCare_Tests.Configuration.Tests
         [Fact]
         public void AddNewIcuConfigurationTest()
         {
-            string expected = "Icu Added Sucessfully";
-            string actual = _configRepo.AddNewIcuConfiguration(_icuModel);
+            string expected = "Icu Added Successfully";
+            string actual = _configRepo.AddNewIcuConfiguration(IcuModel);
             Assert.Equal(expected, actual);
 
 
@@ -63,7 +63,7 @@ namespace AlertToCare_Tests.Configuration.Tests
         public void RemoveBedTest()
         {
             string expectedString = "bed removed";
-            string actualString = _configRepo.RemoveBed(_bedModel.BedId);
+            string actualString = _configRepo.RemoveBed(BedModel.BedId);
             Assert.Equal(expectedString,actualString);
 
         }
@@ -72,7 +72,7 @@ namespace AlertToCare_Tests.Configuration.Tests
         public void UpdateBedCountInAfterBedRemovalTest()
         {
             bool expected= true;
-            bool actual = _updatebedCountInIcu.UpdateIcuAfterBedRemoval(_icuModel.IcuId);
+            bool actual = _updateBedCountInIcu.UpdateIcuAfterBedRemoval(IcuModel.IcuId);
             Assert.Equal(expected, actual);
 
         }

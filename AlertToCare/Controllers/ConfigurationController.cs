@@ -89,7 +89,7 @@ namespace AlertToCare.Controllers
         //Delete Bed
         [HttpDelete("{id}")]
         [Route("[action]")]
-        public IActionResult RemoveBedandUpdateBedCountInIcu(string id)
+        public IActionResult RemoveBedAndUpdateBedCountInIcu(string id)
         {
             string removeBed = this._config.RemoveBed(id);
             return Ok(removeBed);
