@@ -7,22 +7,22 @@ namespace AlertToCare.Configuration
 {
     public class ConfigurationRepository:IConfigurationRepository
     {
-        private readonly Occupancy.OccupancyService _occupancy = new Occupancy.OccupancyService();
+       // public readonly Occupancy.OccupancyService _occupancy = new Occupancy.OccupancyService();
         private readonly RemovedBedThenUpdateIcu _updateIcu = new RemovedBedThenUpdateIcu();
 
        
-        public IEnumerable<Models.BedModel> GetBedConfigurationInformation() { return _occupancy.BedList; }
-        public IEnumerable<Models.IcuModel> GetIcuConfiguration() { return _occupancy.IcuList; }
+        public IEnumerable<Models.BedModel> GetBedConfigurationInformation() { return Occupancy.OccupancyService.BedList; }
+        public IEnumerable<Models.IcuModel> GetIcuConfiguration() { return Occupancy.OccupancyService.IcuList; }
 
         public string AddNewBedConfiguration(Models.BedModel newBed)
         {
-            _occupancy.BedList.Add(newBed);
+            Occupancy.OccupancyService.BedList.Add(newBed);
             return "Bed Added Sucessfully";
         }
 
         public string AddNewIcuConfiguration(Models.IcuModel newIcu)
         {
-            _occupancy.IcuList.Add(newIcu);
+            Occupancy.OccupancyService.IcuList.Add(newIcu);
             return "Icu Added Sucessfully";
         }
 
@@ -31,12 +31,12 @@ namespace AlertToCare.Configuration
             string tempIcuId=" ";
             try
             {
-                foreach (Models.BedModel bedTemp in _occupancy.BedList.ToList())
+                foreach (Models.BedModel bedTemp in Occupancy.OccupancyService.BedList.ToList())
                 {
                     if (bedTemp.BedId == bedId)
                     {
                         tempIcuId = bedTemp.IcuId;
-                        _occupancy.BedList.Remove(bedTemp);
+                        Occupancy.OccupancyService.BedList.Remove(bedTemp);
                         
                     }
                 }

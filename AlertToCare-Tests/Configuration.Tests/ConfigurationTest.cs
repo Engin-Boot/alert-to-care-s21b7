@@ -11,7 +11,7 @@ namespace AlertToCare_Tests.Configuration.Tests
        private readonly RemovedBedThenUpdateIcu _updatebedCountInIcu = new RemovedBedThenUpdateIcu();
       
 
-        private BedModel _bedModel = new BedModel()
+        private static BedModel _bedModel = new BedModel()
        {
            BedId = "b0001",
            IcuId = "I0001",
@@ -19,7 +19,7 @@ namespace AlertToCare_Tests.Configuration.Tests
            BedStatus = "Free"
        };
 
-       private IcuModel _icuModel = new IcuModel()
+       private static IcuModel _icuModel = new IcuModel()
        {
           IcuId="I0001",
           BedCount = 10
