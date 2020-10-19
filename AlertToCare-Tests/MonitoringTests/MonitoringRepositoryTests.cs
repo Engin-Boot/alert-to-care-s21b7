@@ -14,10 +14,6 @@ namespace AlertToCare_Tests.MonitoringTests
         MonitoringRepository monitoringRepository = new MonitoringRepository();
         static List<AlertToCare.Models.PatientVital> _patientVitalActual = new List<AlertToCare.Models.PatientVital>();
         static List<AlertToCare.Models.PatientVital> _patientVitalExpected = new List<AlertToCare.Models.PatientVital>();
-        static PatientModel patientModel = new PatientModel();
-        OccupancyService occupancyService = new OccupancyService();
-
-
         [Fact]
         public void GetMonitoringInformationTests()
         {

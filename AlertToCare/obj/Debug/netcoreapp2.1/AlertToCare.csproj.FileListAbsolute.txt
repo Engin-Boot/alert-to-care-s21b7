@@ -44,7 +44,6 @@ D:\CaseStudy2\alert-to-care-s21b7\AlertToCare\bin\Debug\netcoreapp2.1\AlertToCar
 D:\CaseStudy2\alert-to-care-s21b7\AlertToCare\bin\Debug\netcoreapp2.1\AlertToCare.runtimeconfig.dev.json
 D:\CaseStudy2\alert-to-care-s21b7\AlertToCare\bin\Debug\netcoreapp2.1\AlertToCare.dll
 D:\CaseStudy2\alert-to-care-s21b7\AlertToCare\bin\Debug\netcoreapp2.1\AlertToCare.pdb
-D:\CaseStudy2\alert-to-care-s21b7\AlertToCare\obj\Debug\netcoreapp2.1\AlertToCare.csprojAssemblyReference.cache
 D:\CaseStudy2\alert-to-care-s21b7\AlertToCare\obj\Debug\netcoreapp2.1\AlertToCare.AssemblyInfoInputs.cache
 D:\CaseStudy2\alert-to-care-s21b7\AlertToCare\obj\Debug\netcoreapp2.1\AlertToCare.AssemblyInfo.cs
 D:\CaseStudy2\alert-to-care-s21b7\AlertToCare\obj\Debug\netcoreapp2.1\AlertToCare.csproj.CoreCompileInputs.cache

@@ -8,7 +8,7 @@ namespace AlertToCare.Occupancy
 {
     public class OccupancyService : IOccupancyService
     {
-        private static readonly List<PatientModel> _patientList = new List<PatientModel>();
+        private  readonly List<PatientModel> _patientList = new List<PatientModel>();
         public readonly List<BedModel> BedList = new List<BedModel>();
         public readonly List<IcuModel> IcuList = new List<IcuModel>();
         public static readonly List<PatientVital> PatientVitalList = new List<PatientVital>();
