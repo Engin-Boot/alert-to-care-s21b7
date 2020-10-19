@@ -16,7 +16,7 @@ namespace AlertToCare.Monitoring
         private readonly List<Tuple<string, string, string, string>> _checkVitals = new List<Tuple<string, string, string, string>>();
 
 
-        private string Check_BPM(double bpm)
+        public string Check_BPM(double bpm)
         {
             if (bpm > _maxBpm || bpm < _minBpm)
             {
@@ -24,7 +24,7 @@ namespace AlertToCare.Monitoring
             }
             return "Patient BPM "+bpm+" OK";
         }
-        private string Check_SPO2(double spo2)
+        public string Check_SPO2(double spo2)
         {
             if (spo2 > _minSpo2)
             {
@@ -33,7 +33,7 @@ namespace AlertToCare.Monitoring
             return "Patient SPO2 is " + spo2 + " which is lesser than minimum SPO2 of " + _minSpo2;
         }
 
-        private string Check_RespRate(double respRate)
+        public string Check_RespRate(double respRate)
         {
             if (respRate < _minRespRate || respRate > _maxRespRate)
             {
@@ -41,7 +41,7 @@ namespace AlertToCare.Monitoring
             }
             return "Patient RespRate is " + respRate + " OK";
         }
-        private Tuple<string, string, string> VitalsAreOk(double bpm, double spo2, double respRate)
+        public Tuple<string, string, string> VitalsAreOk(double bpm, double spo2, double respRate)
         {
             string bpmStatus = Check_BPM(bpm);
             string spo2Status = Check_SPO2(spo2);

@@ -46,7 +46,7 @@ namespace AlertToCare_Tests.Controller.Tests
         [Fact]
         public void IcuModelDataTest()
         {
-            var icuModel = _configurationController.GetBedModelInformation();
+            var icuModel = _configurationController.GetIcuModelInformation();
             var icuModelStatusCode = icuModel as OkObjectResult;
             Assert.NotNull(icuModel);
             if (icuModelStatusCode != null) 

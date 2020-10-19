@@ -20,7 +20,7 @@ namespace AlertToCare_Tests.Controller.Tests
         [Fact]
         public void PatientVitalGetTest()
         {
-            var patientVitalModel = _monitorController.Get();
+            var patientVitalModel = _monitorController.GeAllPatientVitals();
             var patientVitalModelStatusCode = patientVitalModel as OkObjectResult;
             Assert.NotNull(patientVitalModel);
             if (patientVitalModelStatusCode != null)

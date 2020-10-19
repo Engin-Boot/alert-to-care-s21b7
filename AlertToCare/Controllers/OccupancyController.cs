@@ -54,11 +54,5 @@ namespace AlertToCare.Controllers
             string dischargePatient= this._occupancyService.DischargePatient(pId);
             return Ok(dischargePatient);
         }
-        [HttpGet]
-        [Route("[action]")]
-        public IEnumerable<Models.PatientVital> Check()
-        {
-            return this._occupancyService.Display();
-        }
     }
 }

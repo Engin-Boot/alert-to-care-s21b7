@@ -9510,19 +9510,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\khushi choudhary\\.nuget\\packages\\": {}
+    "C:\\Users\\320087252\\.nuget\\packages\\": {},
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\khushi choudhary\\Documents\\GitHub\\alert-to-care-s21b7\\AlertToCare-Tests\\AlertToCare-Tests.csproj",
+      "projectUniqueName": "D:\\CaseStudy2\\alert-to-care-s21b7\\AlertToCare-Tests\\AlertToCare-Tests.csproj",
       "projectName": "AlertToCare-Tests",
-      "projectPath": "C:\\Users\\khushi choudhary\\Documents\\GitHub\\alert-to-care-s21b7\\AlertToCare-Tests\\AlertToCare-Tests.csproj",
-      "packagesPath": "C:\\Users\\khushi choudhary\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\khushi choudhary\\Documents\\GitHub\\alert-to-care-s21b7\\AlertToCare-Tests\\obj\\",
+      "projectPath": "D:\\CaseStudy2\\alert-to-care-s21b7\\AlertToCare-Tests\\AlertToCare-Tests.csproj",
+      "packagesPath": "C:\\Users\\320087252\\.nuget\\packages\\",
+      "outputPath": "D:\\CaseStudy2\\alert-to-care-s21b7\\AlertToCare-Tests\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+      ],
       "configFilePaths": [
-        "C:\\Users\\khushi choudhary\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\320087252\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -9535,8 +9539,8 @@
       "frameworks": {
         "netcoreapp3.1": {
           "projectReferences": {
-            "C:\\Users\\khushi choudhary\\Documents\\GitHub\\alert-to-care-s21b7\\AlertToCare\\AlertToCare.csproj": {
-              "projectPath": "C:\\Users\\khushi choudhary\\Documents\\GitHub\\alert-to-care-s21b7\\AlertToCare\\AlertToCare.csproj"
+            "D:\\CaseStudy2\\alert-to-care-s21b7\\AlertToCare\\AlertToCare.csproj": {
+              "projectPath": "D:\\CaseStudy2\\alert-to-care-s21b7\\AlertToCare\\AlertToCare.csproj"
             }
           }
         }
@@ -9590,7 +9594,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.403\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.402\\RuntimeIdentifierGraph.json"
       }
     }
   }
