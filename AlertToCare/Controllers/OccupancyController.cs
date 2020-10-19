@@ -18,16 +18,18 @@ namespace AlertToCare.Controllers
 
         // GET: api/<OccupancyController>
         [HttpGet]
-        public IEnumerable<Models.PatientModel> Get()
+        public IActionResult Get()
         {
-            return this._occupancyService.GetPatientsDetails();
+            IEnumerable<Models.PatientModel> patientModels= this._occupancyService.GetPatientsDetails();
+            return Ok(patientModels);
         }
 
         [HttpGet]
         [Route("[action]")]
-        public IEnumerable<Models.BedModel> GetBedDetails()
+        public IActionResult GetBedDetails()
         {
-            return this._occupancyService.GetBedDetails();
+          IEnumerable<Models.BedModel> bedModel =this._occupancyService.GetBedDetails();
+            return Ok(bedModel);
         }
 
         // GET api/<OccupancyController>/5

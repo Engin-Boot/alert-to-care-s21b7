@@ -72,9 +72,9 @@ namespace AlertToCare.Controllers
         [HttpPost]
         [Route("[action]")]
         public IActionResult PostBedModelData([FromBody] BedModel newBedModel)
-        {
+        { 
             this._config.AddNewBedConfiguration(newBedModel);
-            return Ok();
+            return Ok(200);
         }
 
         [HttpPost]
@@ -82,7 +82,7 @@ namespace AlertToCare.Controllers
         public IActionResult PostIcuModelData([FromBody] IcuModel newIcuModel)
         {
             this._config.AddNewIcuConfiguration(newIcuModel);
-            return Ok();
+            return Ok(200);
         }
 
         // DELETE: api/ApiWithActions/5
