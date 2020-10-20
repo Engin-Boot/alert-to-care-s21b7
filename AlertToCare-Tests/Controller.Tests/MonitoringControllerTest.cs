@@ -17,15 +17,16 @@ namespace AlertToCare_Tests.Controller.Tests
            _monitorController = new MonitorController(monitorMock.Object);
         }
 
-        [Fact]
-        public void PatientVitalGetTest()
-        {
-            var patientVitalModel = _monitorController.GeAllPatientVitals();
-            var patientVitalModelStatusCode = patientVitalModel as OkObjectResult;
-            Assert.NotNull(patientVitalModel);
-            if (patientVitalModelStatusCode != null)
-                Assert.Equal(200, patientVitalModelStatusCode.StatusCode);
-        }
+        //[Fact]
+        //public void PatientVitalGetTest()
+        //{
+        //    var patientVitalModel = _monitorController.GeAllPatientVitals();
+        //    var patientVitalModelStatusCode = patientVitalModel as OkObjectResult;
+        //    Assert.NotNull(patientVitalModel);
+        //    if (patientVitalModelStatusCode != null)
+        //        Assert.Equal(200, patientVitalModelStatusCode.StatusCode);
+        //}
+
 
         [Fact]
         public void PatientVitalUpdateDataTest()

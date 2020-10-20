@@ -15,18 +15,10 @@ namespace AlertToCare.Occupancy
 
         public string AddNewPatient(PatientModel newPatient,string layout)
         {
-                try
-                {
-                    _patientList.Add(newPatient);
-                    BedList.Add(new BedModel {BedId=newPatient.BedId,BedStatus="Occupied",BedLayout=layout,IcuId=newPatient.IcuId});
-                    PatientVitalList.Add(new PatientVital { PId = newPatient.PId, VitalBpm = newPatient.VitalBpm, VitalSpo2 = newPatient.VitalSpo2, VitalRespRate = newPatient.VitalRespRate});
-                    return "Patient Added Successful";
-                }
-                catch(Exception e)
-                {
-                    Console.WriteLine(e);
-                    return "Unable to Add Patient";
-                }
+            _patientList.Add(newPatient);
+            BedList.Add(new BedModel { BedId = newPatient.BedId, BedStatus = "Occupied", BedLayout = layout, IcuId = newPatient.IcuId });
+            PatientVitalList.Add(new PatientVital { PId = newPatient.PId, VitalBpm = newPatient.VitalBpm, VitalSpo2 = newPatient.VitalSpo2, VitalRespRate = newPatient.VitalRespRate });
+            return "Patient Added Successful";
         }
 
         public List<PatientVital> Display()

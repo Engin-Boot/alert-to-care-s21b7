@@ -7,6 +7,6 @@ namespace AlertToCare.Monitoring
     public interface IMonitoringRepository
     {
         IEnumerable<PatientVital> GetMonitoringInformation();
-        List<Tuple<string, string, string, string>> CheckVitalOfAllPatients();
+        VitalStatus CheckVitalOfAllPatients();
     }
 }

@@ -6,25 +6,25 @@ using System.Linq;
 
 namespace AlertToCare.Monitoring
 {
-    public  class MonitoringRepository :IMonitoringRepository
+    public class MonitoringRepository : IMonitoringRepository
     {
-        public readonly Alerter.IAlerter Alerter=new Alerter.EmailAlert();
+        public readonly Alerter.IAlerter Alerter = new Alerter.EmailAlert();
         private static List<Models.PatientVital> _patientVital = new List<Models.PatientVital>();
         //Occupancy.OccupancyService _occupancyService = new Occupancy.OccupancyService();
         #region vitalCheck
 
-        private double _minBpm=70, _maxBpm=150;
-        private double _minSpo2=90;
-        private double _minRespRate=30, _maxRespRate=95;
-        private readonly List<Tuple<string, string, string, string>> _checkVitals = new List<Tuple<string, string, string, string>>();
+        private double _minBpm = 70, _maxBpm = 150;
+        private double _minSpo2 = 90;
+        private double _minRespRate = 30, _maxRespRate = 95;
+      
 
         public string Check_BPM(double bpm)
         {
             if (bpm > _maxBpm || bpm < _minBpm)
             {
-                return "Patient BPM is "+bpm+ " which is not in range between "+_minBpm+" and "+_maxBpm;
+                return "Patient BPM is " + bpm + " which is not in range between " + _minBpm + " and " + _maxBpm;
             }
-            return "Patient BPM "+bpm+" OK";
+            return "Patient BPM " + bpm + " OK";
         }
         public string Check_SPO2(double spo2)
         {
@@ -57,17 +57,34 @@ namespace AlertToCare.Monitoring
             _patientVital = OccupancyService.PatientVitalList;
             return _patientVital;
         }
-        public List<Tuple<string,string,string,string>> CheckVitalOfAllPatients()
+        //public List<Tuple<string,string,string,string>> CheckVitalOfAllPatients()
+        //{
+        //    foreach (Models.PatientVital patientTemp in _patientVital.ToList())
+        //    {
+        //        var status = (VitalsAreOk(patientTemp.VitalBpm, patientTemp.VitalSpo2, patientTemp.VitalRespRate));
+
+        //        _checkVitals.Add(new Tuple<string, string, string, string>(patientTemp.PId, status.Item1, status.Item2, status.Item3));
+        //        Alerter.Alert("Patient Vital Status \nPatient Id:"+patientTemp.PId+"\n"+status.Item1+"\n"+status.Item2+"\n"+status.Item3);
+        //    }
+
+        //    return _checkVitals;
+        //}
+        VitalStatus vitalStatus = new VitalStatus();
+        public VitalStatus CheckVitalOfAllPatients()
         {
+            
             foreach (Models.PatientVital patientTemp in _patientVital.ToList())
             {
                 var status = (VitalsAreOk(patientTemp.VitalBpm, patientTemp.VitalSpo2, patientTemp.VitalRespRate));
-                
-                _checkVitals.Add(new Tuple<string, string, string, string>(patientTemp.PId, status.Item1, status.Item2, status.Item3));
-                Alerter.Alert("Patient Vital Status \nPatient Id:"+patientTemp.PId+"\n"+status.Item1+"\n"+status.Item2+"\n"+status.Item3);
+               
+                vitalStatus.PId = patientTemp.PId;
+                vitalStatus.VitalBpmStatus = status.Item1;
+                vitalStatus.VitalSPo2Status = status.Item2;
+                vitalStatus.VitalRespRateStatus =status.Item3;
             }
 
-            return _checkVitals;
+            return vitalStatus;
         }
+
     }
 }

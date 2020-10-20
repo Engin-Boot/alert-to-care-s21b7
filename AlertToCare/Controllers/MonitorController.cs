@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using AlertToCare.Monitoring;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AlertToCare.Controllers
@@ -25,9 +26,11 @@ namespace AlertToCare.Controllers
         [HttpGet]
         [Route("[action]")]
         public IActionResult GeAllPatientVitals()
-        {
-            List < Tuple<string, string, string, string> > vitalUpdateOfPatient= this._monitoring.CheckVitalOfAllPatients();
-            return Ok(vitalUpdateOfPatient);
+        {   
+            var vital = _monitoring.CheckVitalOfAllPatients();
+            string vitalstring = "PID:" + vital.PId + "\n" + "VitalBpm:" + vital.VitalBpmStatus + "\n" + "VitalSpo2:" + vital.VitalSPo2Status +
+                "\n" + "VitalRespRate:" + vital.VitalRespRateStatus;
+            return Ok(vitalstring);
         }
         
     }
