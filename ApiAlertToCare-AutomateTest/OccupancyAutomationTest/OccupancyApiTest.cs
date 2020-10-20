@@ -1,12 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RestSharp;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Security.Policy;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ApiAlertToCare_AutomateTest.OccupancyAutomationTest
 {
@@ -53,21 +47,21 @@ namespace ApiAlertToCare_AutomateTest.OccupancyAutomationTest
             {
                 Resource = icuPostUrl,
             };
-            var patientModel = new Models.PatientModel()
+            var patientModel = new Model.PatientModel()
             {
 
-                PId = "p0001",
-                Name = "xyz",
+                PId = "p0002",
+                Name = "abc",
                 Age = 21,
                 Gender = "Female",
-                Email = "xyz@gmail.com",
-                PhoneNumber = "9876543210",
-                Address = "Bangalore",
-                VitalBpm = 75,
-                VitalSpo2 = 75,
-                VitalRespRate = 75,
-                IcuId = "I0001",
-                BedId = "b0001"
+                Email = "abc@gmail.com",
+                PhoneNumber = "9876543240",
+                Address = "Mysore",
+                VitalBpm = 85,
+                VitalSpo2 = 85,
+                VitalRespRate = 85,
+                IcuId = "i0002",
+                BedId = "b0002"
 
             };
             restRequest.AddJsonBody(patientModel);

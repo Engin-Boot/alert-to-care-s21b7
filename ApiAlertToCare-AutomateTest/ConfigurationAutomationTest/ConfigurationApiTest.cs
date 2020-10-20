@@ -1,11 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RestSharp;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ApiAlertToCare_AutomateTest.ConfigurationAutomationTest
 {
@@ -22,7 +17,7 @@ namespace ApiAlertToCare_AutomateTest.ConfigurationAutomationTest
             {
                 Resource = bedPostUrl,
             };
-            var bedModel = new Models.BedModel()
+            var bedModel = new Model.BedModel()
             {
                 BedId = "b0001",
                 IcuId = "I0001",
@@ -44,7 +39,7 @@ namespace ApiAlertToCare_AutomateTest.ConfigurationAutomationTest
             {
                 Resource = icuPostUrl,
             };
-            var icuModel = new Models.IcuModel()
+            var icuModel = new Model.IcuModel()
             {
                 
                 IcuId = "I0001",

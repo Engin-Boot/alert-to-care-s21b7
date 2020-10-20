@@ -7,7 +7,7 @@ namespace AlertToCare.Monitoring
 {
     public  class MonitoringRepository :IMonitoringRepository
     {
-        public static List<Models.PatientVital> PatientVital = new List<Models.PatientVital>();
+        private static List<Models.PatientVital> PatientVital = new List<Models.PatientVital>();
         //Occupancy.OccupancyService _occupancyService = new Occupancy.OccupancyService();
         #region vitalCheck
 

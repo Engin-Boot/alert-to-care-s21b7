@@ -1,4 +1,4 @@
-﻿namespace ApiAlertToCare_AutomateTest.Models
+﻿namespace ApiAlertToCare_AutomateTest.Model
 {
     public class PatientModel
     {

@@ -9,7 +9,7 @@ namespace AlertToCare_Tests.Controller.Tests
 {
    public class ConfigurationControllerTest
     {
-        public readonly BedModel BedModel = new BedModel()
+        private readonly BedModel  _bedModel = new BedModel()
         {
             BedId = "b0001",
             IcuId = "I0001",
@@ -17,7 +17,7 @@ namespace AlertToCare_Tests.Controller.Tests
             BedStatus = "Free"
         };
 
-        public readonly IcuModel IcuModel = new IcuModel()
+        private readonly IcuModel _icuModel = new IcuModel()
         {
             IcuId = "I0001",
             BedCount = 10
@@ -56,7 +56,7 @@ namespace AlertToCare_Tests.Controller.Tests
         [Fact]
         public void PostBedModelDataTest()
         {
-            var addBedModel = _configurationController.PostBedModelData(BedModel);
+            var addBedModel = _configurationController.PostBedModelData(_bedModel);
             var addBedModelStatusCode = addBedModel as OkResult;
             if (addBedModelStatusCode != null) Assert.Equal(200, addBedModelStatusCode.StatusCode);
         }
@@ -64,7 +64,7 @@ namespace AlertToCare_Tests.Controller.Tests
         [Fact]
         public void PostIcuModelDataTest()
         {
-            var addIcuModel = _configurationController.PostIcuModelData(IcuModel);
+            var addIcuModel = _configurationController.PostIcuModelData(_icuModel);
             var addIcuModelStatusCode = addIcuModel as OkResult;
             if (addIcuModelStatusCode != null)
                 Assert.Equal(200, addIcuModelStatusCode.StatusCode);
@@ -74,7 +74,7 @@ namespace AlertToCare_Tests.Controller.Tests
         [Fact]
         public void RemoveBedUpdateBedCountInIcuTest()
         {
-            var removeBed = _configurationController.RemoveBedAndUpdateBedCountInIcu(BedModel.BedId);
+            var removeBed = _configurationController.RemoveBedAndUpdateBedCountInIcu(_bedModel.BedId);
           var removeBedStatusCode =removeBed as OkObjectResult;
           if (removeBedStatusCode != null) Assert.Equal(200, removeBedStatusCode.StatusCode);
         }

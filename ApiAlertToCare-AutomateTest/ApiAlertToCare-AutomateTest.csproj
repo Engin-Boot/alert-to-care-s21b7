@@ -57,13 +57,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConfigurationAutomationTest\ConfigurationApiTest.cs" />
-    <Compile Include="Models\BedModel.cs" />
-    <Compile Include="Models\IcuModel.cs" />
-    <Compile Include="Models\PatientModel.cs" />
-    <Compile Include="Models\PatientVital.cs" />
+    <Compile Include="Model\BedModel.cs" />
+    <Compile Include="Model\IcuModel.cs" />
+    <Compile Include="Model\PatientModel.cs" />
     <Compile Include="MonitoringAutomationTest\MonitoringApiTest.cs" />
     <Compile Include="OccupancyAutomationTest\OccupancyApiTest.cs" />
-    <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

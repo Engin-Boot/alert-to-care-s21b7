@@ -7,11 +7,11 @@ namespace AlertToCare_Tests.OccupancyTests
 {
     public class OccupancyServiceTests
     {
-        public readonly OccupancyService OccupancyService = new OccupancyService();
-        public readonly List<PatientModel> PatientListExpected = new List<PatientModel>();
-        public static  List<PatientVital> PatientVitalListExpected = new List<PatientVital>();
+        private readonly OccupancyService _occupancyService = new OccupancyService();
+        private readonly List<PatientModel> _patientListExpected = new List<PatientModel>();
+        private static readonly List<PatientVital> PatientVitalListExpected = new List<PatientVital>();
         string layout = "right";
-        public static readonly PatientModel PatientModel = new PatientModel();
+        private static readonly PatientModel PatientModel = new PatientModel();
        
         [Fact]
         public void AddNewPatientTest1()
@@ -28,23 +28,23 @@ namespace AlertToCare_Tests.OccupancyTests
             PatientModel.VitalBpm = 80;
             PatientModel.VitalRespRate = 98;
             PatientModel.VitalSpo2=65;
-            string result = OccupancyService.AddNewPatient(PatientModel, layout);
+            string result = _occupancyService.AddNewPatient(PatientModel, layout);
             Assert.Equal("Patient Added Successful",result);
 
-            string result2 = OccupancyService.CheckBedStatus("B0002");
+            string result2 = _occupancyService.CheckBedStatus("B0002");
             Assert.Equal("Occupied", result2);
         }
         [Fact]
         public void CheckBedStatusTests()
         {
-            string result2 = OccupancyService.CheckBedStatus("B0004");
+            string result2 = _occupancyService.CheckBedStatus("B0004");
             Assert.Equal("Does Not Exist", result2);
         }
         [Fact]
         public void DisplayTest()
         {
             PatientVitalListExpected.Add(new PatientVital { PId = "147852", VitalBpm = 80, VitalSpo2 = 65 ,VitalRespRate = 98 });
-            List<PatientVital>vitalListActual = OccupancyService.Display();
+            List<PatientVital>vitalListActual = _occupancyService.Display();
             if (vitalListActual == PatientVitalListExpected)
                 Assert.True(true);
             //Assert.Equal(PatientVitalListExpected,PatientVitalListActual);
@@ -52,21 +52,21 @@ namespace AlertToCare_Tests.OccupancyTests
          [Fact]
         public void DischargePatientTests()
         {
-            string result = OccupancyService.DischargePatient(PatientModel.PId);
+            string result = _occupancyService.DischargePatient(PatientModel.PId);
             Assert.Equal("Patient Discharged", result);
         }
         [Fact]
         public void PatientDetailsTest()
         {
-           List<PatientModel> patients= OccupancyService.GetPatientsDetails();
-           if(patients==PatientListExpected)
+           List<PatientModel> patients= _occupancyService.GetPatientsDetails();
+           if(patients==_patientListExpected)
                Assert.True(true);
            //Assert.Equal(PatientListExpected,patients);
         }
         [Fact]
         public void BedDetailsTests()
         {
-            List<BedModel> bedDetailsActual= OccupancyService.GetBedDetails();
+            List<BedModel> bedDetailsActual= _occupancyService.GetBedDetails();
             List<BedModel> bedDetailsExpected = new List<BedModel>
             {
                 new BedModel {BedId = "B0002", BedLayout = "right", BedStatus = "Occupied", IcuId = "I0001"}

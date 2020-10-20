@@ -56,7 +56,6 @@ C:\Users\320087165\Documents\GitHub\alert-to-care-s21b7\AlertToCare\bin\Debug\ne
 C:\Users\320087165\Documents\GitHub\alert-to-care-s21b7\AlertToCare\bin\Debug\netcoreapp2.1\AlertToCare.runtimeconfig.dev.json
 C:\Users\320087165\Documents\GitHub\alert-to-care-s21b7\AlertToCare\bin\Debug\netcoreapp2.1\AlertToCare.dll
 C:\Users\320087165\Documents\GitHub\alert-to-care-s21b7\AlertToCare\bin\Debug\netcoreapp2.1\AlertToCare.pdb
-C:\Users\320087165\Documents\GitHub\alert-to-care-s21b7\AlertToCare\obj\Debug\netcoreapp2.1\AlertToCare.csprojAssemblyReference.cache
 C:\Users\320087165\Documents\GitHub\alert-to-care-s21b7\AlertToCare\obj\Debug\netcoreapp2.1\AlertToCare.AssemblyInfoInputs.cache
 C:\Users\320087165\Documents\GitHub\alert-to-care-s21b7\AlertToCare\obj\Debug\netcoreapp2.1\AlertToCare.AssemblyInfo.cs
 C:\Users\320087165\Documents\GitHub\alert-to-care-s21b7\AlertToCare\obj\Debug\netcoreapp2.1\AlertToCare.csproj.CoreCompileInputs.cache

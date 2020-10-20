@@ -8,7 +8,7 @@ namespace AlertToCare_Tests.Controller.Tests
 {
    public class OccupancyControllerTest
     {
-        public readonly BedModel BedModel = new BedModel()
+        private readonly BedModel _bedModel = new BedModel()
         {
             BedId = "b0001",
             IcuId = "I0001",
@@ -16,7 +16,7 @@ namespace AlertToCare_Tests.Controller.Tests
             BedStatus = "Free"
         };
 
-        public readonly PatientModel PatientModel = new PatientModel()
+        private readonly PatientModel _patientModel = new PatientModel()
         {
             PId= "p0001",
             Name = "xyz",
@@ -64,7 +64,7 @@ namespace AlertToCare_Tests.Controller.Tests
         [Fact]
         public void CheckBedStatusByIdCheckTest()
         {
-            var bedStatusById = _occupancyController.Get(BedModel.BedId);
+            var bedStatusById = _occupancyController.Get(_bedModel.BedId);
             var bedStatusByIdCode = bedStatusById as OkObjectResult;
             Assert.NotNull(bedStatusById);
             if (bedStatusByIdCode != null)
@@ -74,7 +74,7 @@ namespace AlertToCare_Tests.Controller.Tests
         [Fact]
         public void PatientModelDataPostTest()
         {
-            var patientModelDataPost = _occupancyController.Post(PatientModel,BedModel.BedLayout);
+            var patientModelDataPost = _occupancyController.Post(_patientModel,_bedModel.BedLayout);
             var patientModelDataPostStatusCode = patientModelDataPost as OkObjectResult;
             Assert.NotNull(patientModelDataPost);
             if (patientModelDataPostStatusCode != null)
@@ -84,7 +84,7 @@ namespace AlertToCare_Tests.Controller.Tests
         [Fact]
         public void DischargePatientTest()
         {
-            var dischargePatient = _occupancyController.Delete(PatientModel.PId);
+            var dischargePatient = _occupancyController.Delete(_patientModel.PId);
             var dischargePatientStatusCode = dischargePatient as OkObjectResult;
             Assert.NotNull(dischargePatient);
             if (dischargePatientStatusCode != null)

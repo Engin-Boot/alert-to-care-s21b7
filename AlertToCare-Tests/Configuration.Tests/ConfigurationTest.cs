@@ -19,7 +19,7 @@ namespace AlertToCare_Tests.Configuration.Tests
            BedStatus = "Free"
        };
 
-       public static readonly IcuModel IcuModel = new IcuModel()
+      private static readonly IcuModel IcuModel = new IcuModel()
        {
           IcuId="I0001",
           BedCount = 10
