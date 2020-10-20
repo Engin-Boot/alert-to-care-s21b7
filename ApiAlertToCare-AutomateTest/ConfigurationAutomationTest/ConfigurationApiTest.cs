@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RestSharp;
 using System.Net;
+using ApiAlertToCare_AutomateTest.Model;
 
 namespace ApiAlertToCare_AutomateTest.ConfigurationAutomationTest
 {
@@ -17,7 +18,7 @@ namespace ApiAlertToCare_AutomateTest.ConfigurationAutomationTest
             {
                 Resource = bedPostUrl,
             };
-            var bedModel = new Model.BedModel()
+            var bedModel = new BedModel()
             {
                 BedId = "b0001",
                 IcuId = "I0001",
@@ -39,9 +40,8 @@ namespace ApiAlertToCare_AutomateTest.ConfigurationAutomationTest
             {
                 Resource = icuPostUrl,
             };
-            var icuModel = new Model.IcuModel()
+            var icuModel = new IcuModel()
             {
-                
                 IcuId = "I0001",
                  BedCount=10,
 
@@ -81,10 +81,11 @@ namespace ApiAlertToCare_AutomateTest.ConfigurationAutomationTest
         [TestMethod]
         public void RemoveBedDeleteUrlTest()
         {
+          
             RestClient restClient = new RestClient(_url);
 
 
-            RestRequest restRequest = new RestRequest("configuration/RemoveBedAndUpdateBedCountInIcu", Method.DELETE);
+            RestRequest restRequest = new RestRequest("configuration/b0001", Method.DELETE);
 
             IRestResponse restResponse = restClient.Execute(restRequest);
 

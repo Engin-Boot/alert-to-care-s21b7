@@ -3,11 +3,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
+
 namespace AlertToCare.Monitoring
 {
     public  class MonitoringRepository :IMonitoringRepository
     {
-        private static List<Models.PatientVital> PatientVital = new List<Models.PatientVital>();
+        public readonly Alerter.IAlerter Alerter=new Alerter.EmailAlert();
+        private static List<Models.PatientVital> _patientVital = new List<Models.PatientVital>();
         //Occupancy.OccupancyService _occupancyService = new Occupancy.OccupancyService();
         #region vitalCheck
 
@@ -52,17 +54,19 @@ namespace AlertToCare.Monitoring
 
         public IEnumerable<Models.PatientVital> GetMonitoringInformation()
         {
-            PatientVital = OccupancyService.PatientVitalList;
-            return PatientVital;
+            _patientVital = OccupancyService.PatientVitalList;
+            return _patientVital;
         }
         public List<Tuple<string,string,string,string>> CheckVitalOfAllPatients()
         {
-            foreach (Models.PatientVital patientTemp in PatientVital.ToList())
+            foreach (Models.PatientVital patientTemp in _patientVital.ToList())
             {
                 var status = (VitalsAreOk(patientTemp.VitalBpm, patientTemp.VitalSpo2, patientTemp.VitalRespRate));
                 
                 _checkVitals.Add(new Tuple<string, string, string, string>(patientTemp.PId, status.Item1, status.Item2, status.Item3));
+                Alerter.Alert("Patient Vital Status \nPatient Id:"+patientTemp.PId+"\n"+status.Item1+"\n"+status.Item2+"\n"+status.Item3);
             }
+
             return _checkVitals;
         }
     }

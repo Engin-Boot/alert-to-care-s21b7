@@ -1,17 +1,18 @@
 ﻿using System;
 using System.Linq;
+using AlertToCare.Occupancy;
 
 
 namespace AlertToCare.Configuration
 {
     public class RemovedBedThenUpdateIcu
     {
-       // private readonly Occupancy.OccupancyService _occupancy = new Occupancy.OccupancyService();
+      // private readonly OccupancyService _occupancy = new Occupancy.OccupancyService();
         public bool UpdateIcuAfterBedRemoval(string tempIcuId)
         {
             try 
             { 
-                foreach (Models.IcuModel icuTemp in Occupancy.OccupancyService.IcuList.ToList())
+                foreach (Models.IcuModel icuTemp in OccupancyService.IcuList.ToList())
                 {
                     if (icuTemp.IcuId == tempIcuId)
                     {

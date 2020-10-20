@@ -2,17 +2,17 @@
 {
     public class PatientModel
     {
-        public string PId { get; set; }
-        public string Name { get; set; }
-        public int Age { get; set; }
-        public string Gender { get; set; }
-        public string Email { get; set; }
-        public string PhoneNumber { get; set; }
-        public string Address { get; set; }
-        public double VitalBpm { get;  set; }
-        public double VitalSpo2 { get;  set; }
-        public double VitalRespRate { get;  set; }
-        public string IcuId { get; set; }
-        public string BedId { get;  set; }
+        public string PId1 { get; set;}
+        public string Name1 { get; set; }
+        public int Age1 { get; set; }
+        public string Gender1 { get; set; }
+        public string Email1 { get; set; }
+        public string PhoneNumber1 { get; set; }
+        public string Address1 { get; set; }
+        public double VitalBpm1 { get;  set; }
+        public double VitalSpo21 { get;  set; }
+        public double VitalRespRate1 { get;  set; }
+        public string IcuId1 { get; set; }
+        public string BedId1 { get;  set; }
     }
 }

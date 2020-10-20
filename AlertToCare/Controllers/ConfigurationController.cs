@@ -88,8 +88,7 @@ namespace AlertToCare.Controllers
         // DELETE: api/ApiWithActions/5
         //Delete Bed
         [HttpDelete("{id}")]
-        [Route("[action]")]
-        public IActionResult RemoveBedAndUpdateBedCountInIcu(string id)
+        public IActionResult Delete(string id)
         {
             string removeBed = this._config.RemoveBed(id);
             return Ok(removeBed);

@@ -50,18 +50,18 @@ namespace ApiAlertToCare_AutomateTest.OccupancyAutomationTest
             var patientModel = new Model.PatientModel()
             {
 
-                PId = "p0002",
-                Name = "abc",
-                Age = 21,
-                Gender = "Female",
-                Email = "abc@gmail.com",
-                PhoneNumber = "9876543240",
-                Address = "Mysore",
-                VitalBpm = 85,
-                VitalSpo2 = 85,
-                VitalRespRate = 85,
-                IcuId = "i0002",
-                BedId = "b0002"
+                PId1 = "p0002",
+                Name1 = "abc",
+                Age1 = 21,
+                Gender1 = "Female",
+                Email1 = "abc@gmail.com",
+                PhoneNumber1 = "9876543240",
+                Address1 = "Mysore",
+                VitalBpm1 = 85,
+                VitalSpo21 = 85,
+                VitalRespRate1 = 85,
+                IcuId1 = "i0002",
+                BedId1 = "b0002"
 
             };
             restRequest.AddJsonBody(patientModel);

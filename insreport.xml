@@ -8,11 +8,10 @@
     </InspectionScope>
   </Information>
   <IssueTypes>
-    <IssueType Id="InconsistentNaming" Category="Constraints Violations" CategoryId="ConstraintViolation" Description="Inconsistent Naming" Severity="WARNING" WikiUrl="https://www.jetbrains.com/resharperplatform/help?Keyword=InconsistentNaming" />
+    <IssueType Id="ClassNeverInstantiated.Global" Category="Potential Code Quality Issues" CategoryId="CodeSmell" SubCategory="Class is never instantiated" Description="Class is never instantiated: Non-private accessibility" Severity="SUGGESTION" Global="True" WikiUrl="https://www.jetbrains.com/resharperplatform/help?Keyword=ClassNeverInstantiated.Global" />
     <IssueType Id="RedundantUsingDirective" Category="Redundancies in Code" CategoryId="CodeRedundancy" Description="Redundant using directive" Severity="WARNING" WikiUrl="https://www.jetbrains.com/resharperplatform/help?Keyword=RedundantUsingDirective" />
     <IssueType Id="UnusedAutoPropertyAccessor.Global" Category="Potential Code Quality Issues" CategoryId="CodeSmell" SubCategory="Auto-property accessor is never used" Description="Auto-property accessor is never used: Non-private accessibility" Severity="WARNING" Global="True" />
     <IssueType Id="UnusedAutoPropertyAccessor.Local" Category="Potential Code Quality Issues" CategoryId="CodeSmell" SubCategory="Auto-property accessor is never used" Description="Auto-property accessor is never used: Private accessibility" Severity="WARNING" />
-    <IssueType Id="UsePatternMatching" Category="Language Usage Opportunities" CategoryId="LanguageUsage" Description="Convert 'as' expression type check and the following null check into pattern matching" Severity="SUGGESTION" WikiUrl="https://www.jetbrains.com/resharperplatform/help?Keyword=UsePatternMatching" />
   </IssueTypes>
   <Issues>
     <Project Name="AlertToCare">
@@ -22,35 +21,28 @@
       <Issue TypeId="UnusedAutoPropertyAccessor.Global" File="AlertToCare\Models\PatientModel.cs" Offset="266-270" Line="9" Message="Auto-property accessor is never used" />
       <Issue TypeId="UnusedAutoPropertyAccessor.Global" File="AlertToCare\Models\PatientModel.cs" Offset="315-319" Line="10" Message="Auto-property accessor is never used" />
       <Issue TypeId="UnusedAutoPropertyAccessor.Global" File="AlertToCare\Models\PatientModel.cs" Offset="360-364" Line="11" Message="Auto-property accessor is never used" />
-      <Issue TypeId="InconsistentNaming" File="AlertToCare\Monitoring\MonitoringRepository.cs" Offset="258-270" Line="10" Message="Name 'PatientVital' does not match rule 'Static field (private)'. Suggested name is '_patientVital'." />
+      <Issue TypeId="ClassNeverInstantiated.Global" File="AlertToCare\Monitoring\Alerter.cs" Offset="99-106" Line="6" Message="Class 'Alerter' is never instantiated" />
       <Issue TypeId="UnusedAutoPropertyAccessor.Local" File="AlertToCare\Startup.cs" Offset="429-433" Line="16" Message="Auto-property accessor is never used" />
     </Project>
-    <Project Name="AlertToCare-Tests">
-      <Issue TypeId="UsePatternMatching" File="AlertToCare-Tests\Controller.Tests\ConfigurationControllerTest.cs" Offset="1876-1887" Line="60" Message="Use pattern matching" />
-      <Issue TypeId="UsePatternMatching" File="AlertToCare-Tests\Controller.Tests\ConfigurationControllerTest.cs" Offset="2212-2223" Line="68" Message="Use pattern matching" />
-      <Issue TypeId="UsePatternMatching" File="AlertToCare-Tests\Controller.Tests\ConfigurationControllerTest.cs" Offset="2591-2608" Line="78" Message="Use pattern matching" />
-      <Issue TypeId="UsePatternMatching" File="AlertToCare-Tests\Controller.Tests\OccupancyControllerTest.cs" Offset="1403-1420" Line="50" Message="Use pattern matching" />
-      <Issue TypeId="UsePatternMatching" File="AlertToCare-Tests\Controller.Tests\OccupancyControllerTest.cs" Offset="1735-1752" Line="59" Message="Use pattern matching" />
-    </Project>
     <Project Name="ApiAlertToCare-AutomateTest">
-      <Issue TypeId="UnusedAutoPropertyAccessor.Global" File="ApiAlertToCare-AutomateTest\Models\BedModel.cs" Offset="114-118" Line="5" Message="Auto-property accessor is never used" />
-      <Issue TypeId="UnusedAutoPropertyAccessor.Global" File="ApiAlertToCare-AutomateTest\Models\BedModel.cs" Offset="157-161" Line="6" Message="Auto-property accessor is never used" />
-      <Issue TypeId="UnusedAutoPropertyAccessor.Global" File="ApiAlertToCare-AutomateTest\Models\BedModel.cs" Offset="204-208" Line="7" Message="Auto-property accessor is never used" />
-      <Issue TypeId="UnusedAutoPropertyAccessor.Global" File="ApiAlertToCare-AutomateTest\Models\BedModel.cs" Offset="251-255" Line="8" Message="Auto-property accessor is never used" />
-      <Issue TypeId="UnusedAutoPropertyAccessor.Global" File="ApiAlertToCare-AutomateTest\Models\IcuModel.cs" Offset="113-117" Line="5" Message="Auto-property accessor is never used" />
-      <Issue TypeId="UnusedAutoPropertyAccessor.Global" File="ApiAlertToCare-AutomateTest\Models\IcuModel.cs" Offset="157-161" Line="6" Message="Auto-property accessor is never used" />
-      <Issue TypeId="UnusedAutoPropertyAccessor.Global" File="ApiAlertToCare-AutomateTest\Models\PatientModel.cs" Offset="115-119" Line="5" Message="Auto-property accessor is never used" />
-      <Issue TypeId="UnusedAutoPropertyAccessor.Global" File="ApiAlertToCare-AutomateTest\Models\PatientModel.cs" Offset="157-161" Line="6" Message="Auto-property accessor is never used" />
-      <Issue TypeId="UnusedAutoPropertyAccessor.Global" File="ApiAlertToCare-AutomateTest\Models\PatientModel.cs" Offset="195-199" Line="7" Message="Auto-property accessor is never used" />
-      <Issue TypeId="UnusedAutoPropertyAccessor.Global" File="ApiAlertToCare-AutomateTest\Models\PatientModel.cs" Offset="239-243" Line="8" Message="Auto-property accessor is never used" />
-      <Issue TypeId="UnusedAutoPropertyAccessor.Global" File="ApiAlertToCare-AutomateTest\Models\PatientModel.cs" Offset="282-286" Line="9" Message="Auto-property accessor is never used" />
-      <Issue TypeId="UnusedAutoPropertyAccessor.Global" File="ApiAlertToCare-AutomateTest\Models\PatientModel.cs" Offset="331-335" Line="10" Message="Auto-property accessor is never used" />
-      <Issue TypeId="UnusedAutoPropertyAccessor.Global" File="ApiAlertToCare-AutomateTest\Models\PatientModel.cs" Offset="376-380" Line="11" Message="Auto-property accessor is never used" />
-      <Issue TypeId="UnusedAutoPropertyAccessor.Global" File="ApiAlertToCare-AutomateTest\Models\PatientModel.cs" Offset="422-426" Line="12" Message="Auto-property accessor is never used" />
-      <Issue TypeId="UnusedAutoPropertyAccessor.Global" File="ApiAlertToCare-AutomateTest\Models\PatientModel.cs" Offset="470-474" Line="13" Message="Auto-property accessor is never used" />
-      <Issue TypeId="UnusedAutoPropertyAccessor.Global" File="ApiAlertToCare-AutomateTest\Models\PatientModel.cs" Offset="522-526" Line="14" Message="Auto-property accessor is never used" />
-      <Issue TypeId="UnusedAutoPropertyAccessor.Global" File="ApiAlertToCare-AutomateTest\Models\PatientModel.cs" Offset="566-570" Line="15" Message="Auto-property accessor is never used" />
-      <Issue TypeId="UnusedAutoPropertyAccessor.Global" File="ApiAlertToCare-AutomateTest\Models\PatientModel.cs" Offset="609-613" Line="16" Message="Auto-property accessor is never used" />
+      <Issue TypeId="UnusedAutoPropertyAccessor.Global" File="ApiAlertToCare-AutomateTest\Model\BedModel.cs" Offset="112-116" Line="5" Message="Auto-property accessor is never used" />
+      <Issue TypeId="UnusedAutoPropertyAccessor.Global" File="ApiAlertToCare-AutomateTest\Model\BedModel.cs" Offset="155-159" Line="6" Message="Auto-property accessor is never used" />
+      <Issue TypeId="UnusedAutoPropertyAccessor.Global" File="ApiAlertToCare-AutomateTest\Model\BedModel.cs" Offset="202-206" Line="7" Message="Auto-property accessor is never used" />
+      <Issue TypeId="UnusedAutoPropertyAccessor.Global" File="ApiAlertToCare-AutomateTest\Model\BedModel.cs" Offset="249-253" Line="8" Message="Auto-property accessor is never used" />
+      <Issue TypeId="UnusedAutoPropertyAccessor.Global" File="ApiAlertToCare-AutomateTest\Model\IcuModel.cs" Offset="112-116" Line="5" Message="Auto-property accessor is never used" />
+      <Issue TypeId="UnusedAutoPropertyAccessor.Global" File="ApiAlertToCare-AutomateTest\Model\IcuModel.cs" Offset="156-160" Line="6" Message="Auto-property accessor is never used" />
+      <Issue TypeId="UnusedAutoPropertyAccessor.Global" File="ApiAlertToCare-AutomateTest\Model\PatientModel.cs" Offset="115-119" Line="5" Message="Auto-property accessor is never used" />
+      <Issue TypeId="UnusedAutoPropertyAccessor.Global" File="ApiAlertToCare-AutomateTest\Model\PatientModel.cs" Offset="158-162" Line="6" Message="Auto-property accessor is never used" />
+      <Issue TypeId="UnusedAutoPropertyAccessor.Global" File="ApiAlertToCare-AutomateTest\Model\PatientModel.cs" Offset="197-201" Line="7" Message="Auto-property accessor is never used" />
+      <Issue TypeId="UnusedAutoPropertyAccessor.Global" File="ApiAlertToCare-AutomateTest\Model\PatientModel.cs" Offset="242-246" Line="8" Message="Auto-property accessor is never used" />
+      <Issue TypeId="UnusedAutoPropertyAccessor.Global" File="ApiAlertToCare-AutomateTest\Model\PatientModel.cs" Offset="286-290" Line="9" Message="Auto-property accessor is never used" />
+      <Issue TypeId="UnusedAutoPropertyAccessor.Global" File="ApiAlertToCare-AutomateTest\Model\PatientModel.cs" Offset="336-340" Line="10" Message="Auto-property accessor is never used" />
+      <Issue TypeId="UnusedAutoPropertyAccessor.Global" File="ApiAlertToCare-AutomateTest\Model\PatientModel.cs" Offset="382-386" Line="11" Message="Auto-property accessor is never used" />
+      <Issue TypeId="UnusedAutoPropertyAccessor.Global" File="ApiAlertToCare-AutomateTest\Model\PatientModel.cs" Offset="429-433" Line="12" Message="Auto-property accessor is never used" />
+      <Issue TypeId="UnusedAutoPropertyAccessor.Global" File="ApiAlertToCare-AutomateTest\Model\PatientModel.cs" Offset="478-482" Line="13" Message="Auto-property accessor is never used" />
+      <Issue TypeId="UnusedAutoPropertyAccessor.Global" File="ApiAlertToCare-AutomateTest\Model\PatientModel.cs" Offset="531-535" Line="14" Message="Auto-property accessor is never used" />
+      <Issue TypeId="UnusedAutoPropertyAccessor.Global" File="ApiAlertToCare-AutomateTest\Model\PatientModel.cs" Offset="576-580" Line="15" Message="Auto-property accessor is never used" />
+      <Issue TypeId="UnusedAutoPropertyAccessor.Global" File="ApiAlertToCare-AutomateTest\Model\PatientModel.cs" Offset="620-624" Line="16" Message="Auto-property accessor is never used" />
       <Issue TypeId="RedundantUsingDirective" File="ApiAlertToCare-AutomateTest\Properties\AssemblyInfo.cs" Offset="26-64" Line="2" Message="Using directive is not required by the code and can be safely removed" />
     </Project>
   </Issues>

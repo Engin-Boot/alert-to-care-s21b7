@@ -6,7 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Monitoring\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
 

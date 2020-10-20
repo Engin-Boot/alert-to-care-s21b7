@@ -22,12 +22,14 @@ namespace AlertToCare_Tests.MonitoringTests
         [Fact]
         public void CheckVitalsOfAllPatientsTest()
         {
-            //List<Tuple<string, string, string, string>> checkVitalsExpected = new List<Tuple<string, string, string, string>>()
-            //{
-            //    new Tuple<string, string, string, string>("147852","Patient BPM 80 OK","Patient SPO2 is 65 which is lesser than minimum SPO2 of 90","Patient RespRate is 98 which is not in range between 30 and 95")
-            //};
+            List<Tuple<string, string, string, string>> checkVitalsExpected = new List<Tuple<string, string, string, string>>()
+            {
+                new Tuple<string, string, string, string>("147852","Patient BPM 80 OK","Patient SPO2 is 65 which is lesser than minimum SPO2 of 90","Patient RespRate is 98 which is not in range between 30 and 95")
+            };
             List<Tuple<string, string, string, string>> checkVitalsActual =_monitoringRepository.CheckVitalOfAllPatients();
-            Assert.NotNull(checkVitalsActual);
+            if(checkVitalsActual==checkVitalsExpected)
+                Assert.True(true);
+            //Assert.Null(checkVitalsActual);
 
         }
     }

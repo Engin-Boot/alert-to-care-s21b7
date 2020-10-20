@@ -46,18 +46,20 @@ namespace AlertToCare_Tests.Controller.Tests
         [Fact]
         public void PatientModelDataGetTest()
         {
+            //var patientModel = _occupancyController.Get();
+            //var patientModelStatusCode = patientModel as OkObjectResult;
             var patientModel = _occupancyController.Get();
-            var patientModelStatusCode = patientModel as OkObjectResult;
-            if (patientModelStatusCode != null)
+            if (patientModel is OkObjectResult patientModelStatusCode)
                 Assert.Equal(200, patientModelStatusCode.StatusCode);
         }
 
         [Fact]
         public void BedDetailsStatusTest()
         {
+            //var bedStatus = _occupancyController.GetBedDetails();
+            //var bedStatusCode =bedStatus as OkObjectResult;
             var bedStatus = _occupancyController.GetBedDetails();
-            var bedStatusCode =bedStatus as OkObjectResult;
-            if (bedStatusCode != null)
+            if (bedStatus is OkObjectResult bedStatusCode)
                 Assert.Equal(200, bedStatusCode.StatusCode);
         }
 

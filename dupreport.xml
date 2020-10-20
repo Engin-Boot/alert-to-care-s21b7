@@ -1,22 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <DuplicatesReport ToolsVersion="202.0.20200928.101108">
   <Statistics>
-    <CodebaseCost>10184</CodebaseCost>
-    <TotalDuplicatesCost>187</TotalDuplicatesCost>
-    <TotalFragmentsCost>374</TotalFragmentsCost>
+    <CodebaseCost>10491</CodebaseCost>
+    <TotalDuplicatesCost>0</TotalDuplicatesCost>
+    <TotalFragmentsCost>0</TotalFragmentsCost>
   </Statistics>
-  <Duplicates>
-    <Duplicate Cost="187">
-      <Fragment>
-        <FileName>AlertToCare\Models\PatientModel.cs</FileName>
-        <OffsetRange Start="30" End="615"></OffsetRange>
-        <LineRange Start="2" End="18"></LineRange>
-      </Fragment>
-      <Fragment>
-        <FileName>ApiAlertToCare-AutomateTest\Model\PatientModel.cs</FileName>
-        <OffsetRange Start="45" End="630"></OffsetRange>
-        <LineRange Start="2" End="18"></LineRange>
-      </Fragment>
-    </Duplicate>
-  </Duplicates>
+  <Duplicates></Duplicates>
 </DuplicatesReport>

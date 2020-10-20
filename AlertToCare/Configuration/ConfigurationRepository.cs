@@ -1,28 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using AlertToCare.Occupancy;
 
 
 namespace AlertToCare.Configuration
 {
     public class ConfigurationRepository:IConfigurationRepository
     {
-       // public readonly Occupancy.OccupancyService _occupancy = new Occupancy.OccupancyService();
+        private readonly OccupancyService _occupancy = new OccupancyService();
         private readonly RemovedBedThenUpdateIcu _updateIcu = new RemovedBedThenUpdateIcu();
 
        
-        public IEnumerable<Models.BedModel> GetBedConfigurationInformation() { return Occupancy.OccupancyService.BedList; }
-        public IEnumerable<Models.IcuModel> GetIcuConfiguration() { return Occupancy.OccupancyService.IcuList; }
+        public IEnumerable<Models.BedModel> GetBedConfigurationInformation() { return _occupancy.BedList; }
+        public IEnumerable<Models.IcuModel> GetIcuConfiguration() { return OccupancyService.IcuList; }
 
         public string AddNewBedConfiguration(Models.BedModel newBed)
         {
-            Occupancy.OccupancyService.BedList.Add(newBed);
+            _occupancy.BedList.Add(newBed);
             return "Bed Added Successfully";
         }
 
         public string AddNewIcuConfiguration(Models.IcuModel newIcu)
         {
-            Occupancy.OccupancyService.IcuList.Add(newIcu);
+            OccupancyService.IcuList.Add(newIcu);
             return "Icu Added Successfully";
         }
 
@@ -31,12 +32,12 @@ namespace AlertToCare.Configuration
             string tempIcuId=" ";
             try
             {
-                foreach (Models.BedModel bedTemp in Occupancy.OccupancyService.BedList.ToList())
+                foreach (Models.BedModel bedTemp in _occupancy.BedList.ToList())
                 {
                     if (bedTemp.BedId == bedId)
                     {
                         tempIcuId = bedTemp.IcuId;
-                        Occupancy.OccupancyService.BedList.Remove(bedTemp);
+                        _occupancy.BedList.Remove(bedTemp);
                         
                     }
                 }
