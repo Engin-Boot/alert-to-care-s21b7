@@ -16,14 +16,27 @@ namespace AlertToCare.Controllers
             this._occupancyService = occupancyService;
         }
 
-        // GET: api/<OccupancyController>
+        // get the list of all patients in the hospital
+        // GET: api/<OccupancyController>/GetAllPatients
         [HttpGet]
-        public IActionResult Get()
+        [Route("[action]")]
+        public IActionResult GetAllPatients()
         {
             IEnumerable<Models.PatientModel> patientModels= this._occupancyService.GetPatientsDetails();
             return Ok(patientModels);
         }
 
+        // get the list of all patients in the particular ICU
+        // GET: api/<OccupancyController>/icu1
+        [HttpGet("{IcuId}")]
+        public IActionResult Get(string icuId)
+        {
+            var patientModels = this._occupancyService.GetPatientsDetailsInIcu(icuId);
+            return Ok(patientModels);
+        }
+
+        //Get all the beds in the all the icu of the hospital
+        // GET: api/<OccupancyController>/GetBedDetails
         [HttpGet]
         [Route("[action]")]
         public IActionResult GetBedDetails()
@@ -32,11 +45,22 @@ namespace AlertToCare.Controllers
             return Ok(bedModel);
         }
 
-        // GET api/<OccupancyController>/5
-        [HttpGet("{BedId}")]
-        public IActionResult Get(string bedId)
+        //Get all the beds in particular icu of the hospital
+        // GET: api/<OccupancyController>/GetBedDetails/icu1
+        [HttpGet]
+        [Route("GetBedDetails/{IcuId}")]
+        public IActionResult GetBedDetailsForIcu(string icuId)
         {
-            string bedStatus= this._occupancyService.CheckBedStatus(bedId);
+            var bedModel = this._occupancyService.GetBedDetailsForIcu(icuId);
+            return Ok(bedModel);
+        }
+
+        //get the status of particular bed
+        // GET api/<OccupancyController>/GetBedStatus/bed1
+        [HttpGet("GetBedStatus/{BedId}")]
+        public IActionResult GetBedStatus(string bedId)
+        {
+            var bedStatus= this._occupancyService.CheckBedStatus(bedId);
             return Ok(bedStatus);
         }
 
@@ -44,16 +68,16 @@ namespace AlertToCare.Controllers
         [HttpPost("{layout}")]
         public IActionResult Post([FromBody] Models.PatientModel newPatient,string layout)
         {
-           string patientModelData= this._occupancyService.AddNewPatient(newPatient, layout);
+           var patientModelData= this._occupancyService.AddNewPatient(newPatient, layout);
            return Ok(patientModelData);
 
         }
-
-        // DELETE api/<OccupancyController>/5
-        [HttpDelete("{PId}")]
+        
+        // DELETE api/<OccupancyController>/Discharge/patient5
+        [HttpDelete("Discharge/{PId}")]
         public IActionResult Delete(string pId)
         {
-            string dischargePatient= this._occupancyService.DischargePatient(pId);
+            var dischargePatient= this._occupancyService.DischargePatient(pId);
             return Ok(dischargePatient);
         }
     }

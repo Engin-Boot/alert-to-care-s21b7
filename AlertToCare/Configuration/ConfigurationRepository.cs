@@ -15,6 +15,7 @@ namespace AlertToCare.Configuration
         public IEnumerable<Models.BedModel> GetBedConfigurationInformation() { return _occupancy.BedList; }
         public IEnumerable<Models.IcuModel> GetIcuConfiguration() { return OccupancyService.IcuList; }
 
+        //return bool
         public string AddNewBedConfiguration(Models.BedModel newBed)
         {
             _occupancy.BedList.Add(newBed);

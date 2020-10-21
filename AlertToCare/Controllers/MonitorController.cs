@@ -20,7 +20,7 @@ namespace AlertToCare.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            IEnumerable <Models.PatientVital> patientVitalData= this._monitoring.GetMonitoringInformation();
+            var patientVitalData= this._monitoring.GetMonitoringInformation();
             return Ok(patientVitalData);
         }
         [HttpGet]
@@ -28,9 +28,9 @@ namespace AlertToCare.Controllers
         public IActionResult GeAllPatientVitals()
         {   
             var vital = _monitoring.CheckVitalOfAllPatients();
-            string vitalstring = "PID:" + vital.PId + "\n" + "VitalBpm:" + vital.VitalBpmStatus + "\n" + "VitalSpo2:" + vital.VitalSPo2Status +
-                "\n" + "VitalRespRate:" + vital.VitalRespRateStatus;
-            return Ok(vitalstring);
+            var vitalString = "PID:" + vital.PId + "\n" + "VitalBpm:" + vital.VitalBpmStatus + "\n" + "VitalSpo2:" + vital.VitalSPo2Status +
+                              "\n" + "VitalRespRate:" + vital.VitalRespRateStatus;
+            return Ok(vitalString);
         }
         
     }

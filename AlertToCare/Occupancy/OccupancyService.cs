@@ -1,6 +1,7 @@
 ﻿using AlertToCare.Models;
 using System;
 using System.Collections.Generic;
+using System.IO.Pipelines;
 using System.Linq;
 
 
@@ -8,7 +9,7 @@ namespace AlertToCare.Occupancy
 {
     public class OccupancyService : IOccupancyService
     {
-        private  readonly List<PatientModel> _patientList = new List<PatientModel>();
+        public  readonly List<PatientModel> _patientList = new List<PatientModel>();//will get data from class having accessing db
         public  readonly List<BedModel> BedList = new List<BedModel>();
         public  static readonly List<IcuModel> IcuList = new List<IcuModel>();
         public static readonly List<PatientVital> PatientVitalList = new List<PatientVital>();
@@ -28,35 +29,24 @@ namespace AlertToCare.Occupancy
 
         public string CheckBedStatus(string bedId)
         {
-            foreach(var bedTemp in BedList)
+            foreach (var bedTemp in BedList.Where(bedTemp => bedTemp.BedId == bedId))
             {
-                if (bedTemp.BedId == bedId)
-                    if (bedTemp.BedStatus == "Occupied")
-                        return "Occupied";
-                    else
-                        return "Free";
+                return bedTemp.BedStatus == "Occupied" ? "Occupied" : "Free";
             }
+
             return "Does Not Exist";
         }
         public string DischargePatient(string pid)
         {
-            try
-            {
-                foreach (var patientTemp in _patientList.ToList())
+            
+                foreach (var patientTemp in _patientList.ToList().Where(patientTemp => patientTemp.PId == pid))
                 {
-
-                    if (patientTemp.PId == pid)
-                    {
-                        _patientList.Remove(patientTemp);
-                    }
+                    _patientList.Remove(patientTemp);
+                    return "Patient Discharged";
                 }
-                return "Patient Discharged";
-            }
-            catch(Exception e)
-            {
-                Console.WriteLine(e);
+
                 return "Patient Not Found";
-            }
+            
         }
         public List<PatientModel> GetPatientsDetails()
         {
@@ -66,6 +56,26 @@ namespace AlertToCare.Occupancy
         public List<BedModel> GetBedDetails()
         {
             return BedList;
+        }
+
+        //added
+        public IEnumerable<PatientModel> GetPatientsDetailsInIcu(string icuId)
+        {
+            //return patient => patient in _patientList.Where()
+            //PatientModel patient;
+            var icuPatientList = from patient in _patientList
+                where patient.IcuId == icuId
+                select patient;
+            return icuPatientList;
+        }
+
+        //added
+        public IEnumerable<BedModel> GetBedDetailsForIcu(string icuId)
+        {
+            var icuBedList = from bed in BedList
+                where bed.IcuId == icuId
+                select bed;
+            return icuBedList;
         }
     }
 }

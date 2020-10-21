@@ -42,8 +42,8 @@ namespace AlertToCare_Tests.Configuration.Tests
         [Fact]
         public void AddNewBedConfigurationTest()
         {
-            string expected = "Bed Added Successfully";
-            string actual= _configRepo.AddNewBedConfiguration(BedModel);
+            const string expected = "Bed Added Successfully";
+            var actual= _configRepo.AddNewBedConfiguration(BedModel);
             Assert.Equal(expected,actual);
 
 
@@ -52,8 +52,8 @@ namespace AlertToCare_Tests.Configuration.Tests
         [Fact]
         public void AddNewIcuConfigurationTest()
         {
-            string expected = "Icu Added Successfully";
-            string actual = _configRepo.AddNewIcuConfiguration(IcuModel);
+            const string expected = "Icu Added Successfully";
+            var actual = _configRepo.AddNewIcuConfiguration(IcuModel);
             Assert.Equal(expected, actual);
 
 
@@ -62,8 +62,8 @@ namespace AlertToCare_Tests.Configuration.Tests
         [Fact]
         public void RemoveBedTest()
         {
-            string expectedString = "bed removed";
-            string actualString = _configRepo.RemoveBed(BedModel.BedId);
+            const string expectedString = "bed removed";
+            var actualString = _configRepo.RemoveBed(BedModel.BedId);
             Assert.Equal(expectedString,actualString);
 
         }
@@ -71,8 +71,8 @@ namespace AlertToCare_Tests.Configuration.Tests
         [Fact]
         public void UpdateBedCountInAfterBedRemovalTest()
         {
-            bool expected= true;
-            bool actual = _updateBedCountInIcu.UpdateIcuAfterBedRemoval(IcuModel.IcuId);
+            const bool expected = true;
+            var actual = _updateBedCountInIcu.UpdateIcuAfterBedRemoval(IcuModel.IcuId);
             Assert.Equal(expected, actual);
 
         }

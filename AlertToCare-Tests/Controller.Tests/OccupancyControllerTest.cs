@@ -1,4 +1,5 @@
-﻿using AlertToCare.Controllers;
+﻿using System.Net;
+using AlertToCare.Controllers;
 using AlertToCare.Models;
 using AlertToCare.Occupancy;
 using Microsoft.AspNetCore.Mvc;
@@ -48,7 +49,7 @@ namespace AlertToCare_Tests.Controller.Tests
         {
             //var patientModel = _occupancyController.Get();
             //var patientModelStatusCode = patientModel as OkObjectResult;
-            var patientModel = _occupancyController.Get();
+            var patientModel = _occupancyController.GetAllPatients();
             if (patientModel is OkObjectResult patientModelStatusCode)
                 Assert.Equal(200, patientModelStatusCode.StatusCode);
         }
@@ -93,6 +94,28 @@ namespace AlertToCare_Tests.Controller.Tests
                 Assert.Equal(200, dischargePatientStatusCode.StatusCode);
         }
 
+        [Fact]
+        public void BedDetailsStatusForIcuTest()
+        {
+            var bedStatus = _occupancyController.GetBedDetailsForIcu("I0001");
+            if (bedStatus is OkObjectResult bedStatusCode)
+                Assert.Equal(200, bedStatusCode.StatusCode);
+        }
 
+        [Fact]
+        public void PatientModelDataGetForIcuTest()
+        {
+            var patientModel = _occupancyController.Get("I0001");
+            if (patientModel is OkObjectResult patientModelStatusCode)
+                Assert.Equal(200, patientModelStatusCode.StatusCode);
+        }
+
+        [Fact]
+        public void GetBedStatusTest()
+        {
+            var status = _occupancyController.GetBedStatus("b0001");
+            if (status is OkObjectResult bedStatusCode)
+                Assert.Equal(200, bedStatusCode.StatusCode);
+        }
     }
 }
