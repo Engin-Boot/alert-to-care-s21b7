@@ -15,11 +15,11 @@ jobs:
       - name: Install resharper
         run: dotnet tool install -g JetBrains.ReSharper.GlobalTools
         
-      #- name: Add package
-       # run: dotnet add Sender.Tests/Sender.Tests.csproj package xunit --version 2.4.1
+      - name: Add package
+        run: dotnet add AlertToCare-Tests/AlertToCare-Tests.csproj package xunit --version 2.4.1
         
-     # - name: Add package
-      #  run: dotnet add Receiver.Tests/Receiver.Tests.csproj package xunit --version 2.4.1
+      - name: Add package
+        run: dotnet add ApiAlertToCare-AutomateTest/ApiAlertToCare-AutomateTest.csproj package xunit --version 2.4.1
         
              
       - name: Run resharper inspection
