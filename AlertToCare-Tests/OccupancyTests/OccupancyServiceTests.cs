@@ -16,7 +16,7 @@ namespace AlertToCare_Tests.OccupancyTests
 
         public OccupancyServiceTests()
         {
-            _occupancyService._patientList.Clear();
+            _occupancyService.PatientList.Clear();
             PatientModel.Name = "XYZ";
             PatientModel.Address = "Dharwad";
             PatientModel.Age = 24;
@@ -111,12 +111,12 @@ namespace AlertToCare_Tests.OccupancyTests
         [Fact]
         public void PatientDetailsGetTest()
         {
-            Assert.Equal("XYZ", _occupancyService._patientList.ElementAt(0).Name);
-            Assert.Equal(24, _occupancyService._patientList.ElementAt(0).Age);
-            Assert.Equal("Male", _occupancyService._patientList.ElementAt(0).Gender);
-            Assert.Equal("XYZ@123.com", _occupancyService._patientList.ElementAt(0).Email);
-            Assert.Equal("1234567890", _occupancyService._patientList.ElementAt(0).PhoneNumber);
-            Assert.Equal("Dharwad", _occupancyService._patientList.ElementAt(0).Address);
+            Assert.Equal("XYZ", _occupancyService.PatientList.ElementAt(0).Name);
+            Assert.Equal(24, _occupancyService.PatientList.ElementAt(0).Age);
+            Assert.Equal("Male", _occupancyService.PatientList.ElementAt(0).Gender);
+            Assert.Equal("XYZ@123.com", _occupancyService.PatientList.ElementAt(0).Email);
+            Assert.Equal("1234567890", _occupancyService.PatientList.ElementAt(0).PhoneNumber);
+            Assert.Equal("Dharwad", _occupancyService.PatientList.ElementAt(0).Address);
         }
     }
 }
