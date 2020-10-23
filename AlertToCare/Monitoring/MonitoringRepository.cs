@@ -54,7 +54,7 @@ namespace AlertToCare.Monitoring
 
         public IEnumerable<Models.PatientVital> GetMonitoringInformation()
         {
-            _patientVital = OccupancyService.PatientVitalList;
+            //_patientVital = OccupancyService.PatientVitalList;
             return _patientVital;
         }
         //public List<Tuple<string,string,string,string>> CheckVitalOfAllPatients()

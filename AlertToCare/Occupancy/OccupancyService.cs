@@ -1,79 +1,172 @@
 ﻿using AlertToCare.Models;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using AlertToCare.DatabaseOperations;
 
 
 namespace AlertToCare.Occupancy
 {
     public class OccupancyService : IOccupancyService
     {
-        public  readonly List<PatientModel> PatientList = new List<PatientModel>();//will get data from class having accessing db
-        public  readonly List<BedModel> BedList = new List<BedModel>();
-        public  static readonly List<IcuModel> IcuList = new List<IcuModel>();
-        public static readonly List<PatientVital> PatientVitalList = new List<PatientVital>();
+        //public OccupancyService GetInstanceOfOccupancyService()
+        //{
+        //    return this;
+        //}
 
-        public string AddNewPatient(PatientModel newPatient,string layout)
+        //public OccupancyService()
+        //{
+        //    //InitPatientList();
+        //    //InitIcuList();
+        //    //InitBedList();
+        //    //InitBedLayouts();
+        //}
+
+        //public Dictionary<string, PatientModel> PatientList; //will get data from class having accessing db
+        //public Dictionary<int, BedModel> BedList;
+        //public Dictionary<string, IcuModel> IcuList;
+        ////public List<PatientVital> PatientVitalList;
+        //public List<string> BedLayouts;
+
+
+
+        public object AddNewPatient(PatientModel newPatient)
         {
-            PatientList.Add(newPatient);
-            BedList.Add(new BedModel { BedId = newPatient.BedId, BedStatus = "Occupied", BedLayout = layout, IcuId = newPatient.IcuId });
-            PatientVitalList.Add(new PatientVital { PId = newPatient.PId, VitalBpm = newPatient.VitalBpm, VitalSpo2 = newPatient.VitalSpo2, VitalRespRate = newPatient.VitalRespRate });
-            return "Patient Added Successful";
+            var filePath = DbOps.GetDbPath();
+            var dbObj = new PatientDbOps(filePath);
+            if (!dbObj.AddPatientToDb(newPatient).Equals(HttpStatusCode.OK)) return HttpStatusCode.InternalServerError;
+            var bedStatusDbObj = new BedDbOps(DbOps.GetDbPath());
+            return bedStatusDbObj.ChangeBedStatusToOccupied(newPatient.BedId);
         }
 
-        public List<PatientVital> Display()
+        public static object AddNewBed(BedModel newBed)
         {
-            return PatientVitalList;
+            var filePath = DbOps.GetDbPath();
+            var obj = new BedDbOps(filePath);
+            return !obj.AddBedToDb(newBed).Equals(HttpStatusCode.OK) ? HttpStatusCode.InternalServerError : HttpStatusCode.OK;
+            //BedList.Add(newBed.BedId, newBed);
         }
 
-        public string CheckBedStatus(string bedId)
-        {
-            foreach (var bedTemp in BedList.Where(bedTemp => bedTemp.BedId == bedId))
-            {
-                return bedTemp.BedStatus == "Occupied" ? "Occupied" : "Free";
-            }
+        //public List<PatientVital> Display()
+        //{
+        //    //return PatientVitalList;
+        //}
 
-            return "Does Not Exist";
-        }
-        public string DischargePatient(string pid)
+        public bool IsBedFree(int bedId)
         {
-            
-                foreach (var patientTemp in PatientList.ToList().Where(patientTemp => patientTemp.PId == pid))
-                {
-                    PatientList.Remove(patientTemp);
-                    return "Patient Discharged";
-                }
+            var filePath = DbOps.GetDbPath();
+            var bedStatusObj = new BedDbOps(filePath);
+            return bedStatusObj.IsBedFree(bedId);
 
-                return "Patient Not Found";
-            
-        }
-        public List<PatientModel> GetPatientsDetails()
-        {
-            return PatientList;
+            //foreach (var bedTemp in BedList.Where(bedTemp => bedTemp.Key == bedId))
+            //{
+            //    return bedTemp.Value.BedStatus;
+            //}
+            //return "Does Not Exist";
         }
 
-        public List<BedModel> GetBedDetails()
+        private IEnumerable<int> GetBedIdFromPid(string pid)
         {
-            return BedList;
+            var patients = GetPatientsDetails();
+            var bedId = from a in patients where a.Value.PId.Equals(pid)
+                                  select a.Value.BedId;
+            return bedId;
+
+        }
+        public object DischargePatient(string pid)
+        {
+            var filePath = DbOps.GetDbPath();
+            var patientDbObj = new PatientDbOps(filePath);
+            if (!patientDbObj.DeletePatientFromDatabase(pid).Equals(HttpStatusCode.OK))
+                return HttpStatusCode.InternalServerError;
+            var bedStatusObj = new BedDbOps(filePath);
+            return bedStatusObj.ChangeBedStatusToVacant(GetBedIdFromPid(pid).ElementAt(0));
+
+            //if (PatientList.ContainsKey(pid))
+            //{
+            //    PatientList.Remove(pid);
+            //    return "Discharged";
+            //}
+            //else
+            //{
+
+            //}
+            //foreach (var patientTemp in PatientList.ToList().Where(patientTemp => patientTemp.Key == pid))
+            //{
+            //    PatientList.Remove(patientTemp.Key);
+            //    return "Patient Discharged";
+            //}
+
+            //return "Patient Not Found";
+
+        }
+        public Dictionary<string, PatientModel> GetPatientsDetails()
+        {
+            var filePath = DbOps.GetDbPath();
+            var patientBbObj = new PatientDbOps(filePath);
+            return patientBbObj.GetAllPatientsFromDb();
+        }
+
+        public Dictionary<int, BedModel> GetBedDetails()
+        {
+            var filePath = DbOps.GetDbPath();
+            var bedsObj = new BedDbOps(filePath);
+            return bedsObj.GetAllBedsFromDb();
         }
 
         //added
-        public IEnumerable<PatientModel> GetPatientsDetailsInIcu(string icuId)
+        public Dictionary<string, PatientModel> GetPatientsDetailsInIcu(string icuId)
         {
             //return patient => patient in _patientList.Where()
             //PatientModel patient;
-            var icuPatientList = from patient in PatientList
-                where patient.IcuId == icuId
-                select patient;
-            return icuPatientList;
+            //var icuPatientList = from patient in PatientList
+            //                     where patient.Value.IcuId == icuId
+            //                     select patient;
+            //return (Dictionary<string, PatientModel>)icuPatientList;
+            var patients = GetPatientsDetails();
+            var patientsInIcu = from patient in patients
+                where patient.Value.IcuId.Equals(icuId)
+                                select patient;
+            return (Dictionary<string, PatientModel>) patientsInIcu;
         }
 
         //added
-        public IEnumerable<BedModel> GetBedDetailsForIcu(string icuId)
+        public Dictionary<int, BedModel> GetBedDetailsForIcu(string icuId)
         {
-            var icuBedList = from bed in BedList
-                where bed.IcuId == icuId
-                select bed;
-            return icuBedList;
+            var bedList = GetBedDetails();
+            var icuBedList = from bed in bedList
+                             where bed.Value.IcuId == icuId
+                             select bed;
+            return (Dictionary<int, BedModel>)icuBedList;
         }
+
+        //private void InitBedLayouts()
+        //{
+        //    var filePath = DbOps.GetDbPath();
+        //    var bedLayoutObj = new BedLayoutDbOps(filePath);
+        //    BedLayouts = bedLayoutObj.GetAllLayouts();
+        //}
+
+        //private void InitBedList()
+        //{
+        //    var filePath = DbOps.GetDbPath();
+        //    var bedsObj = new BedDbOps(filePath);
+        //    BedList = bedsObj.GetAllBedsFromDb();
+        //}
+
+        //private void InitIcuList()
+        //{
+        //    var filePath = DbOps.GetDbPath();
+        //    var icuObj = new IcuDbOps(filePath);
+        //    IcuList = icuObj.GetAllIcuFromDb();
+        //}
+
+        //private void InitPatientList()
+        //{
+        //    var filePath = DbOps.GetDbPath();
+        //    var patientBbObj = new PatientDbOps(filePath);
+        //    PatientList = patientBbObj.GetAllPatientsFromDb();
+        //}
+
     }
 }

@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using AlertToCare.Models;
+﻿using AlertToCare.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AlertToCare.Controllers
@@ -19,14 +18,14 @@ namespace AlertToCare.Controllers
         [Route("[action]")]
         public IActionResult GetBedModelInformation()
         {
-            IEnumerable<BedModel> bedData = this._config.GetBedConfigurationInformation();
+            var bedData = this._config.GetBedConfigurationInformation();
             return Ok(bedData);
         }
         [HttpGet]
         [Route("[action]")]
         public IActionResult GetIcuModelInformation()
         {
-           IEnumerable<IcuModel> icuData =this._config.GetIcuConfiguration() ;
+           var icuData =this._config.GetIcuConfiguration() ;
             return Ok(icuData);
         }
         #region getIcuById
@@ -88,10 +87,18 @@ namespace AlertToCare.Controllers
         // DELETE: api/ApiWithActions/5
         //Delete Bed
         [HttpDelete("{id}")]
-        public IActionResult Delete(string id)
+        public IActionResult Delete(int id)
         {
-            string removeBed = this._config.RemoveBed(id);
+            var removeBed = this._config.RemoveBed(id);
             return Ok(removeBed);
+        }
+
+        [HttpGet]
+        [Route("[action]")]
+        public IActionResult GetAllBedLayouts()
+        {
+            var bedLayouts = this._config.GetAllBEdLayouts();
+            return Ok(bedLayouts);
         }
     }
 }

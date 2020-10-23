@@ -5,13 +5,13 @@ namespace AlertToCare.Occupancy
 {
     public interface IOccupancyService
     {
-        string AddNewPatient(PatientModel newPatient,string layout);
-        List<PatientVital> Display();
-        string CheckBedStatus(string bedId);
-        string DischargePatient(string pid);
-        List<PatientModel> GetPatientsDetails();
-        List<BedModel> GetBedDetails();
-        IEnumerable<PatientModel> GetPatientsDetailsInIcu(string icuId);
-        IEnumerable<BedModel> GetBedDetailsForIcu(string icuId);
+        object AddNewPatient(PatientModel newPatient);
+        //List<PatientVital> Display();
+        bool IsBedFree(int bedId);
+        object DischargePatient(string pid);
+        Dictionary<string, PatientModel> GetPatientsDetails();
+        Dictionary<int, BedModel> GetBedDetails();
+        Dictionary<string, PatientModel> GetPatientsDetailsInIcu(string icuId);
+        Dictionary<int, BedModel> GetBedDetailsForIcu(string icuId);
     }
 }

@@ -1,6 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
+using AlertToCare.DatabaseOperations;
+using AlertToCare.Models;
 using AlertToCare.Occupancy;
 
 
@@ -9,48 +9,65 @@ namespace AlertToCare.Configuration
     public class ConfigurationRepository:IConfigurationRepository
     {
         private readonly OccupancyService _occupancy = new OccupancyService();
-        private readonly RemovedBedThenUpdateIcu _updateIcu = new RemovedBedThenUpdateIcu();
+        //private readonly RemovedBedThenUpdateIcu _updateIcu = new RemovedBedThenUpdateIcu();
 
-       
-        public IEnumerable<Models.BedModel> GetBedConfigurationInformation() { return _occupancy.BedList; }
-        public IEnumerable<Models.IcuModel> GetIcuConfiguration() { return OccupancyService.IcuList; }
+        public object GetAllBEdLayouts()
+        {
+            var bedLayoutDbObj = new BedLayoutDbOps(DbOps.GetDbPath());
+            return bedLayoutDbObj.GetAllLayouts();
+        }
+        public Dictionary<int, BedModel> GetBedConfigurationInformation()
+        {
+            return _occupancy.GetBedDetails();
+        }
+
+        public Dictionary<string, IcuModel> GetIcuConfiguration()
+        {
+            var filePath = DbOps.GetDbPath();
+            var icuDbObj = new IcuDbOps(filePath);
+            return icuDbObj.GetAllIcuFromDb();
+        }
 
         //return bool
-        public string AddNewBedConfiguration(Models.BedModel newBed)
+        public object AddNewBedConfiguration(BedModel newBed)
         {
-            _occupancy.BedList.Add(newBed);
-            return "Bed Added Successfully";
+            //_occupancy.BedList.Add(newBed.BedId, newBed);
+            //return "Bed Added Successfully";
+            var bedDbObj = new BedDbOps(DbOps.GetDbPath());
+            return bedDbObj.AddBedToDb(newBed);
         }
 
-        public string AddNewIcuConfiguration(Models.IcuModel newIcu)
+        public object AddNewIcuConfiguration(IcuModel newIcu)
         {
-            OccupancyService.IcuList.Add(newIcu);
-            return "Icu Added Successfully";
+            var icuDbObj = new IcuDbOps(DbOps.GetDbPath());
+            return icuDbObj.AddIcuToDb(newIcu);
         }
 
-        public string RemoveBed(string bedId)
+
+        public object RemoveBed(int bedId)
         {
-            string tempIcuId=" ";
-            try
-            {
-                foreach (Models.BedModel bedTemp in _occupancy.BedList.ToList())
-                {
-                    if (bedTemp.BedId == bedId)
-                    {
-                        tempIcuId = bedTemp.IcuId;
-                        _occupancy.BedList.Remove(bedTemp);
+            //string tempIcuId=" ";
+            //try
+            //{
+            //    foreach (Models.BedModel bedTemp in _occupancy.BedList.ToList())
+            //    {
+            //        if (bedTemp.BedId == bedId)
+            //        {
+            //            tempIcuId = bedTemp.IcuId;
+            //            _occupancy.BedList.Remove(bedTemp);
                         
-                    }
-                }
-                _updateIcu.UpdateIcuAfterBedRemoval(tempIcuId); 
-                return "bed removed";
-            }
-            catch(Exception e)
-            {
-                Console.WriteLine(e);
-                return "unable to remove";
-            }
-            
+            //        }
+            //    }
+            //    _updateIcu.UpdateIcuAfterBedRemoval(tempIcuId); 
+            //    return "bed removed";
+            //}
+            //catch(Exception e)
+            //{
+            //    Console.WriteLine(e);
+            //    return "unable to remove";
+            //}
+            var bedObj = new BedDbOps(DbOps.GetDbPath());
+            return bedObj.DeleteBedFromDb(bedId);
         }
         
     }

@@ -3,12 +3,13 @@ using AlertToCare.Models;
 
 namespace AlertToCare.Configuration
 {
-   public interface IConfigurationRepository
-   {
-        IEnumerable<BedModel> GetBedConfigurationInformation();
-       string AddNewBedConfiguration(BedModel newBed);
-        IEnumerable<IcuModel> GetIcuConfiguration();
-       string AddNewIcuConfiguration(IcuModel newIcu);
-        string RemoveBed(string bedId);
-   }
+    public interface IConfigurationRepository
+    {
+        Dictionary<int, BedModel> GetBedConfigurationInformation();
+        object AddNewBedConfiguration(BedModel newBed);
+        Dictionary<string, IcuModel> GetIcuConfiguration();
+        object AddNewIcuConfiguration(IcuModel newIcu);
+        object RemoveBed(int bedId);
+        object GetAllBEdLayouts();
+    }
 }

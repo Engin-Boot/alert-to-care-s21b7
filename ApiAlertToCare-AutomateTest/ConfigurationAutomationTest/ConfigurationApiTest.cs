@@ -8,7 +8,7 @@ namespace ApiAlertToCare_AutomateTest.ConfigurationAutomationTest
     [TestClass]
   public  class ConfigurationApiTest
     {
-        private static string _url = "http://localhost:51333/api/";
+        private static string _url = "http://localhost:5000/api/";
         [TestMethod]
         public void BedModelDataPostTest()
         {

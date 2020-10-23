@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -22,7 +21,7 @@ namespace AlertToCare.Controllers
         [Route("[action]")]
         public IActionResult GetAllPatients()
         {
-            IEnumerable<Models.PatientModel> patientModels= this._occupancyService.GetPatientsDetails();
+            var patientModels= this._occupancyService.GetPatientsDetails();
             return Ok(patientModels);
         }
 
@@ -41,7 +40,7 @@ namespace AlertToCare.Controllers
         [Route("[action]")]
         public IActionResult GetBedDetails()
         {
-          IEnumerable<Models.BedModel> bedModel =this._occupancyService.GetBedDetails();
+          var bedModel =this._occupancyService.GetBedDetails();
             return Ok(bedModel);
         }
 
@@ -58,17 +57,18 @@ namespace AlertToCare.Controllers
         //get the status of particular bed
         // GET api/<OccupancyController>/GetBedStatus/bed1
         [HttpGet("GetBedStatus/{BedId}")]
-        public IActionResult GetBedStatus(string bedId)
+        public IActionResult GetBedStatus(int bedId)
         {
-            var bedStatus= this._occupancyService.CheckBedStatus(bedId);
+            var bedStatus= this._occupancyService.IsBedFree(bedId);
             return Ok(bedStatus);
         }
 
         // POST api/<OccupancyController>
-        [HttpPost("{layout}")]
-        public IActionResult Post([FromBody] Models.PatientModel newPatient,string layout)
+        [HttpPost]
+        public IActionResult Post([FromBody] Models.PatientModel newPatient)
         {
-           var patientModelData= this._occupancyService.AddNewPatient(newPatient, layout);
+            if (newPatient.Equals(null)) return BadRequest();
+           var patientModelData= this._occupancyService.AddNewPatient(newPatient);
            return Ok(patientModelData);
 
         }

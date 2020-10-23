@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using AlertToCare.Monitoring;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace AlertToCare.Controllers
 {

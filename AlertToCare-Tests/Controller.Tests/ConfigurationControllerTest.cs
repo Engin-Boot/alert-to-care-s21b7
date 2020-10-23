@@ -11,7 +11,7 @@ namespace AlertToCare_Tests.Controller.Tests
     {
         private readonly BedModel  _bedModel = new BedModel()
         {
-            BedId = "b0001",
+            //BedId = "b0001",
             IcuId = "I0001",
             BedLayout = "Left",
             BedStatus = "Free"
