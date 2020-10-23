@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Collections.Generic;
+using AlertToCare.Models;
+using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -65,7 +67,7 @@ namespace AlertToCare.Controllers
 
         // POST api/<OccupancyController>
         [HttpPost]
-        public IActionResult Post([FromBody] Models.PatientModel newPatient)
+        public IActionResult Post([FromBody] PatientModel newPatient)
         {
             if (newPatient.Equals(null)) return BadRequest();
            var patientModelData= this._occupancyService.AddNewPatient(newPatient);
