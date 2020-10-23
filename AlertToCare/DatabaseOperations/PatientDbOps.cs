@@ -79,17 +79,19 @@ namespace AlertToCare.DatabaseOperations
                 var result = command.ExecuteReader();
                 while (result.Read())
                 {
-                    var patient = new PatientModel();
-                    patient.PId = result.GetString(0);
-                    patient.Name = result.GetString(1);
-                    patient.Age = result.GetInt32(2);
-                    patient.Gender = result.GetString(3);
-                    patient.Email = result.GetString(4);
-                    patient.PhoneNumber = result.GetString(5);
-                    patient.Address = result.GetString(6);
-                    patient.IcuId = result.GetString(7);
-                    patient.BedId = result.GetInt32(8);
-                    
+                    var patient = new PatientModel
+                    {
+                        PId = result.GetString(0),
+                        Name = result.GetString(1),
+                        Age = result.GetInt32(2),
+                        Gender = result.GetString(3),
+                        Email = result.GetString(4),
+                        PhoneNumber = result.GetString(5),
+                        Address = result.GetString(6),
+                        IcuId = result.GetString(7),
+                        BedId = result.GetInt32(8)
+                    };
+
 
                     allPatients.Add(patient.PId, patient);
                 }

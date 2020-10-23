@@ -11,5 +11,6 @@ namespace AlertToCare.Configuration
         object AddNewIcuConfiguration(IcuModel newIcu);
         object RemoveBed(int bedId);
         object GetAllBEdLayouts();
+        object DeleteIcu(string icuId);
     }
 }

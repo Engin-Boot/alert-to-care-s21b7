@@ -39,13 +39,13 @@ namespace AlertToCare.Occupancy
             return bedStatusDbObj.ChangeBedStatusToOccupied(newPatient.BedId);
         }
 
-        public static object AddNewBed(BedModel newBed)
-        {
-            var filePath = DbOps.GetDbPath();
-            var obj = new BedDbOps(filePath);
-            return !obj.AddBedToDb(newBed).Equals(HttpStatusCode.OK) ? HttpStatusCode.InternalServerError : HttpStatusCode.OK;
-            //BedList.Add(newBed.BedId, newBed);
-        }
+        //public static object AddNewBed(BedModel newBed)
+        //{
+        //    var filePath = DbOps.GetDbPath();
+        //    var obj = new BedDbOps(filePath);
+        //    return obj.AddBedToDb(newBed);
+        //    //BedList.Add(newBed.BedId, newBed);
+        //}
 
         //public List<PatientVital> Display()
         //{

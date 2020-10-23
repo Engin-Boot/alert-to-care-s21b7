@@ -65,7 +65,7 @@ namespace AlertToCare.DatabaseOperations
             try
             {
                 DeleteBedStatus(bedId);
-                command.CommandText = $"Delete FROM BEDSTATUS WHERE BEDID = {bedId}";
+                command.CommandText = $"Delete FROM Beds WHERE BEDID = {bedId}";
                 command.Prepare();
                 command.ExecuteNonQuery();
 

@@ -16,6 +16,13 @@ namespace AlertToCare.Configuration
             var bedLayoutDbObj = new BedLayoutDbOps(DbOps.GetDbPath());
             return bedLayoutDbObj.GetAllLayouts();
         }
+
+        public object DeleteIcu(string icuId)
+        {
+            var icuDbObj = new IcuDbOps(DbOps.GetDbPath());
+            return icuDbObj.DeleteIcuFromDb(icuId);
+        }
+
         public Dictionary<int, BedModel> GetBedConfigurationInformation()
         {
             return _occupancy.GetBedDetails();

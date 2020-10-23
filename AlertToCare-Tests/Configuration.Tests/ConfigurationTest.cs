@@ -1,4 +1,5 @@
-﻿using AlertToCare.Configuration;
+﻿using System.Net;
+using AlertToCare.Configuration;
 using Xunit;
 using AlertToCare.Models;
 
@@ -13,10 +14,10 @@ namespace AlertToCare_Tests.Configuration.Tests
 
        private static readonly BedModel BedModel = new BedModel()
        {
-           //BedId = "b0001",
-           IcuId = "I0001",
-           BedLayout = "Left",
-           BedStatus = "Free"
+           BedId = 3,
+           IcuId = "ICU01",
+           BedLayout = "LEFT CORNER",
+           BedStatus = "False"
        };
 
       private static readonly IcuModel IcuModel = new IcuModel()
@@ -62,10 +63,9 @@ namespace AlertToCare_Tests.Configuration.Tests
         [Fact]
         public void RemoveBedTest()
         {
-            const string expectedString = "bed removed";
-            var actualString = _configRepo.RemoveBed(BedModel.BedId);
-            Assert.Equal(expectedString,actualString);
-
+            var expected = HttpStatusCode.OK;
+            var actual = _configRepo.RemoveBed(BedModel.BedId);
+            Assert.Equal(expected,actual);
         }
 
         [Fact]

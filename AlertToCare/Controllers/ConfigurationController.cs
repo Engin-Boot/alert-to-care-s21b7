@@ -93,6 +93,13 @@ namespace AlertToCare.Controllers
             return Ok(removeBed);
         }
 
+        [HttpPost]
+        [Route("[action]")]
+        public object DeleteIcu(string icuId)
+        {
+            return this._config.DeleteIcu(icuId);
+        }
+
         [HttpGet]
         [Route("[action]")]
         public IActionResult GetAllBedLayouts()
