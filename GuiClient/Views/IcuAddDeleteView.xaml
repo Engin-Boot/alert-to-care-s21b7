@@ -1,0 +1,30 @@
+﻿<UserControl x:Class="GuiClient.Views.IcuAddDeleteView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:GuiClient.Views"
+             
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.Children>
+            <TabControl Grid.Row="0" Grid.Column="0" Style="{StaticResource TabControlBack}">
+                <TabItem Header="Add" Name="AddIcuTab" Style="{StaticResource AddDelTab}">
+                    <local:IcuRegistrationForm DataContext="{Binding}"></local:IcuRegistrationForm>
+                </TabItem>
+                <TabItem Header="Delete" Name="DeleteIcuTab" Style="{StaticResource AddDelTab}">
+                    <local:IcuDeletionView></local:IcuDeletionView>
+                </TabItem>
+
+            </TabControl>
+
+        </Grid.Children>
+    </Grid>
+</UserControl>

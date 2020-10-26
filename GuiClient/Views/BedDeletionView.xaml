@@ -1,0 +1,43 @@
+﻿<UserControl x:Class="GuiClient.Views.BedDeletionView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:GuiClient.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <!--<StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <ComboBox x:Name="BedListDropDown" HorizontalAlignment="Center" VerticalAlignment="Center"
+                  MinWidth="150"></ComboBox>
+        <Button x:Name="BedDelete" HorizontalAlignment="Center" VerticalAlignment="Center"
+                Margin="30">Delete Bed</Button>
+            
+    </StackPanel>-->
+
+    <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+        
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+            <Grid.Children>
+                <TextBlock Grid.Row="0" Grid.Column="0" Text="ICU" Style="{StaticResource TextBlockStyle}"></TextBlock>
+                <ComboBox x:Name="IcuListDropDown" Style="{StaticResource ComboBoxStyle}"
+                      Grid.Row="0" Grid.Column="1" Margin="30"></ComboBox>
+
+
+                <TextBlock Grid.Row="1" Grid.Column="0" Text="Bed" Style="{StaticResource TextBlockStyle}"></TextBlock>
+                <ComboBox x:Name="FreeBedListDropDown"  Style="{StaticResource ComboBoxStyle}"
+                          Grid.Row="1" Grid.Column="1" Margin="30"></ComboBox>
+
+                <Button x:Name="BedDelete" Style="{StaticResource ButtonStyle}"
+                        Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">Delete Bed</Button>
+        </Grid.Children>
+        </Grid>
+    
+</UserControl>
