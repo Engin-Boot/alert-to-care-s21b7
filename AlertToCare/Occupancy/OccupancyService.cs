@@ -139,7 +139,8 @@ namespace AlertToCare.Occupancy
             var icuBedList = from bed in bedList
                              where bed.Value.IcuId == icuId
                              select bed;
-            return (Dictionary<int, BedModel>)icuBedList;
+            var dict = icuBedList.ToDictionary(keyValuePair => keyValuePair.Key, keyValuePair => keyValuePair.Value);
+            return dict;
         }
 
         //private void InitBedLayouts()

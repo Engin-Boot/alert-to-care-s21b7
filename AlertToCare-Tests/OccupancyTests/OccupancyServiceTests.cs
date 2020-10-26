@@ -87,6 +87,15 @@ namespace AlertToCare_Tests.OccupancyTests
             var allPatientsInIcu = occupancyObj.GetPatientsDetailsInIcu("ICU01", GetDbPathForTesting());
             Assert.NotNull(allPatientsInIcu);
         }
+
+
+        [Fact]
+        public void WhenIcuDetailsAreProvidedGetAllBedsWithinIcu()
+        {
+            var occupancyObj = GetOccupancyObject();
+            var result = occupancyObj.GetBedDetailsForIcu("ICU01", GetDbPathForTesting());
+            Assert.NotNull(result);
+        }
     }
 
 

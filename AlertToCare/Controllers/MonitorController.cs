@@ -15,19 +15,17 @@ namespace AlertToCare.Controllers
 
         // GET: api/<UsersController>
         [HttpGet]
-        public IActionResult Get()
-        {
-            var patientVitalData= this._monitoring.GetMonitoringInformation();
-            return Ok(patientVitalData);
-        }
+        //public IActionResult Get()
+        //{
+        //    var patientVitalData= this._monitoring.GetMonitoringInformation();
+        //    return Ok(patientVitalData);
+        //}
         [HttpGet]
         [Route("[action]")]
         public IActionResult GeAllPatientVitals()
         {   
             var vital = _monitoring.CheckVitalOfAllPatients();
-            var vitalString = "PID:" + vital.PId + "\n" + "VitalBpm:" + vital.VitalBpmStatus + "\n" + "VitalSpo2:" + vital.VitalSPo2Status +
-                              "\n" + "VitalRespRate:" + vital.VitalRespRateStatus;
-            return Ok(vitalString);
+            return Ok(vital);
         }
         
     }

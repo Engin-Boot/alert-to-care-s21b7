@@ -1,4 +1,5 @@
-﻿using AlertToCare.Models;
+﻿using AlertToCare.DatabaseOperations;
+using AlertToCare.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AlertToCare.Controllers
@@ -18,14 +19,14 @@ namespace AlertToCare.Controllers
         [Route("[action]")]
         public IActionResult GetBedModelInformation()
         {
-            var bedData = this._config.GetBedConfigurationInformation();
+            var bedData = this._config.GetBedConfigurationInformation(DbOps.GetDbPath());
             return Ok(bedData);
         }
         [HttpGet]
         [Route("[action]")]
         public IActionResult GetIcuModelInformation()
         {
-           var icuData =this._config.GetIcuConfiguration() ;
+           var icuData =this._config.GetIcuConfiguration(DbOps.GetDbPath()) ;
             return Ok(icuData);
         }
         #region getIcuById
@@ -72,7 +73,7 @@ namespace AlertToCare.Controllers
         [Route("[action]")]
         public IActionResult PostBedModelData([FromBody] BedModel newBedModel)
         { 
-            this._config.AddNewBedConfiguration(newBedModel);
+            this._config.AddNewBedConfiguration(newBedModel, DbOps.GetDbPath());
             return Ok(200);
         }
 
@@ -80,7 +81,7 @@ namespace AlertToCare.Controllers
         [Route("[action]")]
         public IActionResult PostIcuModelData([FromBody] IcuModel newIcuModel)
         {
-            this._config.AddNewIcuConfiguration(newIcuModel);
+            this._config.AddNewIcuConfiguration(newIcuModel, DbOps.GetDbPath());
             return Ok(200);
         }
 
@@ -89,7 +90,7 @@ namespace AlertToCare.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            var removeBed = this._config.RemoveBed(id);
+            var removeBed = this._config.RemoveBed(id, DbOps.GetDbPath());
             return Ok(removeBed);
         }
 
@@ -97,14 +98,14 @@ namespace AlertToCare.Controllers
         [Route("[action]")]
         public object DeleteIcu(string icuId)
         {
-            return this._config.DeleteIcu(icuId);
+            return this._config.DeleteIcu(icuId, DbOps.GetDbPath());
         }
 
         [HttpGet]
         [Route("[action]")]
         public IActionResult GetAllBedLayouts()
         {
-            var bedLayouts = this._config.GetAllBEdLayouts();
+            var bedLayouts = this._config.GetAllBedLayouts(DbOps.GetDbPath());
             return Ok(bedLayouts);
         }
     }

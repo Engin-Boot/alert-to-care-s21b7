@@ -1,8 +1,6 @@
 ﻿using AlertToCare.Controllers;
 using AlertToCare.Monitoring;
-using Microsoft.AspNetCore.Mvc;
 using Moq;
-using Xunit;
 
 namespace AlertToCare_Tests.Controller.Tests
 {
@@ -28,16 +26,16 @@ namespace AlertToCare_Tests.Controller.Tests
         //}
 
 
-        [Fact]
-        public void PatientVitalUpdateDataTest()
-        {
-            var vitalUpdateOfPatient = _monitorController.Get();
-            var vitalUpdateOfPatientStatusCode = vitalUpdateOfPatient as OkObjectResult;
-            Assert.NotNull(vitalUpdateOfPatient);
-            if (vitalUpdateOfPatientStatusCode != null)
-                Assert.Equal(200, vitalUpdateOfPatientStatusCode.StatusCode);
+        //[Fact]
+        //public void PatientVitalUpdateDataTest()
+        //{
+        //    var vitalUpdateOfPatient = _monitorController.Get();
+        //    var vitalUpdateOfPatientStatusCode = vitalUpdateOfPatient as OkObjectResult;
+        //    Assert.NotNull(vitalUpdateOfPatient);
+        //    if (vitalUpdateOfPatientStatusCode != null)
+        //        Assert.Equal(200, vitalUpdateOfPatientStatusCode.StatusCode);
 
-        }
+        //}
 
     }
 }

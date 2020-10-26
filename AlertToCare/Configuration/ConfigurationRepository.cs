@@ -11,47 +11,47 @@ namespace AlertToCare.Configuration
         private readonly OccupancyService _occupancy = new OccupancyService();
         //private readonly RemovedBedThenUpdateIcu _updateIcu = new RemovedBedThenUpdateIcu();
 
-        public object GetAllBEdLayouts()
+        public object GetAllBedLayouts(string dbPath)
         {
-            var bedLayoutDbObj = new BedLayoutDbOps(DbOps.GetDbPath());
+            var bedLayoutDbObj = new BedLayoutDbOps(dbPath);
             return bedLayoutDbObj.GetAllLayouts();
         }
 
-        public object DeleteIcu(string icuId)
+        public object DeleteIcu(string icuId, string dbPath)
         {
-            var icuDbObj = new IcuDbOps(DbOps.GetDbPath());
+            var icuDbObj = new IcuDbOps(dbPath);
             return icuDbObj.DeleteIcuFromDb(icuId);
         }
 
-        public Dictionary<int, BedModel> GetBedConfigurationInformation()
+        public Dictionary<int, BedModel> GetBedConfigurationInformation(string dbPath)
         {
-            return _occupancy.GetBedDetails(DbOps.GetDbPath());
+            return _occupancy.GetBedDetails(dbPath);
         }
 
-        public Dictionary<string, IcuModel> GetIcuConfiguration()
+        public Dictionary<string, IcuModel> GetIcuConfiguration(string dbPath)
         {
-            var filePath = DbOps.GetDbPath();
-            var icuDbObj = new IcuDbOps(filePath);
+            var icuDbObj = new IcuDbOps(dbPath);
             return icuDbObj.GetAllIcuFromDb();
         }
 
         //return bool
-        public object AddNewBedConfiguration(BedModel newBed)
+           
+        public object AddNewBedConfiguration(BedModel newBed, string dbPath)
         {
             //_occupancy.BedList.Add(newBed.BedId, newBed);
             //return "Bed Added Successfully";
-            var bedDbObj = new BedDbOps(DbOps.GetDbPath());
+            var bedDbObj = new BedDbOps(dbPath);
             return bedDbObj.AddBedToDb(newBed);
         }
 
-        public object AddNewIcuConfiguration(IcuModel newIcu)
+        public object AddNewIcuConfiguration(IcuModel newIcu, string dbPath)
         {
-            var icuDbObj = new IcuDbOps(DbOps.GetDbPath());
+            var icuDbObj = new IcuDbOps(dbPath);
             return icuDbObj.AddIcuToDb(newIcu);
         }
 
 
-        public object RemoveBed(int bedId)
+        public object RemoveBed(int bedId, string dbPath)
         {
             //string tempIcuId=" ";
             //try
@@ -73,7 +73,7 @@ namespace AlertToCare.Configuration
             //    Console.WriteLine(e);
             //    return "unable to remove";
             //}
-            var bedObj = new BedDbOps(DbOps.GetDbPath());
+            var bedObj = new BedDbOps(dbPath);
             return bedObj.DeleteBedFromDb(bedId);
         }
         

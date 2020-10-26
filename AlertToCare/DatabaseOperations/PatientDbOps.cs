@@ -48,7 +48,6 @@ namespace AlertToCare.DatabaseOperations
             using var command = DbConnection.CreateCommand();
             try
             {
-                var command1 = $"DELETE from Patients where pid = '{pid}';";
                 command.CommandText = $"DELETE from Patients where pid = '{pid}';";
                 command.Prepare();
                 command.ExecuteNonQuery();
