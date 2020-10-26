@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using AlertToCare.Models;
 
 namespace AlertToCare.Monitoring
 {
     public interface IMonitoringRepository
     {
-        IEnumerable<PatientVital> GetMonitoringInformation();
-        VitalStatus CheckVitalOfAllPatients();
+        //IEnumerable<PatientVital> GetMonitoringInformation();
+        Dictionary<string, PatientVital> CheckVitalOfAllPatients();
     }
 }

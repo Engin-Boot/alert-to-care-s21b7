@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using AlertToCare.DatabaseOperations;
+using AlertToCare.Models;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -22,7 +23,7 @@ namespace AlertToCare.Controllers
         [Route("[action]")]
         public IActionResult GetAllPatients()
         {
-            IEnumerable<Models.PatientModel> patientModels= this._occupancyService.GetPatientsDetails();
+            var patientModels= this._occupancyService.GetPatientsDetails(DbOps.GetDbPath());
             return Ok(patientModels);
         }
 
@@ -31,7 +32,7 @@ namespace AlertToCare.Controllers
         [HttpGet("{IcuId}")]
         public IActionResult Get(string icuId)
         {
-            var patientModels = this._occupancyService.GetPatientsDetailsInIcu(icuId);
+            var patientModels = this._occupancyService.GetPatientsDetailsInIcu(icuId, DbOps.GetDbPath());
             return Ok(patientModels);
         }
 
@@ -41,7 +42,7 @@ namespace AlertToCare.Controllers
         [Route("[action]")]
         public IActionResult GetBedDetails()
         {
-          IEnumerable<Models.BedModel> bedModel =this._occupancyService.GetBedDetails();
+          var bedModel =this._occupancyService.GetBedDetails(DbOps.GetDbPath());
             return Ok(bedModel);
         }
 
@@ -51,24 +52,26 @@ namespace AlertToCare.Controllers
         [Route("GetBedDetails/{IcuId}")]
         public IActionResult GetBedDetailsForIcu(string icuId)
         {
-            var bedModel = this._occupancyService.GetBedDetailsForIcu(icuId);
+            var bedModel = this._occupancyService.GetBedDetailsForIcu(icuId, DbOps.GetDbPath());
             return Ok(bedModel);
         }
 
         //get the status of particular bed
         // GET api/<OccupancyController>/GetBedStatus/bed1
         [HttpGet("GetBedStatus/{BedId}")]
-        public IActionResult GetBedStatus(string bedId)
+        public IActionResult GetBedStatus(int bedId)
         {
-            var bedStatus= this._occupancyService.CheckBedStatus(bedId);
+            var bedStatus= this._occupancyService.IsBedFree(bedId, DbOps.GetDbPath());
             return Ok(bedStatus);
         }
 
         // POST api/<OccupancyController>
-        [HttpPost("{layout}")]
-        public IActionResult Post([FromBody] Models.PatientModel newPatient,string layout)
+        [HttpPost]
+        public IActionResult Post([FromBody] PatientModel newPatient)
         {
-           var patientModelData= this._occupancyService.AddNewPatient(newPatient, layout);
+            var dbPath = DbOps.GetDbPath();
+            if (newPatient.Equals(null)) return BadRequest();
+           var patientModelData= this._occupancyService.AddNewPatient(newPatient, dbPath);
            return Ok(patientModelData);
 
         }
@@ -77,7 +80,7 @@ namespace AlertToCare.Controllers
         [HttpDelete("Discharge/{PId}")]
         public IActionResult Delete(string pId)
         {
-            var dischargePatient= this._occupancyService.DischargePatient(pId);
+            var dischargePatient= this._occupancyService.DischargePatient(pId, DbOps.GetDbPath());
             return Ok(dischargePatient);
         }
     }
