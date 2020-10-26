@@ -195,7 +195,7 @@ namespace AlertToCare.DatabaseOperations
                 var retVal = false;
                 while (result.Read())
                 {
-                    retVal = result.GetBoolean(0);
+                    retVal = !result.GetBoolean(0);
                 }
                 return retVal;
             }

@@ -30,12 +30,11 @@ namespace AlertToCare.Occupancy
 
 
 
-        public object AddNewPatient(PatientModel newPatient)
+        public object AddNewPatient(PatientModel newPatient, string dbPath)
         {
-            var filePath = DbOps.GetDbPath();
-            var dbObj = new PatientDbOps(filePath);
+            var dbObj = new PatientDbOps(dbPath);
             if (!dbObj.AddPatientToDb(newPatient).Equals(HttpStatusCode.OK)) return HttpStatusCode.InternalServerError;
-            var bedStatusDbObj = new BedDbOps(DbOps.GetDbPath());
+            var bedStatusDbObj = new BedDbOps(dbPath);
             return bedStatusDbObj.ChangeBedStatusToOccupied(newPatient.BedId);
         }
 
@@ -52,10 +51,11 @@ namespace AlertToCare.Occupancy
         //    //return PatientVitalList;
         //}
 
-        public bool IsBedFree(int bedId)
+
+        public bool IsBedFree(int bedId, string dbPath)
         {
-            var filePath = DbOps.GetDbPath();
-            var bedStatusObj = new BedDbOps(filePath);
+            
+            var bedStatusObj = new BedDbOps(dbPath);
             return bedStatusObj.IsBedFree(bedId);
 
             //foreach (var bedTemp in BedList.Where(bedTemp => bedTemp.Key == bedId))
@@ -65,22 +65,24 @@ namespace AlertToCare.Occupancy
             //return "Does Not Exist";
         }
 
-        private IEnumerable<int> GetBedIdFromPid(string pid)
+        
+
+        private IEnumerable<int> GetBedIdFromPid(string pid, string dbPath)
         {
-            var patients = GetPatientsDetails();
+            var patients = GetPatientsDetails(dbPath);
             var bedId = from a in patients where a.Value.PId.Equals(pid)
                                   select a.Value.BedId;
             return bedId;
 
         }
-        public object DischargePatient(string pid)
+        public object DischargePatient(string pid, string dbPath)
         {
-            var filePath = DbOps.GetDbPath();
-            var patientDbObj = new PatientDbOps(filePath);
+            var bedId = GetBedIdFromPid(pid, dbPath);
+            var patientDbObj = new PatientDbOps(dbPath);
             if (!patientDbObj.DeletePatientFromDatabase(pid).Equals(HttpStatusCode.OK))
                 return HttpStatusCode.InternalServerError;
-            var bedStatusObj = new BedDbOps(filePath);
-            return bedStatusObj.ChangeBedStatusToVacant(GetBedIdFromPid(pid).ElementAt(0));
+            var bedStatusObj = new BedDbOps(dbPath);
+            return bedStatusObj.ChangeBedStatusToVacant(bedId.ElementAt(0));
 
             //if (PatientList.ContainsKey(pid))
             //{
@@ -100,22 +102,20 @@ namespace AlertToCare.Occupancy
             //return "Patient Not Found";
 
         }
-        public Dictionary<string, PatientModel> GetPatientsDetails()
+        public Dictionary<string, PatientModel> GetPatientsDetails(string dbPath)
         {
-            var filePath = DbOps.GetDbPath();
-            var patientBbObj = new PatientDbOps(filePath);
+            var patientBbObj = new PatientDbOps(dbPath);
             return patientBbObj.GetAllPatientsFromDb();
         }
 
-        public Dictionary<int, BedModel> GetBedDetails()
+        public Dictionary<int, BedModel> GetBedDetails(string dbPath)
         {
-            var filePath = DbOps.GetDbPath();
-            var bedsObj = new BedDbOps(filePath);
+            var bedsObj = new BedDbOps(dbPath);
             return bedsObj.GetAllBedsFromDb();
         }
 
         //added
-        public Dictionary<string, PatientModel> GetPatientsDetailsInIcu(string icuId)
+        public Dictionary<string, PatientModel> GetPatientsDetailsInIcu(string icuId, string dbPath)
         {
             //return patient => patient in _patientList.Where()
             //PatientModel patient;
@@ -123,17 +123,19 @@ namespace AlertToCare.Occupancy
             //                     where patient.Value.IcuId == icuId
             //                     select patient;
             //return (Dictionary<string, PatientModel>)icuPatientList;
-            var patients = GetPatientsDetails();
+            var patients = GetPatientsDetails(dbPath);
             var patientsInIcu = from patient in patients
                 where patient.Value.IcuId.Equals(icuId)
                                 select patient;
-            return (Dictionary<string, PatientModel>) patientsInIcu;
+           
+            var dict = patientsInIcu.ToDictionary(keyValuePair => keyValuePair.Key, keyValuePair => keyValuePair.Value);
+            return dict;
         }
 
         //added
-        public Dictionary<int, BedModel> GetBedDetailsForIcu(string icuId)
+        public Dictionary<int, BedModel> GetBedDetailsForIcu(string icuId, string dbPath)
         {
-            var bedList = GetBedDetails();
+            var bedList = GetBedDetails(dbPath);
             var icuBedList = from bed in bedList
                              where bed.Value.IcuId == icuId
                              select bed;

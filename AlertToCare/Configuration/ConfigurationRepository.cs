@@ -25,7 +25,7 @@ namespace AlertToCare.Configuration
 
         public Dictionary<int, BedModel> GetBedConfigurationInformation()
         {
-            return _occupancy.GetBedDetails();
+            return _occupancy.GetBedDetails(DbOps.GetDbPath());
         }
 
         public Dictionary<string, IcuModel> GetIcuConfiguration()
