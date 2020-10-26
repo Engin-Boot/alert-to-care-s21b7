@@ -53,7 +53,7 @@ namespace AlertToCare_Tests.Configuration.Tests
         [Fact]
         public void AddNewIcuConfigurationTest()
         {
-            const string expected = "Icu Added Successfully";
+            const HttpStatusCode expected = HttpStatusCode.OK;
             var actual = _configRepo.AddNewIcuConfiguration(IcuModel);
             Assert.Equal(expected, actual);
 

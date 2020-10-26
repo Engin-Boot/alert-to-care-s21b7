@@ -8,7 +8,8 @@ namespace AlertToCare.Monitoring
     public class MonitoringRepository : IMonitoringRepository
     {
         public readonly Alerter.IAlerter Alerter = new Alerter.EmailAlert();
-        private static List<Models.PatientVital> _patientVital = new List<Models.PatientVital>();
+
+        private readonly List<Models.PatientVital> _patientVital = new List<Models.PatientVital>();
         //Occupancy.OccupancyService _occupancyService = new Occupancy.OccupancyService();
         #region vitalCheck
 
@@ -43,9 +44,9 @@ namespace AlertToCare.Monitoring
         }
         public Tuple<string, string, string> VitalsAreOk(double bpm, double spo2, double respRate)
         {
-            string bpmStatus = Check_BPM(bpm);
-            string spo2Status = Check_SPO2(spo2);
-            string respirationStatus = Check_RespRate(respRate);
+            var bpmStatus = Check_BPM(bpm);
+            var spo2Status = Check_SPO2(spo2);
+            var respirationStatus = Check_RespRate(respRate);
             return new Tuple<string, string, string>(bpmStatus, spo2Status, respirationStatus);
         }
 
@@ -68,21 +69,21 @@ namespace AlertToCare.Monitoring
 
         //    return _checkVitals;
         //}
-        VitalStatus vitalStatus = new VitalStatus();
+        readonly VitalStatus _vitalStatus = new VitalStatus();
         public VitalStatus CheckVitalOfAllPatients()
         {
             
-            foreach (Models.PatientVital patientTemp in _patientVital.ToList())
+            foreach (var patientTemp in _patientVital.ToList())
             {
-                var status = (VitalsAreOk(patientTemp.VitalBpm, patientTemp.VitalSpo2, patientTemp.VitalRespRate));
+                var (item1, item2, item3) = (VitalsAreOk(patientTemp.VitalBpm, patientTemp.VitalSpo2, patientTemp.VitalRespRate));
                
-                vitalStatus.PId = patientTemp.PId;
-                vitalStatus.VitalBpmStatus = status.Item1;
-                vitalStatus.VitalSPo2Status = status.Item2;
-                vitalStatus.VitalRespRateStatus =status.Item3;
+                _vitalStatus.PId = patientTemp.PId;
+                _vitalStatus.VitalBpmStatus = item1;
+                _vitalStatus.VitalSPo2Status = item2;
+                _vitalStatus.VitalRespRateStatus =item3;
             }
 
-            return vitalStatus;
+            return _vitalStatus;
         }
 
     }
