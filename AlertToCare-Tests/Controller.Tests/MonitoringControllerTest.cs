@@ -1,18 +1,27 @@
 ﻿using AlertToCare.Controllers;
 using AlertToCare.Monitoring;
 using Moq;
+using Xunit;
 
 namespace AlertToCare_Tests.Controller.Tests
 {
   public  class MonitoringControllerTest
     {
        
-        private readonly MonitorController _monitorController;
+        //private readonly MonitorController _monitorController;
 
-        public MonitoringControllerTest()
+        //public MonitoringControllerTest()
+        //{
+        //    var monitorMock = new Mock<IMonitoringRepository>();
+        //   _monitorController = new MonitorController(monitorMock.Object);
+        //}
+
+        [Fact]
+        public void GetAllPatientMonitoringData()
         {
-            var monitorMock = new Mock<IMonitoringRepository>();
-           _monitorController = new MonitorController(monitorMock.Object);
+            var monitoringObj = new MonitorController(new MonitoringRepository());
+            var allPatientsData = monitoringObj.GeAllPatientVitals();
+            Assert.NotNull(allPatientsData);
         }
 
         //[Fact]

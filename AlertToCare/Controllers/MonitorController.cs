@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AlertToCare.Models;
+using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 
 namespace AlertToCare.Controllers
 {
@@ -22,10 +24,10 @@ namespace AlertToCare.Controllers
         //}
         [HttpGet]
         [Route("[action]")]
-        public IActionResult GeAllPatientVitals()
+        public Dictionary<string, PatientVital> GeAllPatientVitals()
         {   
-            var vital = _monitoring.CheckVitalOfAllPatients();
-            return Ok(vital);
+            var vitals = _monitoring.CheckVitalOfAllPatients();
+            return vitals;
         }
         
     }
