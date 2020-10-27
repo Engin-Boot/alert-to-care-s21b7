@@ -1,6 +1,5 @@
 ﻿using AlertToCare.Controllers;
 using AlertToCare.Monitoring;
-using Moq;
 using Xunit;
 
 namespace AlertToCare_Tests.Controller.Tests

@@ -90,7 +90,7 @@ namespace AlertToCare_Tests.OccupancyTests
 
 
         [Fact]
-        public void WhenIcuDetailsAreProvidedGetAllBedsWithinIcu()
+        public void GetAllBedsOfGivenIcu()
         {
             var occupancyObj = GetOccupancyObject();
             var result = occupancyObj.GetBedDetailsForIcu("ICU01", GetDbPathForTesting());
