@@ -6,7 +6,7 @@ using DataFormat = RestSharp.DataFormat;
 
 namespace GuiClient.ServerWrapper
 {
-    public class BedsWrapper:Wrapper
+    public class BedsWrapper : Wrapper
     {
         public List<BedModel> GetListOfBedsForIcu(string icuId)
         {
@@ -19,23 +19,35 @@ namespace GuiClient.ServerWrapper
             return result;
         }
 
-        public void PostBed(BedModel newBed)
+        public void AddBed(BedModel newBed)
         {
-            Client=new RestClient(BaseUrl);
-            Request = new RestRequest("Configuration/PostBedModelData", Method.POST){RequestFormat = DataFormat.Json};
-            //Request.AddJsonBody(new 
-            //{
-            //    //bedId = 0,
-            //    icuId = icuIdPassed,
-            //    bedLayout = bedLayoutPassed,
-            //    bedNumber = bedNumberPassed,
-            //    //bedStatus = "Dummy"
-            //});
-            Request.AddQueryParameter("newBedModel", newBed.ToString());
+            Client = new RestClient(BaseUrl);
+            Request = new RestRequest("Configuration/PostBedModelData", Method.POST) { RequestFormat = DataFormat.Json };
+            Request.AddJsonBody(newBed);
             Response = Client.Execute(Request);
-            if (Response.StatusCode.Equals(HttpStatusCode.OK))
-                MessageBox.Show("Bed is Added.");
-            MessageBox.Show("Internal Server Error.");
+            MessageBox.Show(Response.StatusCode.Equals(HttpStatusCode.OK)
+                ? "Bed is Added."
+                : "Internal Server Error.");
+        }
+
+        public void RemoveBed(int bedId)
+        {
+            Client = new RestClient(BaseUrl);
+            Request = new RestRequest($"Configuration/RemoveBed/{bedId}", Method.DELETE) { RequestFormat = DataFormat.Json };
+            Response = Client.Execute(Request);
+            MessageBox.Show(Response.StatusCode.Equals(HttpStatusCode.OK)
+                ? "Bed is Added."
+                : "Internal Server Error.");
+        }
+
+        public List<string> GetBedLayouts()
+        {
+            Client = new RestClient(BaseUrl);
+            Request = new RestRequest("Configuration/GetAllBedLayouts", Method.GET) { RequestFormat = DataFormat.Json };
+            Response = Client.Execute(Request);
+            return Response.StatusCode.Equals(HttpStatusCode.OK)
+                ? Deserializer.Deserialize<List<string>>(Response)
+                : null;
         }
     }
 }
