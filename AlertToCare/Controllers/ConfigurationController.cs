@@ -88,15 +88,15 @@ namespace AlertToCare.Controllers
 
         // DELETE: api/ApiWithActions/5
         //Delete Bed
-        [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        [HttpDelete("RemoveBed/{bedId}")]
+        public IActionResult Delete(int bedId)
         {
-            var removeBed = this._config.RemoveBed(id, DbOps.GetDbPath());
+            var removeBed = this._config.RemoveBed(bedId, DbOps.GetDbPath());
             return Ok(removeBed);
         }
 
-        [HttpPost]
-        [Route("[action]")]
+        [HttpDelete]
+        [Route("RemoveIcu/{icuId}")]
         public object DeleteIcu(string icuId)
         {
             return this._config.DeleteIcu(icuId, DbOps.GetDbPath());

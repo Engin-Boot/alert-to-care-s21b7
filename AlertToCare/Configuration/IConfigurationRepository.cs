@@ -10,7 +10,7 @@ namespace AlertToCare.Configuration
         Dictionary<string, IcuModel> GetIcuConfiguration(string dbPath);
         object AddNewIcuConfiguration(IcuModel newIcu, string dbPath);
         object RemoveBed(int bedId, string dbPath);
-        object GetAllBedLayouts(string dbPath);
+        List<string> GetAllBedLayouts(string dbPath);
         object DeleteIcu(string icuId, string dbPath);
     }
 }

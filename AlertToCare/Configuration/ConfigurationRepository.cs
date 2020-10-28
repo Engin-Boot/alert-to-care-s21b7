@@ -11,7 +11,7 @@ namespace AlertToCare.Configuration
         private readonly OccupancyService _occupancy = new OccupancyService();
         //private readonly RemovedBedThenUpdateIcu _updateIcu = new RemovedBedThenUpdateIcu();
 
-        public object GetAllBedLayouts(string dbPath)
+        public List<string> GetAllBedLayouts(string dbPath)
         {
             var bedLayoutDbObj = new BedLayoutDbOps(dbPath);
             return bedLayoutDbObj.GetAllLayouts();
