@@ -1,4 +1,4 @@
-﻿namespace AlertToCare.Models
+﻿namespace GuiClient
 {
     public class IcuModel
     {

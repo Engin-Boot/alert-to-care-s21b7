@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using AlertToCare.Models;
 
 namespace GuiClient
 {
@@ -27,6 +26,7 @@ namespace GuiClient
             InitializePatients();
             InitializeBeds();
             InitializeIcu();
+            InitializeIcuWithPatientsDict();
         }
 
         private void InitializePatients()
@@ -86,7 +86,7 @@ namespace GuiClient
                 BedLayout = "left",
                 BedStatus = "Occupied",
                 IcuId = "I001",
-                BedNumber = "1"
+                BedNumber = 1
             });
             Beds.Add(new BedModel()
             {
@@ -94,7 +94,7 @@ namespace GuiClient
                 BedLayout = "right",
                 BedStatus = "Occupied",
                 IcuId = "I001",
-                BedNumber = "2"
+                BedNumber = 2
             });
             Beds.Add(new BedModel()
             {
@@ -102,7 +102,7 @@ namespace GuiClient
                 BedLayout = "center",
                 BedStatus = "Free",
                 IcuId = "I001",
-                BedNumber = "3"
+                BedNumber = 3
             });
             Beds.Add(new BedModel()
             {
@@ -110,7 +110,7 @@ namespace GuiClient
                 BedLayout = "center",
                 BedStatus = "Free",
                 IcuId = "I002",
-                BedNumber = "1"
+                BedNumber = 1
             });
             Beds.Add(new BedModel()
             {
@@ -118,7 +118,15 @@ namespace GuiClient
                 BedLayout = "left",
                 BedStatus = "Free",
                 IcuId = "I002",
-                BedNumber = "2"
+                BedNumber = 2
+            });
+        }
+
+        private void InitializeIcuWithPatientsDict()
+        {
+            IcuWithPatients.Add("Icu001",new List<PatientModel>()
+            {
+
             });
         }
     }

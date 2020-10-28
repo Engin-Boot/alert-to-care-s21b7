@@ -42,11 +42,11 @@
                           SelectedValuePath="IcuId"
                           SelectionChanged="IcuIds_OnSelectionChanged"></ComboBox>
             
-                    <StackPanel Height="100" MinWidth="100" HorizontalAlignment="Stretch" Background="Yellow"
+                    <StackPanel Height="100" MinWidth="100" HorizontalAlignment="Stretch" Background="Aquamarine"
                                 Grid.Row="0" Grid.Column="1">
                         
                     </StackPanel>
-                <StackPanel Height="100" MinWidth="100" HorizontalAlignment="Stretch" Background="Red"
+                <StackPanel Height="100" MinWidth="100" HorizontalAlignment="Stretch" Background="BlueViolet"
                             Grid.Row="0" Grid.Column="2"></StackPanel>
                 </Grid.Children>
             </Grid>

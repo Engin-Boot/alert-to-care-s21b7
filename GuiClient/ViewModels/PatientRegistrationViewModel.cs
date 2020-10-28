@@ -7,7 +7,6 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using AlertToCare.Models;
 using GuiClient.Annotations;
 using GuiClient.Commands;
 
@@ -186,9 +185,5 @@ namespace GuiClient.ViewModels
 
 
         #endregion
-
-
-
-
     }
 }

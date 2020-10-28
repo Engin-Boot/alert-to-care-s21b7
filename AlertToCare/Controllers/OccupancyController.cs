@@ -23,7 +23,7 @@ namespace AlertToCare.Controllers
         [Route("[action]")]
         public IActionResult GetAllPatients()
         {
-            var patientModels= this._occupancyService.GetPatientsDetails(DbOps.GetDbPath());
+            var patientModels = this._occupancyService.GetPatientsDetails(DbOps.GetDbPath());
             return Ok(patientModels);
         }
 
@@ -42,14 +42,14 @@ namespace AlertToCare.Controllers
         [Route("[action]")]
         public IActionResult GetBedDetails()
         {
-          var bedModel =this._occupancyService.GetBedDetails(DbOps.GetDbPath());
+            var bedModel = this._occupancyService.GetBedDetails(DbOps.GetDbPath());
             return Ok(bedModel);
         }
 
         //Get all the beds in particular icu of the hospital
         // GET: api/<OccupancyController>/GetBedDetails/icu1
         [HttpGet]
-        [Route("GetBedDetails/{IcuId}")]
+        [Route("GetBedDetailsForIcu/{IcuId}")]
         public IActionResult GetBedDetailsForIcu(string icuId)
         {
             var bedModel = this._occupancyService.GetBedDetailsForIcu(icuId, DbOps.GetDbPath());
@@ -61,7 +61,7 @@ namespace AlertToCare.Controllers
         [HttpGet("GetBedStatus/{BedId}")]
         public IActionResult GetBedStatus(int bedId)
         {
-            var bedStatus= this._occupancyService.IsBedFree(bedId, DbOps.GetDbPath());
+            var bedStatus = this._occupancyService.IsBedFree(bedId, DbOps.GetDbPath());
             return Ok(bedStatus);
         }
 
@@ -71,16 +71,16 @@ namespace AlertToCare.Controllers
         {
             var dbPath = DbOps.GetDbPath();
             if (newPatient.Equals(null)) return BadRequest();
-           var patientModelData= this._occupancyService.AddNewPatient(newPatient, dbPath);
-           return Ok(patientModelData);
+            var patientModelData = this._occupancyService.AddNewPatient(newPatient, dbPath);
+            return Ok(patientModelData);
 
         }
-        
+
         // DELETE api/<OccupancyController>/Discharge/patient5
         [HttpDelete("Discharge/{PId}")]
         public IActionResult Delete(string pId)
         {
-            var dischargePatient= this._occupancyService.DischargePatient(pId, DbOps.GetDbPath());
+            var dischargePatient = this._occupancyService.DischargePatient(pId, DbOps.GetDbPath());
             return Ok(dischargePatient);
         }
     }

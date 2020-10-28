@@ -16,7 +16,7 @@
         <Grid.Children>
             <TabControl Grid.Row="0" Grid.Column="0" Style="{StaticResource TabControlBack}" >
                 <TabItem Header="Add" Name="AddBedTab" Style="{StaticResource AddDelTab}">
-                        <local:BedRegistrationForm DataContext="{Binding}"></local:BedRegistrationForm>
+                        <local:BedRegistrationForm ></local:BedRegistrationForm>
                 </TabItem>
                 <TabItem Header="Delete" Name="DeleteBedTab" Style="{StaticResource AddDelTab}">
                         <local:BedDeletionView></local:BedDeletionView>

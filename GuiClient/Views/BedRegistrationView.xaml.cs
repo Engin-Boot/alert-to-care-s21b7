@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -22,11 +23,11 @@ namespace GuiClient.Views
     
     public partial class BedRegistrationForm : UserControl
     {
-        private readonly BedRegistrationViewModel _bedRegistrationVm = new BedRegistrationViewModel();
+        public BedRegistrationViewModel BedRegistrationVm = new BedRegistrationViewModel();
         public BedRegistrationForm()
         {
             InitializeComponent();
-            DataContext = _bedRegistrationVm;
+            DataContext = BedRegistrationVm;
         }
     }
 }
