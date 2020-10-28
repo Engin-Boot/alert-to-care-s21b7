@@ -1,24 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
+using GuiClient.Commands;
+using GuiClient.ServerWrapper;
 using RestSharp;
 using RestSharp.Deserializers;
 using RestSharp.Serialization.Json;
 
 namespace GuiClient.ViewModels
 {
-    public class IcuRegistrationViewModel 
+    public class IcuRegistrationViewModel : INotifyPropertyChanged
     {
         #region Fields
 
-        public string BaseUrl = "http://localhost:5000/api/";
-        private static RestClient _client;
-        private static RestRequest _request;
-        private readonly JsonDeserializer _deserializer = new JsonDeserializer();
-        private static IRestResponse _response;
+        private readonly IcuWrapper _icuWrapper = new IcuWrapper();
+        private List<string> _listOfIcuIds;
+        private string _selectedIcu;
+        private int _numberOfBeds;
 
         #endregion
 
@@ -26,42 +30,62 @@ namespace GuiClient.ViewModels
 
         public IcuRegistrationViewModel()
         {
-            this.AddIcuCommand = new Commands.DelegateCommandClass(new Action<object>(this.AddIcuWrapper),
-                new Func<object, bool>(CanExecuteWrapper) );
+            ListOfIcu = _icuWrapper.GetAllIcu();
+            this.AddIcuCommand = new RelayCommand(this.AddIcuWrapper);
+            
         }
 
         #endregion
 
         #region Properties
 
+        public List<string> ListOfIcu
+        {
+            get => _listOfIcuIds;
+            set
+            {
+                _listOfIcuIds = value;
+                OnPropertyChanged(nameof(ListOfIcu));
+            }
+        }
 
+        public string SelectedIcu
+        {
+            get => _selectedIcu;
+            set
+            {
+                _selectedIcu = value;
+                OnPropertyChanged(nameof(SelectedIcu));
+            }
+        }
 
+        public int NumberOfBeds
+        {
+            get => _numberOfBeds;
+            set
+            {
+                _numberOfBeds = value;
+                OnPropertyChanged(nameof(NumberOfBeds));
+            }
+        }
         #endregion
 
         #region Event
 
-
+        public event PropertyChangedEventHandler PropertyChanged;
 
         #endregion
 
         #region Logic
-
-        public void AddIcu()
+        protected virtual void OnPropertyChanged(string propertyName = null)
         {
-            //do the post stuff
-            _client = new RestClient(BaseUrl);
-            _request = new RestRequest("configuration/PostIcuModelData", Method.POST)
-            {
-                RequestFormat = DataFormat.Json
-            };
-            _request.AddJsonBody(new
-            {
-                icuId = "ICU06",
-                bedCount = 1
-            });
-            _response = _client.Execute(_request);
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
+        //public bool IsIcuAlreadyPresent()
+        //{
+        //    return ListOfIcu.Any(icuId => icuId.Equals(SelectedIcu));
+        //}
         #endregion
 
         #region Commands
@@ -75,16 +99,22 @@ namespace GuiClient.ViewModels
 
         #region CommandHelperMethods
 
-        private void AddIcuWrapper(object parameter)
+        public void AddIcuWrapper(object parameter)
         {
-            this.AddIcu();
-        }
-
-        private static bool CanExecuteWrapper(object parameter)
-        {
-            return true;
+            //if (!IsIcuAlreadyPresent())
+            //{
+            //    MessageBox.Show("ICU is already present.");
+            //}
+            //else
+            //{
+                _icuWrapper.AddIcu(new IcuModel(){BedCount = NumberOfBeds,IcuId = SelectedIcu});
+                NumberOfBeds = 0;
+                SelectedIcu = "";
+                ListOfIcu = _icuWrapper.GetAllIcu();
+            //}
         }
 
         #endregion
+
     }
 }

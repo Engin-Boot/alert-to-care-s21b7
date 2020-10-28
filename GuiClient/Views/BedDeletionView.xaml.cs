@@ -22,22 +22,14 @@ namespace GuiClient.Views
     /// <summary>
     /// Interaction logic for BedDeletionView.xaml
     /// </summary>
-    public partial class BedDeletionView : UserControl , INotifyPropertyChanged
+    public partial class BedDeletionView
     {
         //bed list get
-        private readonly BedDeletionViewModel _bedDeletionVm  =  new BedDeletionViewModel();
+        public readonly BedDeletionViewModel BedDeletionVm  =  new BedDeletionViewModel();
         public BedDeletionView()
         {
             InitializeComponent();
-            DataContext = _bedDeletionVm;
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        [NotifyPropertyChangedInvocator]
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            DataContext = BedDeletionVm;
         }
     }
 }

@@ -21,7 +21,7 @@ namespace GuiClient.Views
     /// </summary>
     public partial class IcuRegistrationForm : UserControl
     {
-        public ViewModels.IcuRegistrationViewModel ViewModel = new ViewModels.IcuRegistrationViewModel();
+        public IcuRegistrationViewModel ViewModel = new IcuRegistrationViewModel();
         public IcuRegistrationForm()
         {
             InitializeComponent();
