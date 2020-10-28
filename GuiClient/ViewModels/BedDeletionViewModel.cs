@@ -112,11 +112,7 @@ namespace GuiClient.ViewModels
         public void DeleteBedWrapper(object parameter)
         {
             _bedsWrapper.RemoveBed(SelectedBedId);
-        }
-
-        public bool CanExecuteWrapper(object parameter)
-        {
-            return true;
+            GetAllBedsOfSpecificIcu();
         }
 
         #endregion

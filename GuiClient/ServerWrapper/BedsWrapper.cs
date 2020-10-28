@@ -36,7 +36,7 @@ namespace GuiClient.ServerWrapper
             Request = new RestRequest($"Configuration/RemoveBed/{bedId}", Method.DELETE) { RequestFormat = DataFormat.Json };
             Response = Client.Execute(Request);
             MessageBox.Show(Response.StatusCode.Equals(HttpStatusCode.OK)
-                ? "Bed is Added."
+                ? "Bed is Removed."
                 : "Internal Server Error.");
         }
 
