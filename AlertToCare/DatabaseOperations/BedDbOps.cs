@@ -18,15 +18,14 @@ namespace AlertToCare.DatabaseOperations
             try
             {
                 command.CommandText =
-                    @"INSERT INTO BEDS(BedId, IcuId, BedLayout, BedNo)" +
-                    "VALUES (@BedId, @IcuId, @BedLayout, @BedNo);";
-                command.Parameters.AddWithValue(@"BedId", newBed.BedId);
+                    @"INSERT INTO BEDS(IcuId, BedLayout, BedNo)" +
+                    "VALUES (@IcuId, @BedLayout, @BedNo);";
                 command.Parameters.AddWithValue(@"IcuId", newBed.IcuId);
                 command.Parameters.AddWithValue(@"BedLayout", newBed.BedLayout);
                 command.Parameters.AddWithValue(@"BedNo", newBed.BedNumber);
                 command.Prepare();
                 command.ExecuteNonQuery();
-                return AddBedStatusWhenBedAdded(newBed.BedId);
+                return AddBedStatusWhenBedAdded();
             }
             catch (Exception e)
             {
@@ -39,13 +38,12 @@ namespace AlertToCare.DatabaseOperations
             }
         }
 
-        private object AddBedStatusWhenBedAdded(int newBedId)
+        private object AddBedStatusWhenBedAdded()
         {
             try
             {
                 var command = DbConnection.CreateCommand();
-                command.CommandText = @"INSERT INTO BEDSTATUS(BEDID, OCCUPIED) VALUES (@BEDID , @OCCUPIED);";
-                command.Parameters.AddWithValue(@"BEDID", newBedId);
+                command.CommandText = @"INSERT INTO BEDSTATUS(OCCUPIED) VALUES ( @OCCUPIED);";
                 command.Parameters.AddWithValue(@"OCCUPIED", bool.Parse("false"));
                 command.Prepare();
                 command.ExecuteNonQuery();
