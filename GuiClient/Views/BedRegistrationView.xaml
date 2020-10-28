@@ -4,8 +4,13 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:GuiClient.Views"
+             xmlns:viewModels="clr-namespace:GuiClient.ViewModels"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <!--<UserControl.DataContext>
+         Instantiates ViewModel type using DefaultConstructor
+        <viewModels:BedRegistrationViewModel></viewModels:BedRegistrationViewModel>
+    </UserControl.DataContext>-->
     <!--<StackPanel  HorizontalAlignment="Center" VerticalAlignment="Center">
         
         <ComboBox x:Name="IcuListDropDown" HorizontalAlignment="Center" VerticalAlignment="Center"
@@ -29,12 +34,20 @@
 
         <Grid.Children >
             <TextBlock Grid.Row="0" Grid.Column="0" Text="ICU" Style="{StaticResource TextBlockStyle}"></TextBlock>
-            <ComboBox x:Name="IcuListDropDown" Style="{StaticResource ComboBoxStyle}"  Grid.Row="0" Grid.Column="1" Margin ="30"></ComboBox>
+            <ComboBox x:Name="IcuListDropDown" Style="{StaticResource ComboBoxStyle}"  Grid.Row="0" Grid.Column="1" Margin ="30"
+                      ItemsSource="{Binding ListOfIcu }"
+                      SelectedValue="{Binding SelectedIcu}"></ComboBox>
             <TextBlock Grid.Row="1" Grid.Column="0" Text="Bed Number" Style="{StaticResource TextBlockStyle}"></TextBlock>
-            <TextBox x:Name="BedNumber" Style="{StaticResource TextBoxStyle}"  Grid.Row="1" Grid.Column="1" Margin ="30"></TextBox>
+            <TextBox x:Name="BedNumber" Style="{StaticResource ErrorFeedbackStyle}" 
+                     Grid.Row="1" Grid.Column="1" Margin ="30"
+                     Text="{Binding BedNumber}"></TextBox>
             <TextBlock Grid.Row="2" Grid.Column="0" Text="Bed Layout" Style="{StaticResource TextBlockStyle}"></TextBlock>
-            <ComboBox x:Name="LayoutListDropDown" Style="{StaticResource ComboBoxStyle}"  Grid.Row="2" Grid.Column="1" Margin ="30"></ComboBox>
-            <Button x:Name="AddBed" Style="{StaticResource ButtonStyle}" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2">Add Bed</Button>
+            <ComboBox x:Name="LayoutListDropDown" Style="{StaticResource ComboBoxStyle}"  
+                      Grid.Row="2" Grid.Column="1" Margin ="30" 
+                      ItemsSource="{Binding StatusOfBeds}"
+                      SelectedValue="{Binding SelectedBedStatus}"></ComboBox>
+            <Button x:Name="AddBed" Style="{StaticResource ButtonStyle}" Grid.Row="3" Grid.Column="0" 
+                    Grid.ColumnSpan="2" Command="{Binding AddBedCommand}">Add Bed</Button>
         </Grid.Children>
     </Grid>
 </UserControl>

@@ -1,4 +1,4 @@
-﻿namespace AlertToCare.Models
+﻿namespace GuiClient
 {
     public class BedModel
     {
@@ -6,6 +6,6 @@
         public string IcuId { get; set; }
         public string BedLayout { get; set; }
         public string BedStatus { get; set; }
-        public string BedNumber { get; set; }
+        public int BedNumber { get; set; }
     }
 }

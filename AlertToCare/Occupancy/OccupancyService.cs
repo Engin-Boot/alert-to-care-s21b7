@@ -54,7 +54,7 @@ namespace AlertToCare.Occupancy
 
         public bool IsBedFree(int bedId, string dbPath)
         {
-            
+
             var bedStatusObj = new BedDbOps(dbPath);
             return bedStatusObj.IsBedFree(bedId);
 
@@ -65,13 +65,14 @@ namespace AlertToCare.Occupancy
             //return "Does Not Exist";
         }
 
-        
+
 
         private IEnumerable<int> GetBedIdFromPid(string pid, string dbPath)
         {
             var patients = GetPatientsDetails(dbPath);
-            var bedId = from a in patients where a.Value.PId.Equals(pid)
-                                  select a.Value.BedId;
+            var bedId = from a in patients
+                        where a.Value.PId.Equals(pid)
+                        select a.Value.BedId;
             return bedId;
 
         }
@@ -125,22 +126,19 @@ namespace AlertToCare.Occupancy
             //return (Dictionary<string, PatientModel>)icuPatientList;
             var patients = GetPatientsDetails(dbPath);
             var patientsInIcu = from patient in patients
-                where patient.Value.IcuId.Equals(icuId)
+                                where patient.Value.IcuId.Equals(icuId)
                                 select patient;
-           
-            var dict = patientsInIcu.ToDictionary(keyValuePair => keyValuePair.Key, keyValuePair => keyValuePair.Value);
-            return dict;
+            return (Dictionary<string, PatientModel>)patientsInIcu;
         }
 
         //added
-        public Dictionary<int, BedModel> GetBedDetailsForIcu(string icuId, string dbPath)
+        public List<BedModel> GetBedDetailsForIcu(string icuId, string dbPath)
         {
             var bedList = GetBedDetails(dbPath);
             var icuBedList = from bed in bedList
                              where bed.Value.IcuId == icuId
-                             select bed;
-            var dict = icuBedList.ToDictionary(keyValuePair => keyValuePair.Key, keyValuePair => keyValuePair.Value);
-            return dict;
+                             select bed.Value;
+            return icuBedList.ToList();
         }
 
         //private void InitBedLayouts()
