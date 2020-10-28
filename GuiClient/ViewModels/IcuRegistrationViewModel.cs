@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using RestSharp;
 using RestSharp.Deserializers;
+using RestSharp.Serialization.Json;
 
 namespace GuiClient.ViewModels
 {
@@ -53,7 +54,7 @@ namespace GuiClient.ViewModels
             {
                 RequestFormat = DataFormat.Json
             };
-            _request.AddBody(new
+            _request.AddJsonBody(new
             {
                 icuId = "ICU06",
                 bedCount = 1

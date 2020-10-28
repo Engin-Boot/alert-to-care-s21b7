@@ -6,9 +6,11 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using RestSharp;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using GuiClient.Annotations;
 using GuiClient.Commands;
+using GuiClient.ServerWrapper;
 using RestSharp.Deserializers;
 
 namespace GuiClient.ViewModels
@@ -19,16 +21,11 @@ namespace GuiClient.ViewModels
 
         #region Fields
 
-        public string BaseUrl = "http://localhost:5000/api/";
-        private static RestClient _client;
-        private static RestRequest _request;
-        private readonly JsonDeserializer _deserializer = new JsonDeserializer();
-        private static IRestResponse _response;
         private string _selectedIcu;
         private List<string> _listOfIcu ;
-        private int _bedNumber;
+        private string _bedNumber;
         private string _bedStatus;
-        private string _selectedBedStatus;
+        private string _selectedBedLayout;
 
         #endregion
 
@@ -65,7 +62,7 @@ namespace GuiClient.ViewModels
             }
         }
 
-        public int BedNumber
+        public string BedNumber
         {
             get => _bedNumber;
             set
@@ -87,18 +84,20 @@ namespace GuiClient.ViewModels
 
         public List<string> StatusOfBeds { get; } = new List<string>()
         {
-            "Left","Right","Center"
+            "LEFT","RIGHT","MIDDLE"
         };
 
-        public string SelectedBedStatus
+        public string SelectedBedLayOut
         {
-            get => _selectedBedStatus;
+            get => _selectedBedLayout;
             set
             {
-                _selectedBedStatus = value;
-                OnPropertyChanged(nameof(SelectedBedStatus));
+                _selectedBedLayout = value;
+                OnPropertyChanged(nameof(_selectedBedLayout));
             }
         }
+
+        
         #endregion
 
         #region Event
@@ -116,31 +115,27 @@ namespace GuiClient.ViewModels
 
         public void GetAllIcu()
         {
-            _client= new RestClient(BaseUrl);
-            _request = new RestRequest("configuration/GetIcuModelInformation");
-            _response = _client.Execute(_request);
-
-            var dictionaryOfIcuModels= _deserializer.Deserialize<Dictionary<string, IcuModel>>(_response);
-            ListOfIcu = dictionaryOfIcuModels.Keys.ToList<string>();
+            //_client= new RestClient(BaseUrl);
+            //_request = new RestRequest("configuration/GetIcuModelInformation");
+            //_response = _client.Execute(_request);
+            var icuWrapper = new IcuWrapper();
+            
+            //var dictionaryOfIcuModels= _deserializer.Deserialize<Dictionary<string, IcuModel>>(_response);
+            ListOfIcu = icuWrapper.GetAllIcu();
         }
 
         public bool GetAllBedsOfSpecificIcu() ///instead get all bedds and then check in that
         {
-            _client = new RestClient(BaseUrl);
-            _request = new RestRequest("Occupancy/GetBedDetailsForIcu/{IcuId}")
-            {
-                RequestFormat = DataFormat.Json
-            };
-            _request.AddUrlSegment("IcuId", SelectedIcu);
-            _response = _client.Execute(_request);
+            
+            var bedWrapper = new BedsWrapper();
 
-            var resultant = _deserializer.Deserialize<List<BedModel>>(_response); //add to some property
+            var resultant = bedWrapper.GetListOfBedsForIcu(SelectedIcu); //add to some property
             foreach (var bed in resultant)
             {
-                if (bed.BedNumber == BedNumber)
+                if (bed.BedNumber.Equals(BedNumber))
                     return false;
             }
-
+            
             return true;
         }
 
@@ -161,6 +156,19 @@ namespace GuiClient.ViewModels
         public void AddBedWrapper(object parameter)
         {
            // this.AddIcu();
+           if (!GetAllBedsOfSpecificIcu())
+               MessageBox.Show("Bed Number Already Present.");
+           else
+           {
+               var bedWrapper = new BedsWrapper();
+               var newBed = new BedModel()
+               {
+                   BedNumber = _bedNumber,
+                   IcuId = _selectedIcu,
+                   BedLayout = _selectedBedLayout
+               };
+               bedWrapper.PostBed(newBed);
+           }
         }
 
         public bool CanExecuteWrapper(object parameter)

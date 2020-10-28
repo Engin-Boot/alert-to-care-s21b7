@@ -6,6 +6,6 @@
         public string IcuId { get; set; }
         public string BedLayout { get; set; }
         public string BedStatus { get; set; }
-        public int BedNumber { get; set; }
+        public string BedNumber { get; set; }
     }
 }

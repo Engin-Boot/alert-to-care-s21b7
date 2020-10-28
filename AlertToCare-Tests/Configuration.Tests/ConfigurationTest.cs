@@ -22,10 +22,11 @@ namespace AlertToCare_Tests.Configuration.Tests
 
         private static readonly BedModel BedModel = new BedModel()
        {
-           BedId = 3,
+           //BedId = 3,
            IcuId = "ICU01",
            BedLayout = "LEFT CORNER",
-           BedStatus = "False"
+           BedNumber = "1"
+           //BedStatus = "Dummy"
        };
 
       private static readonly IcuModel IcuModel = new IcuModel()
@@ -62,6 +63,8 @@ namespace AlertToCare_Tests.Configuration.Tests
             Assert.Equal(expected, _configRepo.AddNewBedConfiguration(BedModel, GetDbPathForTesting()));
             _configRepo.RemoveBed(BedModel.BedId, GetDbPathForTesting());
         }
+
+
 
         [Fact]
         public void AddNewIcuConfigurationTest()

@@ -45,7 +45,7 @@
             <ComboBox x:Name="LayoutListDropDown" Style="{StaticResource ComboBoxStyle}"  
                       Grid.Row="2" Grid.Column="1" Margin ="30" 
                       ItemsSource="{Binding StatusOfBeds}"
-                      SelectedValue="{Binding SelectedBedStatus}"></ComboBox>
+                      SelectedValue="{Binding SelectedBedLayOut}"></ComboBox>
             <Button x:Name="AddBed" Style="{StaticResource ButtonStyle}" Grid.Row="3" Grid.Column="0" 
                     Grid.ColumnSpan="2" Command="{Binding AddBedCommand}">Add Bed</Button>
         </Grid.Children>
