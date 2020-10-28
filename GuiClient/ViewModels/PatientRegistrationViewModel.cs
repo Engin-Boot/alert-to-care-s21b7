@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using GuiClient.Annotations;
 using GuiClient.Commands;
+using GuiClient.Models;
+using GuiClient.ServerWrapper;
 
 namespace GuiClient.ViewModels
 {
@@ -31,20 +33,27 @@ namespace GuiClient.ViewModels
                 "Male" , "Female" , "Others"
             };
             Admit = new RelayCommand(AdmitPatient);
+            IcuList = GetAllIcusFromServer();
         }
 
         private void AdmitPatient(object obj)
         {
-            IcuList = GetAllIcusFromServer();
-        }
-
-        private List<IcuModel> GetAllIcusFromServer()
-        {
             throw new NotImplementedException();
         }
-        private void GetAllBedsForGivenIcu(string selectedIcuId)
+
+        private List<string> GetAllIcusFromServer()
         {
-            
+            var wrapperObj = new IcuWrapper();
+            return wrapperObj.GetAllIcu();
+        }
+
+        private void GetAllBedsForIcu(string icuId)
+        {
+            var wrapperObj = new BedsWrapper();
+            var ret = wrapperObj.GetListOfBedsForIcu(icuId);
+            BedList = ret;
+            //var bedList = ret.Select(var1 => var1.BedNumber).ToList();
+            //_bedsInIcu = bedList;
         }
 
         #endregion
@@ -57,7 +66,7 @@ namespace GuiClient.ViewModels
             set
             {
                 _patient.IcuId = value;
-                GetAllBedsForGivenIcu(SelectedIcuId);
+                GetAllBedsForIcu(SelectedIcuId);
                 OnPropertyChanged(nameof(SelectedIcuId));
             }
         }
@@ -137,15 +146,25 @@ namespace GuiClient.ViewModels
             }
         }
 
-        public List<string> GenderList
+        private List<string> GenderList
         {
             get;
-            set;
         }
 
-        public List<PatientModel> PatientList;
-        public List<BedModel> BedList;
-        public List<IcuModel> IcuList;
+        public List<PatientModel> PatientList { get; set; }
+
+        private List<BedModel> BedList
+        {
+            get => bedList;
+            set
+            {
+                bedList = value;
+                FreeBedsInParticularIcu();
+            }
+        }
+        private List<string> IcuList { get; set; }
+        private List<BedModel> bedList;
+        public List<string> BedsInIcu { get; set; }
 
         #endregion
 
