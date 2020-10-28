@@ -8,10 +8,10 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 
-    <UserControl.DataContext>
-        <!-- Instantiates ViewModel type using DefaultConstructor-->
+    <!--<UserControl.DataContext>
+        --><!-- Instantiates ViewModel type using DefaultConstructor--><!--
         <viewModels:PatientRegistrationViewModel></viewModels:PatientRegistrationViewModel>
-    </UserControl.DataContext>
+    </UserControl.DataContext>-->
 
     <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Loaded="FrameworkElement_OnLoaded">
         <Grid.RowDefinitions>

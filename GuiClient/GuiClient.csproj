@@ -68,6 +68,9 @@
     <Compile Include="PatientModel.cs" />
     <Compile Include="PatientVital.cs" />
     <Compile Include="Properties\Annotations.cs" />
+    <Compile Include="ServerWrapper\BedsWrapper.cs" />
+    <Compile Include="ServerWrapper\IcuWrapper.cs" />
+    <Compile Include="ServerWrapper\Wrapper.cs" />
     <Compile Include="ValidationRules\EmailValidation.cs" />
     <Compile Include="ValidationRules\NameValidation.cs" />
     <Compile Include="ValidationRules\PhoneNumberValidation.cs" />

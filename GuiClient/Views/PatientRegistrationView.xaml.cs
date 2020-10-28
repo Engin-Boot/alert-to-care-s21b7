@@ -1,7 +1,5 @@
-﻿using System.Linq;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 using GuiClient.ViewModels;
 
 namespace GuiClient.Views
@@ -11,14 +9,16 @@ namespace GuiClient.Views
     /// </summary>
     public partial class PatientRegistrationView
     {
-        private readonly PatientRegistrationViewModel
-            _patientRegistrationViewModel = new PatientRegistrationViewModel();
+        // ReSharper disable once MemberCanBePrivate.Global
+        public readonly PatientRegistrationViewModel
+            PatientRegistrationViewModel;
         //private AccessingData _accessing = new AccessingData();
 
         public PatientRegistrationView()
         {
             InitializeComponent();
-            DataContext = _patientRegistrationViewModel;
+            PatientRegistrationViewModel = new PatientRegistrationViewModel();
+            DataContext = PatientRegistrationViewModel;
         }
 
         private void FrameworkElement_OnLoaded(object sender, RoutedEventArgs e)
@@ -38,18 +38,18 @@ namespace GuiClient.Views
         //}
         private void IcuListDropDown_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            this._patientRegistrationViewModel.FreeBedsInParticularIcu();
+            this.PatientRegistrationViewModel.FreeBedsInParticularIcu();
         }
 
         private void AdmitButton_Click(object sender, RoutedEventArgs e)
         {
-            if (_patientRegistrationViewModel.Admit_CanExecute())
+            if (PatientRegistrationViewModel.Admit_CanExecute())
             {
-                _patientRegistrationViewModel.Admit_Executed();
+                PatientRegistrationViewModel.Admit_Executed();
                 MessageBox.Show("Patient Admitted.");
                 //may be show the pid generated.
                 //all the fields clear.
-                _patientRegistrationViewModel.Clear();
+                PatientRegistrationViewModel.Clear();
             }
             else
             {

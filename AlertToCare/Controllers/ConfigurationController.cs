@@ -1,4 +1,5 @@
-﻿using AlertToCare.DatabaseOperations;
+﻿using System.Collections.Generic;
+using AlertToCare.DatabaseOperations;
 using AlertToCare.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,10 +18,10 @@ namespace AlertToCare.Controllers
         //GET Bed Model
         [HttpGet]
         [Route("[action]")]
-        public IActionResult GetBedModelInformation()
+        public Dictionary<int, BedModel> GetBedModelInformation()
         {
             var bedData = this._config.GetBedConfigurationInformation(DbOps.GetDbPath());
-            return Ok(bedData);
+            return bedData;
         }
         [HttpGet]
         [Route("[action]")]

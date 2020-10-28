@@ -15,7 +15,7 @@ namespace GuiClient.ViewModels
     public class PatientRegistrationViewModel  : INotifyPropertyChanged
     {
         private readonly PatientModel _patient = new PatientModel();
-        private readonly AccessingData _accessing = new AccessingData();
+        //private readonly AccessingData _accessing = new AccessingData();
 
         #region Fields
 
@@ -26,29 +26,49 @@ namespace GuiClient.ViewModels
 
         public PatientRegistrationViewModel()
         {
-            //Admit = new DelegateCommandClass(this.Execute,this.CanExecute);
+            GenderList = new List<string>()
+            {
+                "Male" , "Female" , "Others"
+            };
+            Admit = new RelayCommand(AdmitPatient);
+        }
+
+        private void AdmitPatient(object obj)
+        {
+            IcuList = GetAllIcusFromServer();
+        }
+
+        private List<IcuModel> GetAllIcusFromServer()
+        {
+            throw new NotImplementedException();
+        }
+        private void GetAllBedsForGivenIcu(string selectedIcuId)
+        {
+            
         }
 
         #endregion
 
         #region Properties
 
-        public string IcuId
+        public string SelectedIcuId
         {
             get => _patient.IcuId;
             set
             {
                 _patient.IcuId = value;
-                OnPropertyChanged(nameof(IcuId));
+                GetAllBedsForGivenIcu(SelectedIcuId);
+                OnPropertyChanged(nameof(SelectedIcuId));
             }
         }
-        public int BedId
+
+        public int SelectedBedId
         {
             get => _patient.BedId;
             set
             {
                 _patient.BedId = value;
-                OnPropertyChanged(nameof(BedId));
+                OnPropertyChanged(nameof(SelectedBedId));
             } 
         }
         public string FullName
@@ -71,13 +91,13 @@ namespace GuiClient.ViewModels
             }
         }
 
-        public string Gender
+        public string SelectedGender
         {
             get => _patient.Gender;
             set 
             {
                 _patient.Gender = value;
-                OnPropertyChanged(nameof(Gender));
+                OnPropertyChanged(nameof(SelectedGender));
             }
         }
         public string Address
@@ -117,12 +137,15 @@ namespace GuiClient.ViewModels
             }
         }
 
-        public List<string> GenderList => _accessing.GenderList;
+        public List<string> GenderList
+        {
+            get;
+            set;
+        }
 
-        public List<PatientModel> PatientList => _accessing.Patients;
-        public List<BedModel> BedList => _accessing.Beds;
-        
-        public List<IcuModel> IcuList => _accessing.Icu;
+        public List<PatientModel> PatientList;
+        public List<BedModel> BedList;
+        public List<IcuModel> IcuList;
 
         #endregion
 
@@ -136,14 +159,13 @@ namespace GuiClient.ViewModels
 
         public void FreeBedsInParticularIcu()
         {
-            FreeBedIdsOfSelectedIcu = (from bed in _accessing.Beds
-                                      where bed.IcuId == IcuId && bed.BedStatus == "Free"
+            FreeBedIdsOfSelectedIcu = (from bed in BedList
+                                      where bed.IcuId == SelectedIcuId && bed.BedStatus == "Free"
                 select bed.BedId).ToList();
-
         }
 
         [NotifyPropertyChangedInvocator]
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
@@ -157,19 +179,19 @@ namespace GuiClient.ViewModels
         }
         public bool Admit_CanExecute()
         {
-           return !(string.IsNullOrEmpty(IcuId) || BedId<0 || string.IsNullOrEmpty(FullName) ||
-                     Age <= 0 || Age > 150 || string.IsNullOrEmpty(Gender) || string.IsNullOrEmpty(Address) ||
+           return !(string.IsNullOrEmpty(SelectedIcuId) || SelectedBedId<0 || string.IsNullOrEmpty(FullName) ||
+                     Age <= 0 || Age > 150 || string.IsNullOrEmpty(SelectedGender) || string.IsNullOrEmpty(Address) ||
                      string.IsNullOrEmpty(PhoneNumber) || string.IsNullOrEmpty(Email));
         }
 
         public void Clear()
         {
-            IcuId = "";
-            BedId = 0;
+            SelectedIcuId = "";
+            SelectedBedId = 0;
             FullName = "";
             Age = 0;
             Address = "";
-            Gender = "";
+            SelectedGender = "";
             PhoneNumber = "";
             Email = "";
         }
