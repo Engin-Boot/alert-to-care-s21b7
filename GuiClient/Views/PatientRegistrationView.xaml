@@ -4,7 +4,6 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:validate="clr-namespace:GuiClient.ValidationRules"
-             xmlns:viewModels="clr-namespace:GuiClient.ViewModels"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 
@@ -24,7 +23,7 @@
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
-            
+            <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
@@ -41,7 +40,7 @@
                       >
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
-                        <TextBlock Text="{Binding IcuId}"></TextBlock>
+                        <TextBlock Text="{Binding IcuId}" ></TextBlock>
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
@@ -52,11 +51,12 @@
                       Grid.Row="1" Grid.Column="1"
                       IsSynchronizedWithCurrentItem="True"
                       ItemsSource="{Binding FreeBedIdsOfSelectedIcu}"
-                      SelectedValue="{Binding BedId, 
+                      SelectedValue="{Binding SelectedBedId, 
                                         UpdateSourceTrigger=PropertyChanged,
                                         Mode=TwoWay}">
                 
             </ComboBox>
+
 
             <TextBlock Grid.Row="2" Grid.Column="0" Text="Full Name" Style="{StaticResource TextBlockStyle}" ></TextBlock>
             <TextBox Grid.Row="2" Grid.Column="1" x:Name="NameBox" Style="{StaticResource ErrorFeedbackStyle}" >
@@ -141,10 +141,21 @@
                 </TextBox.Text>
             </TextBox>
 
+            <TextBlock Grid.Row="8" Grid.Column="0" Text="Pid" Style="{StaticResource TextBlockStyle}" ></TextBlock>
+            <TextBox Grid.Row="8" Grid.Column="1" x:Name="Pid" Style="{StaticResource ErrorFeedbackStyle}" >
+                <TextBox.Text>
+                    <Binding Path="Pid" ValidatesOnExceptions="True" 
+                             ValidatesOnDataErrors="True" 
+                             UpdateSourceTrigger="LostFocus">
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
 
 
-            <Button Grid.Row="8" Grid.Column="0"  Grid.ColumnSpan="2" Style="{StaticResource ButtonStyle}"
-                   Margin="10" Name="AdmitButton" Content="Admit Patient" Click="AdmitButton_Click">
+
+
+            <Button Grid.Row="9" Grid.Column="0"  Grid.ColumnSpan="2" Command="{Binding Admit}" Style="{StaticResource ButtonStyle}"
+                   Margin="10" Name="AdmitButton" Content="Admit Patient">
             </Button>
         </Grid.Children>
 

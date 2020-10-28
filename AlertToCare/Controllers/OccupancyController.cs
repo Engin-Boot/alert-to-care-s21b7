@@ -1,4 +1,5 @@
-﻿using AlertToCare.DatabaseOperations;
+﻿using System.Net;
+using AlertToCare.DatabaseOperations;
 using AlertToCare.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -72,6 +73,7 @@ namespace AlertToCare.Controllers
             var dbPath = DbOps.GetDbPath();
             if (newPatient.Equals(null)) return BadRequest();
             var patientModelData = this._occupancyService.AddNewPatient(newPatient, dbPath);
+            if (patientModelData.Equals(HttpStatusCode.InternalServerError)) return BadRequest();
             return Ok(patientModelData);
 
         }

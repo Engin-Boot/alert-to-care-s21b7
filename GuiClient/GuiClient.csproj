@@ -71,6 +71,7 @@
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="ServerWrapper\BedsWrapper.cs" />
     <Compile Include="ServerWrapper\IcuWrapper.cs" />
+    <Compile Include="ServerWrapper\PatientWrapper.cs" />
     <Compile Include="ServerWrapper\Wrapper.cs" />
     <Compile Include="ValidationRules\EmailValidation.cs" />
     <Compile Include="ValidationRules\NameValidation.cs" />

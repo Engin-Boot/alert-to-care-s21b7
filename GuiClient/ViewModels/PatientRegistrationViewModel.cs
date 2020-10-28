@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using GuiClient.Annotations;
 using GuiClient.Commands;
@@ -16,7 +17,7 @@ namespace GuiClient.ViewModels
 {
     public class PatientRegistrationViewModel  : INotifyPropertyChanged
     {
-        private readonly PatientModel _patient = new PatientModel();
+        private PatientModel Patient { get; set; }
         //private readonly AccessingData _accessing = new AccessingData();
 
         #region Fields
@@ -28,6 +29,7 @@ namespace GuiClient.ViewModels
 
         public PatientRegistrationViewModel()
         {
+            Patient = new PatientModel();
             GenderList = new List<string>()
             {
                 "Male" , "Female" , "Others"
@@ -38,7 +40,18 @@ namespace GuiClient.ViewModels
 
         private void AdmitPatient(object obj)
         {
-            throw new NotImplementedException();
+            var patientObj = new PatientWrapper();
+            if (patientObj.AddPatient(Patient) == 1)
+            {
+                GetAllBedsForIcu(SelectedIcuId);
+                FreeBedsInParticularIcu();
+                this.Clear();
+                MessageBox.Show("Patient Added successfully!");
+            }
+            else
+            {
+                MessageBox.Show("Unable to add patient");
+            }
         }
 
         private List<string> GetAllIcusFromServer()
@@ -52,8 +65,6 @@ namespace GuiClient.ViewModels
             var wrapperObj = new BedsWrapper();
             var ret = wrapperObj.GetListOfBedsForIcu(icuId);
             BedList = ret;
-            //var bedList = ret.Select(var1 => var1.BedNumber).ToList();
-            //_bedsInIcu = bedList;
         }
 
         #endregion
@@ -62,11 +73,11 @@ namespace GuiClient.ViewModels
 
         public string SelectedIcuId
         {
-            get => _patient.IcuId;
+            get => Patient.IcuId;
             set
             {
-                if (value.Equals(_patient.IcuId)) return;
-                _patient.IcuId = value;
+                if (value.Equals(Patient.IcuId)) return;
+                Patient.IcuId = value;
                 GetAllBedsForIcu(value);
                 OnPropertyChanged(nameof(SelectedIcuId));
             }
@@ -74,65 +85,65 @@ namespace GuiClient.ViewModels
 
         public int SelectedBedId
         {
-            get => _patient.BedId;
+            get => Patient.BedId;
             set
             {
-                _patient.BedId = value;
+                Patient.BedId = value;
                 OnPropertyChanged(nameof(SelectedBedId));
             } 
         }
         public string FullName
         {
-            get => _patient.Name;
+            get => Patient.Name;
             set
             {
-                _patient.Name = value;
+                Patient.Name = value;
                 OnPropertyChanged(nameof(FullName));
             }
         }
 
         public int Age
         {
-            get => _patient.Age;
+            get => Patient.Age;
             set
             {
-                _patient.Age = value;
+                Patient.Age = value;
                 OnPropertyChanged(nameof(Age));
             }
         }
 
         public string SelectedGender
         {
-            get => _patient.Gender;
+            get => Patient.Gender;
             set 
             {
-                _patient.Gender = value;
+                Patient.Gender = value;
                 OnPropertyChanged(nameof(SelectedGender));
             }
         }
         public string Address
         {
-            get => _patient.Address;
+            get => Patient.Address;
             set {
-                _patient.Address = value;
+                Patient.Address = value;
                 OnPropertyChanged(nameof(Address));
             }
         }
         public string Email
         {
-            get => _patient.Email;
+            get => Patient.Email;
             set
             {
-                _patient.Email = value;
+                Patient.Email = value;
                 OnPropertyChanged(nameof(Email));
             }
         }
 
         public string PhoneNumber
         {
-            get => _patient.PhoneNumber;
+            get => Patient.PhoneNumber;
             set {
-                _patient.PhoneNumber = value;
+                Patient.PhoneNumber = value;
                 OnPropertyChanged(nameof(PhoneNumber));
             }
         }
@@ -144,6 +155,16 @@ namespace GuiClient.ViewModels
             {
                 _freeBedList = value;
                 OnPropertyChanged(nameof(FreeBedIdsOfSelectedIcu));
+            }
+        }
+
+        public string Pid
+        {
+            get => Patient.PId;
+            set
+            {
+                Patient.PId = value;
+                OnPropertyChanged(nameof(Pid));
             }
         }
 
@@ -179,6 +200,7 @@ namespace GuiClient.ViewModels
 
         private void FreeBedsInParticularIcu()
         {
+            if(BedList == null) return;
             FreeBedIdsOfSelectedIcu = (from bed in BedList
                                       where bed.IcuId == SelectedIcuId && bed.BedStatus.Equals("False", StringComparison.InvariantCultureIgnoreCase)
                                       select bed.BedId).ToList();
