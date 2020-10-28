@@ -8,7 +8,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-using GuiClient.Annotations;
 using GuiClient.Commands;
 using GuiClient.Models;
 using GuiClient.ServerWrapper;
@@ -206,8 +205,7 @@ namespace GuiClient.ViewModels
                                       select bed.BedId).ToList();
         }
 
-        [NotifyPropertyChangedInvocator]
-        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        private void OnPropertyChanged(string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }

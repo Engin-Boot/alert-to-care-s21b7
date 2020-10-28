@@ -5,7 +5,6 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
-using GuiClient.Annotations;
 using GuiClient.Models;
 
 namespace GuiClient.ViewModels
@@ -68,8 +67,8 @@ namespace GuiClient.ViewModels
         #endregion
 
         #region Logic
-        [NotifyPropertyChangedInvocator]
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        
+        protected virtual void OnPropertyChanged(string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }

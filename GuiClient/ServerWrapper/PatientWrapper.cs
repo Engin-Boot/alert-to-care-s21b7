@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows.Navigation;
 using GuiClient.Models;
 using RestSharp;
 
@@ -17,6 +14,23 @@ namespace GuiClient.ServerWrapper
             Request = new RestRequest("Occupancy", Method.POST) { RequestFormat = DataFormat.Json };
             Request.AddJsonBody(newPatient);
             //_request.AddQueryParameter("newPatient", newPatient.ToString());
+            var response = Client.Execute(Request);
+            return response.StatusCode.Equals(HttpStatusCode.OK) ? 1 : 0;
+        }
+
+        public Dictionary<string, PatientModel> GetAllPatients()
+        {
+            Client = new RestClient(BaseUrl);
+            Request = new RestRequest("Occupancy/GetAllPatients", Method.GET) { RequestFormat = DataFormat.Json };
+            var response = Client.Execute(Request);
+            var result = Deserializer.Deserialize<Dictionary<string, PatientModel>>(response);
+            return result;
+        }
+
+        public int DischargePatient(string pid)
+        {
+            Client = new RestClient(BaseUrl);
+            Request = new RestRequest($"Occupancy/Discharge/{pid}", Method.DELETE) { RequestFormat = DataFormat.Json };
             var response = Client.Execute(Request);
             return response.StatusCode.Equals(HttpStatusCode.OK) ? 1 : 0;
         }

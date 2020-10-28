@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using GuiClient.Commands;
+using GuiClient.Models;
 using GuiClient.ServerWrapper;
 using RestSharp;
 using RestSharp.Deserializers;

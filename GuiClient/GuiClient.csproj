@@ -69,6 +69,7 @@
     <Compile Include="Models\PatientModel.cs" />
     <Compile Include="Models\PatientVital.cs" />
     <Compile Include="Properties\Annotations.cs" />
+    <Compile Include="Properties\Annotations1.cs" />
     <Compile Include="ServerWrapper\BedsWrapper.cs" />
     <Compile Include="ServerWrapper\IcuWrapper.cs" />
     <Compile Include="ServerWrapper\PatientWrapper.cs" />
