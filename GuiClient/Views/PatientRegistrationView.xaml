@@ -37,9 +37,8 @@
             <ComboBox x:Name="IcuListDropDown" Style="{StaticResource ComboBoxStyle}"
                       Grid.Row="0" Grid.Column="1" 
                       ItemsSource="{Binding IcuList}"
-                      SelectedValue="{Binding IcuId}"
-                      SelectedValuePath="IcuId"
-                      SelectionChanged="IcuListDropDown_OnSelectionChanged">
+                      SelectedValue="{Binding SelectedIcuId}"
+                      >
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding IcuId}"></TextBlock>
@@ -92,7 +91,7 @@
             <ComboBox x:Name="GenderDropDown" Style="{StaticResource ComboBoxStyle}"
                       Grid.Row="4" Grid.Column="1" 
                       ItemsSource="{Binding GenderList}"
-                      SelectedValue="{Binding Gender,
+                      SelectedValue="{Binding SelectedGender,
                                         UpdateSourceTrigger=PropertyChanged}"
                       >
                 

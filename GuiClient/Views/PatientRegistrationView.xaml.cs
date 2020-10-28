@@ -38,7 +38,7 @@ namespace GuiClient.Views
         //}
         private void IcuListDropDown_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            this.PatientRegistrationViewModel.FreeBedsInParticularIcu();
+            //this.PatientRegistrationViewModel.FreeBedsInParticularIcu();
         }
 
         private void AdmitButton_Click(object sender, RoutedEventArgs e)

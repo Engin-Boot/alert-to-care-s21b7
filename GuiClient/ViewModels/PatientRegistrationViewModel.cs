@@ -65,8 +65,9 @@ namespace GuiClient.ViewModels
             get => _patient.IcuId;
             set
             {
+                if (value.Equals(_patient.IcuId)) return;
                 _patient.IcuId = value;
-                GetAllBedsForIcu(SelectedIcuId);
+                GetAllBedsForIcu(value);
                 OnPropertyChanged(nameof(SelectedIcuId));
             }
         }
@@ -146,7 +147,7 @@ namespace GuiClient.ViewModels
             }
         }
 
-        private List<string> GenderList
+        public List<string> GenderList
         {
             get;
         }
@@ -162,7 +163,7 @@ namespace GuiClient.ViewModels
                 FreeBedsInParticularIcu();
             }
         }
-        private List<string> IcuList { get; set; }
+        public List<string> IcuList { get; set; }
         private List<BedModel> bedList;
         public List<string> BedsInIcu { get; set; }
 
@@ -176,11 +177,11 @@ namespace GuiClient.ViewModels
 
         #region Logic
 
-        public void FreeBedsInParticularIcu()
+        private void FreeBedsInParticularIcu()
         {
             FreeBedIdsOfSelectedIcu = (from bed in BedList
-                                      where bed.IcuId == SelectedIcuId && bed.BedStatus == "Free"
-                select bed.BedId).ToList();
+                                      where bed.IcuId == SelectedIcuId && bed.BedStatus.Equals("False", StringComparison.InvariantCultureIgnoreCase)
+                                      select bed.BedId).ToList();
         }
 
         [NotifyPropertyChangedInvocator]
