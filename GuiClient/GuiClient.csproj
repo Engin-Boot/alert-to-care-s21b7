@@ -62,12 +62,12 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="AccessingData.cs" />
-    <Compile Include="BedModel.cs" />
+    <Compile Include="Models\BedModel.cs" />
     <Compile Include="Commands\DelegateCommandClass.cs" />
     <Compile Include="Commands\RelayCommand.cs" />
-    <Compile Include="IcuModel.cs" />
-    <Compile Include="PatientModel.cs" />
-    <Compile Include="PatientVital.cs" />
+    <Compile Include="Models\IcuModel.cs" />
+    <Compile Include="Models\PatientModel.cs" />
+    <Compile Include="Models\PatientVital.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="ServerWrapper\BedsWrapper.cs" />
     <Compile Include="ServerWrapper\IcuWrapper.cs" />
