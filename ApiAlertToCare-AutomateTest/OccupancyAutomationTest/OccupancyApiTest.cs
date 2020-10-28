@@ -7,7 +7,8 @@ namespace ApiAlertToCare_AutomateTest.OccupancyAutomationTest
     [TestClass]
     public class OccupancyApiTest
     {
-        private static string _url = "http://localhost:51333/api/";
+        private static string _url = "http://localhost:5000/api/";
+        
         [TestMethod]
         public void PatientDataModelGetUrlTest()
         {

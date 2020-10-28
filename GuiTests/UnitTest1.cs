@@ -4,14 +4,21 @@ using Xunit;
 
 namespace GuiTests
 {
-    public class UnitTest1
+    public class OccupancyTests
     {
+        public OccupancyTests()
+        {
+            _url = "http://localhost:5000/api/";
+        }
+        
+
         [Fact]
         public void TestIcu()
         {
-            var bedWrapper = new BedsWrapper();
-            var result = bedWrapper.GetListOfBedsForIcu("ICU01");
-            Assert.NotEmpty(result);
+
         }
+
+        private static string _url;
     }
 }
+

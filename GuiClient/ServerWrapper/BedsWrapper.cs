@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Windows;
 using RestSharp;
+using DataFormat = RestSharp.DataFormat;
 
 namespace GuiClient.ServerWrapper
 {
@@ -22,7 +22,7 @@ namespace GuiClient.ServerWrapper
         public void PostBed(BedModel newBed)
         {
             Client=new RestClient(BaseUrl);
-            Request = new RestRequest("Configuration/PostBedModelData");
+            Request = new RestRequest("Configuration/PostBedModelData", Method.POST){RequestFormat = DataFormat.Json};
             //Request.AddJsonBody(new 
             //{
             //    //bedId = 0,
@@ -31,7 +31,7 @@ namespace GuiClient.ServerWrapper
             //    bedNumber = bedNumberPassed,
             //    //bedStatus = "Dummy"
             //});
-            Request.AddJsonBody(newBed);
+            Request.AddQueryParameter("newBedModel", newBed.ToString());
             Response = Client.Execute(Request);
             if (Response.StatusCode.Equals(HttpStatusCode.OK))
                 MessageBox.Show("Bed is Added.");

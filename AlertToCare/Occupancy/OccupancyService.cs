@@ -128,7 +128,8 @@ namespace AlertToCare.Occupancy
             var patientsInIcu = from patient in patients
                                 where patient.Value.IcuId.Equals(icuId)
                                 select patient;
-            return (Dictionary<string, PatientModel>)patientsInIcu;
+            var dict = patientsInIcu.ToDictionary(var1 => var1.Key, var1 => var1.Value);
+            return dict;
         }
 
         //added
