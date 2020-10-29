@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Net;
 using AlertToCare.DatabaseOperations;
 using AlertToCare.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -82,8 +83,10 @@ namespace AlertToCare.Controllers
         [Route("[action]")]
         public IActionResult PostIcuModelData([FromBody] IcuModel newIcuModel)
         {
-            this._config.AddNewIcuConfiguration(newIcuModel, DbOps.GetDbPath());
-            return Ok(200);
+           var statusCode = this._config.AddNewIcuConfiguration(newIcuModel, DbOps.GetDbPath());
+           if (statusCode.Equals(HttpStatusCode.InternalServerError))
+               return BadRequest();
+           return Ok();
         }
 
         // DELETE: api/ApiWithActions/5
@@ -99,7 +102,10 @@ namespace AlertToCare.Controllers
         [Route("RemoveIcu/{icuId}")]
         public object DeleteIcu(string icuId)
         {
-            return this._config.DeleteIcu(icuId, DbOps.GetDbPath());
+            var statusCode = this._config.DeleteIcu(icuId, DbOps.GetDbPath());
+            if (statusCode.Equals(HttpStatusCode.InternalServerError))
+                return BadRequest();
+            return Ok();
         }
 
         [HttpGet]

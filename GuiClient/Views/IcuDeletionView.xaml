@@ -21,11 +21,15 @@
         <Grid.Children >
             <TextBlock Grid.Row="0" Grid.Column="0" Text="ICU" Style="{StaticResource TextBlockStyle}"></TextBlock>
             <ComboBox x:Name="IcuListDropDown" Style="{StaticResource ComboBoxStyle}"  
-                      Grid.Row="0" Grid.Column="1" Margin ="30"></ComboBox>
+                      Grid.Row="0" Grid.Column="1" Margin ="30"
+                      ItemsSource="{Binding ListOfIcu}"
+                      SelectedValue="{Binding SelectedIcu,
+                UpdateSourceTrigger=PropertyChanged}"></ComboBox>
 
 
             <Button x:Name="AddBed" Style="{StaticResource ButtonStyle}" 
-                    Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">Delete ICU</Button>
+                    Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+                    Command="{Binding IcuDeleteCommand}">Delete ICU</Button>
         </Grid.Children>
     </Grid>
 </UserControl>

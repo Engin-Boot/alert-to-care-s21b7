@@ -4,6 +4,9 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Input;
+using GuiClient.Commands;
 using GuiClient.ServerWrapper;
 
 namespace GuiClient.ViewModels
@@ -23,6 +26,9 @@ namespace GuiClient.ViewModels
         public IcuDeletionViewModel()
         {
             ListOfIcu = _icuWrapper.GetAllIcu();
+            this.IcuDeleteCommand=new DelegateCommandClass(
+                new Action<object>(this.IcuDeleteWrapper),
+                new Func<object, bool>(this.CanExecuteWrapper));
         }
 
         #endregion
@@ -68,8 +74,32 @@ namespace GuiClient.ViewModels
 
         #region Commands
 
+        public ICommand IcuDeleteCommand
+        {
+            get;
+            set;
+        }
+        #endregion
 
+        #region Command Helper methods
 
+        public void IcuDeleteWrapper(object parameter)
+        {
+            if (SelectedIcu != null)
+            {
+                _icuWrapper.RemoveIcu(SelectedIcu);
+                ListOfIcu = _icuWrapper.GetAllIcu();
+            }
+            else
+            {
+                MessageBox.Show("Icu not selected.");
+            }
+        }
+
+        public bool CanExecuteWrapper(object parameter)
+        {
+            return true;
+        }
         #endregion
     }
 }

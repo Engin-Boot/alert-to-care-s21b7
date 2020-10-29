@@ -44,7 +44,7 @@ namespace AlertToCare.DatabaseOperations
             using var command = DbConnection.CreateCommand();
             try
             {
-                command.CommandText = $"DELETE FROM ICU WHERE IcuId = '{icuId}'";
+                command.CommandText = $"DELETE FROM ICU WHERE IcuId = '{icuId}';";
                 command.Prepare();
                 command.ExecuteNonQuery();
                 return HttpStatusCode.OK;
