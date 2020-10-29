@@ -34,5 +34,14 @@ namespace GuiClient.ServerWrapper
             var response = Client.Execute(Request);
             return response.StatusCode.Equals(HttpStatusCode.OK) ? 1 : 0;
         }
+
+        public Dictionary<string, PatientVital> GetPatientVitals()
+        {
+            Client = new RestClient(BaseUrl);
+            Request = new RestRequest("Monitor/GeAllPatientVitals", Method.GET) { RequestFormat = DataFormat.Json };
+            Response = Client.Execute(Request);
+            return Deserializer.Deserialize<Dictionary<string, PatientVital>>(Response);
+        }
+
     }
 }

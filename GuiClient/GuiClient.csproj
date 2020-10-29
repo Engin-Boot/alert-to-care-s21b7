@@ -11,7 +11,6 @@
     <Folder Include="Models\" />
     <Folder Include="ViewModels\" />
     <Folder Include="ValidationRules\" />
-    <Folder Include="ServerWrapper\" />
     <Folder Include="Resources\Styles\" />
   </ItemGroup>
 

@@ -7,10 +7,10 @@
              xmlns:viewModels="clr-namespace:GuiClient.ViewModels"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800" Loaded="PatientMonitoringView_OnLoaded">
-    <UserControl.DataContext>
-        <!-- Instantiates ViewModel type using DefaultConstructor-->
+    <!--<UserControl.DataContext>
+         Instantiates ViewModel type using DefaultConstructor
         <viewModels:PatientMonitoringViewModel></viewModels:PatientMonitoringViewModel>
-    </UserControl.DataContext>
+    </UserControl.DataContext>-->
     <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"></RowDefinition>
@@ -37,10 +37,10 @@
                 <ComboBox Name="IcuIds" Style="{StaticResource ComboBoxStyle}"
                           HorizontalAlignment="Left" Grid.Row="0" Grid.Column="0"
                           ItemsSource="{Binding IcuList}"
-                          DisplayMemberPath="IcuId"
-                          SelectedValue="{Binding IcuIdSelected}"
-                          SelectedValuePath="IcuId"
-                          SelectionChanged="IcuIds_OnSelectionChanged"></ComboBox>
+                          
+                          SelectedValue="{Binding IcuIdSelected, 
+                            UpdateSourceTrigger=PropertyChanged}"
+                          ><!--SelectionChanged="IcuIds_OnSelectionChanged"--></ComboBox>
             
                     <StackPanel Height="100" MinWidth="100" HorizontalAlignment="Stretch" Background="Aquamarine"
                                 Grid.Row="0" Grid.Column="1">
@@ -50,7 +50,8 @@
                             Grid.Row="0" Grid.Column="2"></StackPanel>
                 </Grid.Children>
             </Grid>
-            <DataGrid x:Name="PatientDataGrid" Grid.Row="1" Grid.Column="0" Background="Beige">
+            <!--<DataGrid x:Name="PatientDataGrid" Grid.Row="1" Grid.Column="0" Background="Beige"
+                      >
                 <DataGrid.Resources>
                     <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource DataGridColumnHeaderStyle}"></Style>
                 </DataGrid.Resources>
@@ -63,12 +64,29 @@
                                         Binding="{Binding Gender}"></DataGridTextColumn>
                     <DataGridTextColumn Header="Bed Number" Width="*"
                                         ></DataGridTextColumn>
-                    <DataGridTextColumn Header="BPM" Width="*"></DataGridTextColumn>
-                    <DataGridTextColumn Header="SPO2" Width="*"></DataGridTextColumn>
-                    <DataGridTextColumn Header="RespRate" Width="*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="BPM" Width="*"
+                                        Binding="{Binding Bpm}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="SPO2" Width="*"
+                                        Binding="{Binding Spo2}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="RespRate" Width="*"
+                                        Binding="{Binding RespRate}"></DataGridTextColumn>
                     <DataGridTextColumn Header="Status" Width="*"></DataGridTextColumn>
                 </DataGrid.Columns>
-            </DataGrid>
+            </DataGrid>-->
+            <ListView Grid.Row="1" Grid.ColumnSpan="3"
+                ItemsSource="{Binding PatientDataMonitors}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Patient ID" DisplayMemberBinding="{Binding PId}"/>
+                        <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" />
+                        <GridViewColumn Header="Gender" DisplayMemberBinding="{Binding Gender}" />
+                        <GridViewColumn Header="Bed Number" DisplayMemberBinding="{Binding BedId}" />
+                        <GridViewColumn Header="BPM" DisplayMemberBinding="{Binding VitalBpm}" />
+                        <GridViewColumn Header="SPO2" DisplayMemberBinding="{Binding VitalSpo2}" />
+                        <GridViewColumn Header="RESP RATE" DisplayMemberBinding="{Binding VitalRespRate}" />
+                    </GridView>
+                </ListView.View>
+            </ListView>
         </Grid.Children>
     </Grid>
 </UserControl>

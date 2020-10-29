@@ -21,12 +21,11 @@ namespace GuiClient.Views
     /// </summary>
     public partial class PatientMonitoringView : UserControl
     {
-        private  readonly PatientMonitoringViewModel _patientMonitoringViewModel = new PatientMonitoringViewModel();
+        public  readonly PatientMonitoringViewModel PatientMonitoringViewModel = new PatientMonitoringViewModel();
         public PatientMonitoringView()
         {
             InitializeComponent();
-            DataContext = _patientMonitoringViewModel;
-
+            DataContext = PatientMonitoringViewModel;
         }
 
         private void PatientMonitoringView_OnLoaded(object sender, RoutedEventArgs e)
@@ -34,9 +33,9 @@ namespace GuiClient.Views
             IcuIds.Text = "";
         }
 
-        private void IcuIds_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            this._patientMonitoringViewModel.PatientsInParticularIcu();
-        }
+        //private void IcuIds_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        //{
+        //    this._patientMonitoringViewModel.PatientsInParticularIcu();
+        //}
     }
 }

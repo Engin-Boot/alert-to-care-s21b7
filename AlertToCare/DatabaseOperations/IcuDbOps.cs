@@ -16,6 +16,7 @@ namespace AlertToCare.DatabaseOperations
         {
             DbConnection.Open();
             using var command = DbConnection.CreateCommand();
+            EnableForeignKey(command);
             try
             {
                 command.CommandText =
@@ -38,10 +39,17 @@ namespace AlertToCare.DatabaseOperations
             }
         }
 
+        private void EnableForeignKey(SQLiteCommand sqlCommand)
+        {
+            sqlCommand.CommandText = "PRAGMA foreign_keys=ON";
+            sqlCommand.ExecuteNonQuery();
+        }
+
         public object DeleteIcuFromDb(string icuId)
         {
             DbConnection.Open();
             using var command = DbConnection.CreateCommand();
+            EnableForeignKey(command);
             try
             {
                 command.CommandText = $"DELETE FROM ICU WHERE IcuId = '{icuId}';";
