@@ -43,5 +43,12 @@ namespace GuiClient.ServerWrapper
             return Deserializer.Deserialize<Dictionary<string, PatientVital>>(Response);
         }
 
+        public Dictionary<string, PatientModel> GetPatientsFromIcu(string icuId)
+        {
+            Client = new RestClient(BaseUrl);
+            Request = new RestRequest($"Occupancy/{icuId}", Method.GET) { RequestFormat = DataFormat.Json };
+            var response = Client.Execute(Request);
+            return Deserializer.Deserialize<Dictionary<string, PatientModel>>(response);
+        }
     }
 }

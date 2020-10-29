@@ -28,14 +28,15 @@ namespace GuiClient.Views
             DataContext = PatientMonitoringViewModel;
         }
 
-        private void PatientMonitoringView_OnLoaded(object sender, RoutedEventArgs e)
-        {
-            IcuIds.Text = "";
-        }
+        //private void PatientMonitoringView_OnLoaded(object sender, RoutedEventArgs e)
+        //{
+        //    IcuIds.Text = "";
+        //}
+
 
         //private void IcuIds_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         //{
-        //    this._patientMonitoringViewModel.PatientsInParticularIcu();
+        //    PatientMonitoringViewModel.PatientsInParticularIcu();
         //}
     }
 }

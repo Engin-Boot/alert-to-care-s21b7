@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:GuiClient.Views"
              xmlns:viewModels="clr-namespace:GuiClient.ViewModels"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800" Loaded="PatientMonitoringView_OnLoaded">
+             d:DesignHeight="450" d:DesignWidth="800" >
     <!--<UserControl.DataContext>
          Instantiates ViewModel type using DefaultConstructor
         <viewModels:PatientMonitoringViewModel></viewModels:PatientMonitoringViewModel>
@@ -34,13 +34,13 @@
                         <ColumnDefinition Width="*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <Grid.Children>
-                <ComboBox Name="IcuIds" Style="{StaticResource ComboBoxStyle}"
+                    <ComboBox Name="IcuIds" Style="{StaticResource ComboBoxStyle}"
                           HorizontalAlignment="Left" Grid.Row="0" Grid.Column="0"
                           ItemsSource="{Binding IcuList}"
                           
                           SelectedValue="{Binding IcuIdSelected, 
                             UpdateSourceTrigger=PropertyChanged}"
-                          ><!--SelectionChanged="IcuIds_OnSelectionChanged"--></ComboBox>
+                          ></ComboBox>
             
                     <StackPanel Height="100" MinWidth="100" HorizontalAlignment="Stretch" Background="Aquamarine"
                                 Grid.Row="0" Grid.Column="1">
@@ -74,16 +74,36 @@
                 </DataGrid.Columns>
             </DataGrid>-->
             <ListView Grid.Row="1" Grid.ColumnSpan="3"
-                ItemsSource="{Binding PatientDataMonitors}">
+                ItemsSource="{Binding PatientDataMonitors}" HorizontalAlignment="Stretch">
+                <ListView.Resources>
+                    <Style TargetType="ListView" BasedOn="{StaticResource DataGridColumnHeaderStyle}"></Style>
+                </ListView.Resources>
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="Patient ID" DisplayMemberBinding="{Binding PId}"/>
-                        <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" />
-                        <GridViewColumn Header="Gender" DisplayMemberBinding="{Binding Gender}" />
-                        <GridViewColumn Header="Bed Number" DisplayMemberBinding="{Binding BedId}" />
-                        <GridViewColumn Header="BPM" DisplayMemberBinding="{Binding VitalBpm}" />
-                        <GridViewColumn Header="SPO2" DisplayMemberBinding="{Binding VitalSpo2}" />
-                        <GridViewColumn Header="RESP RATE" DisplayMemberBinding="{Binding VitalRespRate}" />
+                        <GridViewColumn Header="Patient ID" DisplayMemberBinding="{Binding PId}" Width="110"/>
+                        <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" Width="110"/>
+                        <GridViewColumn Header="Gender" DisplayMemberBinding="{Binding Gender}" Width="110"/>
+                        <GridViewColumn Header="Bed Number" DisplayMemberBinding="{Binding BedId}" Width="Auto"/>
+                        <GridViewColumn Header="BPM" DisplayMemberBinding="{Binding VitalBpm}" Width="110"/>
+                        <GridViewColumn Header="SPO2" DisplayMemberBinding="{Binding VitalSpo2}" Width="110"/>
+                        <GridViewColumn Header="RESP RATE" DisplayMemberBinding="{Binding VitalRespRate}" Width="110"/>
+                        <GridViewColumn Header="STATUS" DisplayMemberBinding="{Binding Status}" Width="110">
+                           
+                        </GridViewColumn>
+                        <GridViewColumn Header="Button1">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button >Suppress Alert</Button>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Button2">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button >Undo Suppress</Button>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
                     </GridView>
                 </ListView.View>
             </ListView>

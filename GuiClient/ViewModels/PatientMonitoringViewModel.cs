@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Drawing;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -19,6 +20,7 @@ namespace GuiClient.ViewModels
         public double VitalBpm { get; set; }
         public double VitalSpo2 { get; set; }
         public double VitalRespRate { get; set; }
+        public string Status { get; set; }
     }
     public class PatientMonitoringViewModel :INotifyPropertyChanged
     {
@@ -186,7 +188,7 @@ namespace GuiClient.ViewModels
 
         public void PatientsInParticularIcu()
         {
-            var dictOfAllPatients = _patientWrapper.GetAllPatients();
+            var dictOfAllPatients = _patientWrapper.GetPatientsFromIcu(IcuIdSelected);
             var vitals = _patientWrapper.GetPatientVitals();
             if (dictOfAllPatients == null || vitals == null) return;
             var theDataGridList = from data in dictOfAllPatients // outer sequence
@@ -200,7 +202,8 @@ namespace GuiClient.ViewModels
                     Name = data.Value.Name,
                     VitalBpm = vital.Value.VitalBpm,
                     VitalSpo2 = vital.Value.VitalSpo2,
-                    VitalRespRate = vital.Value.VitalRespRate
+                    VitalRespRate = vital.Value.VitalRespRate,
+                    Status = ""
                 };
             PatientDataMonitors = theDataGridList.ToList();
         }
