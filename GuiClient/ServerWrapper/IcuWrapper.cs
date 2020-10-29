@@ -29,7 +29,7 @@ namespace GuiClient.ServerWrapper
             Response = Client.Execute(Request);
             MessageBox.Show(Response.StatusCode.Equals(HttpStatusCode.OK)
                 ? "ICU is Added."
-                : "ICU already present.");
+                : "Internal Server Error.");
 
         }
 

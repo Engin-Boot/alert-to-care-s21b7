@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -12,20 +10,19 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using GuiClient.ViewModels;
 
 namespace GuiClient.Views
 {
     /// <summary>
-    /// Interaction logic for IcuRegistrationForm.xaml
+    /// Interaction logic for IcuRegisterationView.xaml
     /// </summary>
-    public partial class IcuRegistrationForm : UserControl
+    public partial class IcuRegisterationView : UserControl
     {
-        public IcuRegistrationViewModel ViewModel = new IcuRegistrationViewModel();
-        public IcuRegistrationForm()
+        readonly ViewModels.IcuRegistrationViewModel icuRegistrationViewModel = new ViewModels.IcuRegistrationViewModel();
+        public IcuRegisterationView()
         {
             InitializeComponent();
-           DataContext = ViewModel;
+            DataContext = icuRegistrationViewModel;
         }
     }
 }

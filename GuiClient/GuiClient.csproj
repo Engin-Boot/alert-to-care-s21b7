@@ -9,7 +9,6 @@
   <ItemGroup>
     <Folder Include="Commands\" />
     <Folder Include="Models\" />
-    <Folder Include="Views\" />
     <Folder Include="ViewModels\" />
     <Folder Include="ValidationRules\" />
     <Folder Include="ServerWrapper\" />
