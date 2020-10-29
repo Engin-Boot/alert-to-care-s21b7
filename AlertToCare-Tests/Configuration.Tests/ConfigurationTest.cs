@@ -2,6 +2,7 @@
 using System.Net;
 using System.Reflection;
 using AlertToCare.Configuration;
+using AlertToCare.DatabaseOperations;
 using Xunit;
 using AlertToCare.Models;
 
@@ -78,20 +79,23 @@ namespace AlertToCare_Tests.Configuration.Tests
         }
 
         [Fact]
-        public void RemoveBedTest()
+        public void RemoveExistingBed()
         {
             const HttpStatusCode expected = HttpStatusCode.OK;
             var actual = _configRepo.RemoveBed(BedModel.BedId, GetDbPathForTesting());
             Assert.Equal(expected,actual);
         }
 
+
         [Fact]
-        public void UpdateBedCountInAfterBedRemovalTest()
+        public void AddBedToWrongDb()
         {
-            //var actual = _updateBedCountInIcu.UpdateIcuAfterBedRemoval(IcuModel.IcuId);
-            //Assert.Equal(expected, actual);
+            var bedObj = new BedDbOps(@"C:\\");
+            var result = bedObj.AddBedToDb(new BedModel());
+            Assert.Equal(HttpStatusCode.InternalServerError, result);
 
         }
+
 
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SQLite;
 using System.Net;
 using AlertToCare.Models;
@@ -39,7 +40,7 @@ namespace AlertToCare.DatabaseOperations
             }
         }
 
-        private void EnableForeignKey(SQLiteCommand sqlCommand)
+        private static void EnableForeignKey(IDbCommand sqlCommand)
         {
             sqlCommand.CommandText = "PRAGMA foreign_keys=ON";
             sqlCommand.ExecuteNonQuery();
@@ -47,11 +48,11 @@ namespace AlertToCare.DatabaseOperations
 
         public object DeleteIcuFromDb(string icuId)
         {
-            DbConnection.Open();
-            using var command = DbConnection.CreateCommand();
-            EnableForeignKey(command);
             try
             {
+                DbConnection.Open();
+                using var command = DbConnection.CreateCommand();
+                EnableForeignKey(command);
                 command.CommandText = $"DELETE FROM ICU WHERE IcuId = '{icuId}';";
                 command.Prepare();
                 command.ExecuteNonQuery();
@@ -72,11 +73,12 @@ namespace AlertToCare.DatabaseOperations
 
         public Dictionary<string, IcuModel> GetAllIcuFromDb()
         {
-            DbConnection.Open();
             var allIcus = new Dictionary<string, IcuModel>();
-            using var command = DbConnection.CreateCommand();
             try
             {
+                DbConnection.Open();
+                using var command = DbConnection.CreateCommand();
+                EnableForeignKey(command);
                 command.CommandText = "Select * from Icu";
                 command.Prepare();
                 command.ExecuteNonQuery();

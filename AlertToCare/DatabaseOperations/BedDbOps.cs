@@ -13,10 +13,11 @@ namespace AlertToCare.DatabaseOperations
 
         public object AddBedToDb(BedModel newBed)
         {
-            DbConnection.Open();
-            using var command = DbConnection.CreateCommand();
+            
             try
             {
+                DbConnection.Open();
+                using var command = DbConnection.CreateCommand();
                 command.CommandText =
                     @"INSERT INTO BEDS(IcuId, BedLayout, BedNo)" +
                     "VALUES (@IcuId, @BedLayout, @BedNo);";
@@ -40,53 +41,33 @@ namespace AlertToCare.DatabaseOperations
 
         private object AddBedStatusWhenBedAdded()
         {
-            try
-            {
-                var command = DbConnection.CreateCommand();
-                command.CommandText = @"INSERT INTO BEDSTATUS(OCCUPIED) VALUES ( @OCCUPIED);";
-                command.Parameters.AddWithValue(@"OCCUPIED", bool.Parse("false"));
-                command.Prepare();
-                command.ExecuteNonQuery();
-                return HttpStatusCode.OK;
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                return HttpStatusCode.InternalServerError;
-            }
+            var command = DbConnection.CreateCommand();
+            command.CommandText = @"INSERT INTO BEDSTATUS(OCCUPIED) VALUES ( @OCCUPIED);";
+            command.Parameters.AddWithValue(@"OCCUPIED", bool.Parse("false"));
+            command.Prepare();
+            command.ExecuteNonQuery();
+            return HttpStatusCode.OK;
+
         }
 
         public object DeleteBedFromDb(int bedId)
         {
             DbConnection.Open();
             using var command = DbConnection.CreateCommand();
-            try
-            {
-                DeleteBedStatus(bedId);
-                command.CommandText = $"Delete FROM Beds WHERE BEDID = {bedId}";
-                command.Prepare();
-                command.ExecuteNonQuery();
-
-                return HttpStatusCode.OK;
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                return HttpStatusCode.InternalServerError;
-            }
-
-            finally
-            {
-                CloseDb();
-            }
-
+            DeleteBedStatus(bedId);
+            command.CommandText = $"Delete FROM Beds WHERE BEDID = {bedId}";
+            command.Prepare();
+            command.ExecuteNonQuery();
+            CloseDb();
+            return HttpStatusCode.OK;
         }
+
         public object ChangeBedStatusToVacant(int bedId)
         {
-            DbConnection.Open();
-            DeleteBedStatus(bedId);
             try
             {
+                DbConnection.Open();
+                DeleteBedStatus(bedId);
                 var command = DbConnection.CreateCommand();
                 command.CommandText = @"INSERT INTO BEDSTATUS(BEDID, OCCUPIED) VALUES (@BEDID , @OCCUPIED);";
                 command.Parameters.AddWithValue(@"BEDID", bedId);
@@ -110,11 +91,13 @@ namespace AlertToCare.DatabaseOperations
 
         public Dictionary<int, BedModel> GetAllBedsFromDb()
         {
-            DbConnection.Open();
+            
             var allBeds = new Dictionary<int, BedModel>();
-            using var command = DbConnection.CreateCommand();
+            
             try
             {
+                DbConnection.Open();
+                using var command = DbConnection.CreateCommand();
                 command.CommandText = "SELECT BedId, IcuId, BedLayout, BedNo, Occupied from Beds NATURAL JOIN Bedstatus;";
                 command.Prepare();
                 command.ExecuteNonQuery();
@@ -156,9 +139,10 @@ namespace AlertToCare.DatabaseOperations
 
         public object ChangeBedStatusToOccupied(int bedId)
         {
-            DbConnection.Open();
+            
             try
             {
+                DbConnection.Open();
                 DeleteBedStatus(bedId);
                 var command = DbConnection.CreateCommand();
                 command.CommandText = "INSERT INTO BEDSTATUS VALUES (@BEDID, @OCCUPIED)";
@@ -182,9 +166,10 @@ namespace AlertToCare.DatabaseOperations
 
         public bool IsBedFree(int bedId)
         {
-            DbConnection.Open();
+           
             try
             {
+                DbConnection.Open();
                 var command = DbConnection.CreateCommand();
                 command.CommandText = $"SELECT Occupied FROM Bedstatus WHERE BEDID = {bedId};";
                 command.Prepare();

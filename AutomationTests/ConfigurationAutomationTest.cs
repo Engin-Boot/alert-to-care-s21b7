@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Net;
-using System.Text;
 using AlertToCare.Models;
 using RestSharp;
 using RestSharp.Serialization.Json;
@@ -69,14 +67,13 @@ namespace AutomationTests
         {
             var icuModel = new IcuModel()
             {
-                IcuId = "ICU03",
+                IcuId = "Dummy",
                 BedCount = 10
             };
             _request = new RestRequest("Configuration/PostIcuModelData", Method.POST) { RequestFormat = DataFormat.Json };
             _request.AddJsonBody(icuModel);
             var response = Client.Execute(_request);
-            var result = Deserializer.Deserialize<object>(response);
-            Assert.NotNull(result);
+            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
             RemoveIcu(icuModel.IcuId);
         }
 

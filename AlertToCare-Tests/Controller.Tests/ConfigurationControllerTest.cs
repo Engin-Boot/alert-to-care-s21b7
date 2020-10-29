@@ -17,17 +17,13 @@ namespace AlertToCare_Tests.Controller.Tests
             BedStatus = "Free"
         };
 
-        private readonly IcuModel _icuModel = new IcuModel()
-        {
-            IcuId = "I0001",
-            BedCount = 10
-
-        };
+        //public IcuModel Model { get; }
 
         private readonly ConfigurationController _configurationController;
 
-       public ConfigurationControllerTest()
+       public ConfigurationControllerTest(/*IcuModel icuModel*/)
        {
+           //Model = icuModel;
            var configMock = new Mock<IConfigurationRepository>();
            _configurationController=new ConfigurationController(configMock.Object);
        }
@@ -63,15 +59,15 @@ namespace AlertToCare_Tests.Controller.Tests
             if (addBedModel is OkResult addBedModelStatusCode) Assert.Equal(200, addBedModelStatusCode.StatusCode);
         }
 
-        [Fact]
-        public void PostIcuModelDataTest()
-        {
-            //var addIcuModel = _configurationController.PostIcuModelData(_icuModel);
-            //var addIcuModelStatusCode = addIcuModel as OkResult;
-            var addIcuModel = _configurationController.PostIcuModelData(_icuModel);
-            if (addIcuModel is OkResult addIcuModelStatusCode)
-                Assert.Equal(200, addIcuModelStatusCode.StatusCode);
-        }
+        //[Fact]
+        //public void PostIcuModelDataTest()
+        //{
+        //    //var addIcuModel = _configurationController.PostIcuModelData(_icuModel);
+        //    //var addIcuModelStatusCode = addIcuModel as OkResult;
+        //    var addIcuModel = _configurationController.PostIcuModelData(_icuModel);
+        //    if (addIcuModel is OkResult addIcuModelStatusCode)
+        //        Assert.Equal(200, addIcuModelStatusCode.StatusCode);
+        //}
 
 
         [Fact]

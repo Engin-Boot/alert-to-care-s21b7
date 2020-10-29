@@ -3,6 +3,7 @@ using AlertToCare.Models;
 using System.IO;
 using System.Net;
 using System.Reflection;
+using AlertToCare.DatabaseOperations;
 using AlertToCare.Occupancy;
 
 namespace AlertToCare_Tests.OccupancyTests
@@ -51,11 +52,11 @@ namespace AlertToCare_Tests.OccupancyTests
             var newPatient = new PatientModel()
             {
                 PId = "P1001",
-                Name = "Ashok1",
+                Name = "Ashok",
                 Address = "Bangalore",
                 Age = 10,
-                BedId = 1,
-                Email = "ashok.111@gmail.com",
+                BedId = 2,
+                Email = "ashok@gmail.com",
                 Gender = "Male",
                 IcuId = "ICU01",
                 PhoneNumber = "9999898999"
@@ -69,7 +70,28 @@ namespace AlertToCare_Tests.OccupancyTests
         public void CheckIfBedIfFree()
         {
             var occupancyObj = GetOccupancyObject();
-            Assert.True(occupancyObj.IsBedFree(1, GetDbPathForTesting()));
+            Assert.True(occupancyObj.IsBedFree(8, GetDbPathForTesting()));
+        }
+
+        [Fact]
+        public void WhenSamePatientIsAddedAgainThrowError()
+        {
+            var dbPath = GetDbPathForTesting();
+            var newPatient = new PatientModel()
+            {
+                PId = "P1002",
+                Name = "Ashok1",
+                Address = "Bangalore",
+                Age = 10,
+                BedId = 1,
+                Email = "ashok.111@gmail.com",
+                Gender = "Male",
+                IcuId = "ICU01",
+                PhoneNumber = "9999898999"
+            };
+            var occupancyObj = GetOccupancyObject();
+            var response = occupancyObj.AddNewPatient(newPatient, dbPath);
+            Assert.Equal(HttpStatusCode.InternalServerError, response);
         }
 
         [Fact]
@@ -95,6 +117,48 @@ namespace AlertToCare_Tests.OccupancyTests
             var occupancyObj = GetOccupancyObject();
             var result = occupancyObj.GetBedDetailsForIcu("ICU01", GetDbPathForTesting());
             Assert.NotNull(result);
+        }
+
+        [Fact]
+        public void WhenBedsAreFetchedFromDbIsPassedReturnNull()
+        {
+            var occupancyObj = GetOccupancyObject();
+            var result = occupancyObj.GetBedDetails(@"C:\\");
+            Assert.Null(result);
+        }
+
+        [Fact]
+        public void WhenBedStatusIsQueriedFromWrongDbReturnFalse()
+        {
+            var occupancyObj = GetOccupancyObject();
+            var result = occupancyObj.IsBedFree(100,@"C:\\");
+            Assert.False(result);
+        }
+
+        [Fact]
+        public void WhenBedStatusIsChangedToOccupiedOnWrongDbReturnError()
+        {
+            var dbObj = new BedDbOps(@"C:\\");
+            var result = dbObj.ChangeBedStatusToOccupied(10);
+            const HttpStatusCode expected = HttpStatusCode.InternalServerError;
+            Assert.Equal(expected, result);
+        }
+
+        [Fact]
+        public void WhenBedStatusIsChangedToVacantOnWrongDbReturnError()
+        {
+            var dbObj = new BedDbOps(@"C:\\");
+            var result = dbObj.ChangeBedStatusToVacant(10);
+            const HttpStatusCode expected = HttpStatusCode.InternalServerError;
+            Assert.Equal(expected, result);
+        }
+
+        [Fact]
+        public void WhenBedLayoutIsRequestedFromWrongDbReturnError()
+        {
+            var dbObj = new BedLayoutDbOps(@"C://");
+            var response = dbObj.GetAllLayouts();
+            Assert.Null(response);
         }
     }
 

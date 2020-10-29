@@ -88,7 +88,7 @@ namespace AutomationTests
         [Fact]
         public void GetBedStatusFor()
         {
-            _request = new RestRequest($"Occupancy/GetBedDetailsForIcu/ICU01", Method.GET) { RequestFormat = DataFormat.Json };
+            _request = new RestRequest("Occupancy/GetBedDetailsForIcu/ICU01", Method.GET) { RequestFormat = DataFormat.Json };
             var response = Client.Execute(_request);
             //var result = Deserializer.Deserialize<List<BedModel>>(response);
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);

@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using GuiClient.Commands;
@@ -168,8 +164,10 @@ namespace GuiClient.ViewModels
             }
         }
 
+        // ReSharper disable once MemberCanBePrivate.Global
         public List<string> GenderList
         {
+            // ReSharper disable once UnusedAutoPropertyAccessor.Global
             get;
         }
 
@@ -177,10 +175,10 @@ namespace GuiClient.ViewModels
 
         private List<BedModel> BedList
         {
-            get => bedList;
+            get => _bedList;
             set
             {
-                bedList = value;
+                _bedList = value;
                 FreeBedsInParticularIcu();
             }
         }
@@ -195,7 +193,7 @@ namespace GuiClient.ViewModels
                 OnPropertyChanged(nameof(IcuList));
             }
         }
-        private List<BedModel> bedList;
+        private List<BedModel> _bedList;
         public List<string> BedsInIcu { get; set; }
 
         #endregion
@@ -228,14 +226,14 @@ namespace GuiClient.ViewModels
             //      set occupied and stuff.
             //}
         }
-        public bool Admit_CanExecute()
-        {
-           return !(string.IsNullOrEmpty(SelectedIcuId) || SelectedBedId<0 || string.IsNullOrEmpty(FullName) ||
-                     Age <= 0 || Age > 150 || string.IsNullOrEmpty(SelectedGender) || string.IsNullOrEmpty(Address) ||
-                     string.IsNullOrEmpty(PhoneNumber) || string.IsNullOrEmpty(Email));
-        }
+        //public bool Admit_CanExecute()
+        //{
+        //   return !(string.IsNullOrEmpty(SelectedIcuId) || SelectedBedId<0 || string.IsNullOrEmpty(FullName) ||
+        //             Age <= 0 || Age > 150 || string.IsNullOrEmpty(SelectedGender) || string.IsNullOrEmpty(Address) ||
+        //             string.IsNullOrEmpty(PhoneNumber) || string.IsNullOrEmpty(Email));
+        //}
 
-        public void Clear()
+        private void Clear()
         {
             SelectedIcuId = "";
             SelectedBedId = 0;
@@ -250,8 +248,10 @@ namespace GuiClient.ViewModels
 
         #region Commands
 
+        // ReSharper disable once MemberCanBePrivate.Global
         public ICommand Admit
         {
+            // ReSharper disable once UnusedAutoPropertyAccessor.Global
             get;
             set;
         }

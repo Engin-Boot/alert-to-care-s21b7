@@ -3,6 +3,7 @@ using System.Net.Mail;
 
 namespace AlertToCare.Monitoring
 {
+    // ReSharper disable once ClassNeverInstantiated.Global
     public class Alerter
     {
         public interface IAlerter

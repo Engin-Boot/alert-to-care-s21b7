@@ -11,11 +11,11 @@ namespace AlertToCare.DatabaseOperations
 
         public List<string> GetAllLayouts()
         {
-            DbConnection.Open();
-            var allLayouts = new List<string>();
-            using var command = DbConnection.CreateCommand();
             try
             {
+                DbConnection.Open();
+                var allLayouts = new List<string>();
+                using var command = DbConnection.CreateCommand();
                 command.CommandText = "Select * from IcuLayouts;";
                 command.Prepare();
                 command.ExecuteNonQuery();
