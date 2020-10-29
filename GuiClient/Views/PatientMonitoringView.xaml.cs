@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -19,24 +21,18 @@ namespace GuiClient.Views
     /// <summary>
     /// Interaction logic for PatientMonitoringView.xaml
     /// </summary>
+    ///
+    
     public partial class PatientMonitoringView : UserControl
     {
-        public  readonly PatientMonitoringViewModel PatientMonitoringViewModel = new PatientMonitoringViewModel();
+        public  readonly PatientMonitoringViewModel PatientMonitoringVm = new PatientMonitoringViewModel();
+        //public ObservableCollection<PatientDataMonitor> Pd;
         public PatientMonitoringView()
         {
             InitializeComponent();
-            DataContext = PatientMonitoringViewModel;
+            DataContext = PatientMonitoringVm;
+
         }
 
-        //private void PatientMonitoringView_OnLoaded(object sender, RoutedEventArgs e)
-        //{
-        //    IcuIds.Text = "";
-        //}
-
-
-        //private void IcuIds_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
-        //{
-        //    PatientMonitoringViewModel.PatientsInParticularIcu();
-        //}
     }
 }

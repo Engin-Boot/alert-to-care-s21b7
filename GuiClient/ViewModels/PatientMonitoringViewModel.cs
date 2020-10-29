@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Drawing;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
+using System.Security.RightsManagement;
+using System.Windows.Controls;
+using System.Windows.Input;
+using System.Windows.Media;
+using GuiClient.Commands;
 using GuiClient.Models;
 using GuiClient.ServerWrapper;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace GuiClient.ViewModels
 {
@@ -20,13 +23,18 @@ namespace GuiClient.ViewModels
         public double VitalBpm { get; set; }
         public double VitalSpo2 { get; set; }
         public double VitalRespRate { get; set; }
-        public string Status { get; set; }
+        public SolidColorBrush Status { get; set; }
+        public SolidColorBrush BpmBackGround { get; set; }
+        public SolidColorBrush Spo2BackGround { get; set; }
+        public SolidColorBrush RespRateBackGround { get; set; }
     }
     public class PatientMonitoringViewModel :INotifyPropertyChanged
     {
         #region trying something
-        
-        
+
+        public ObservableHashSet<PatientDataMonitor> WarningData { get; set; }
+
+        public ObservableHashSet<PatientDataMonitor> EmergencyData { get; set; }
 
         #endregion
 
@@ -58,6 +66,11 @@ namespace GuiClient.ViewModels
         public PatientMonitoringViewModel()
         {
             IcuList = _icuWrapper.GetAllIcu();
+            WarningData = new ObservableHashSet<PatientDataMonitor>();
+            EmergencyData=new ObservableHashSet<PatientDataMonitor>();
+            //this.SuppressCommand = new DelegateCommandClass(
+            //    new Action<object>(this.SuppressCommandWrapper),
+            //    new Func<object, bool>(this.CanExecuteWrapper));
         }
 
         #endregion
@@ -72,6 +85,7 @@ namespace GuiClient.ViewModels
                 _selectedIcuId = value;
                 OnPropertyChanged(nameof(IcuIdSelected));
                 PatientsInParticularIcu();
+                StatusSet();
             }
         }
 
@@ -171,6 +185,8 @@ namespace GuiClient.ViewModels
             }
         }
 
+        
+
         #endregion
 
         #region Event
@@ -203,21 +219,147 @@ namespace GuiClient.ViewModels
                     VitalBpm = vital.Value.VitalBpm,
                     VitalSpo2 = vital.Value.VitalSpo2,
                     VitalRespRate = vital.Value.VitalRespRate,
-                    Status = ""
+                    RespRateBackGround = new SolidColorBrush(Colors.White),
+                    Spo2BackGround = new SolidColorBrush(Colors.White),
+                    BpmBackGround = new SolidColorBrush(Colors.White),
+                    Status = new SolidColorBrush(Colors.Green)
                 };
             PatientDataMonitors = theDataGridList.ToList();
         }
 
+
+
+        public void StatusSet()
+        {
+            var dictionaryIntColor = new Dictionary<int, SolidColorBrush>();
+            dictionaryIntColor.Add(1,new SolidColorBrush(Colors.Yellow));
+            dictionaryIntColor.Add(2,new SolidColorBrush(Colors.Red));
+
+            foreach (var data in PatientDataMonitors)
+            {
+               var bpmStatus = CheckBpm(data);
+               var spo2Status = CheckSpo2(data);
+                var respStatus = CheckRespRate(data);
+
+                var listOfStatus = new List<int>() {bpmStatus, spo2Status, respStatus};
+
+                var highest = listOfStatus.Max();
+                data.Status = dictionaryIntColor[highest];
+                if (highest == 1)
+                    WarningData.Add(data);
+                if (highest == 2)
+                    EmergencyData.Add(data);
+            }
+
+        }
+
+        
+
+
+        public int CheckBpm(PatientDataMonitor data)
+        {
+            if (IsEmergency(data.VitalBpm, 120, 30))
+            {
+                data.BpmBackGround = new SolidColorBrush(Colors.LightGoldenrodYellow);
+                data.Status = new SolidColorBrush(Colors.Red);
+                //EmergencyData.Add(data);
+                return 2;
+            }
+            else
+            {
+                if (IsWarning(data.VitalBpm, 101, 39))
+                {
+                    data.BpmBackGround = new SolidColorBrush(Colors.LightGoldenrodYellow);
+                    data.Status = new SolidColorBrush(Colors.Yellow);
+                    //WarningData.Add(data);
+                    return 1;
+                }
+
+                return 0;
+            }
+            
+            
+            
+        }
+
+        public int CheckSpo2(PatientDataMonitor data)
+        {
+            if (data.VitalSpo2 < 85)
+            {
+                data.Status = new SolidColorBrush(Colors.Red);
+                data.Spo2BackGround = new SolidColorBrush(Colors.LightGoldenrodYellow);
+                //EmergencyData.Add(data);
+                return 2;
+            }
+            else
+            {
+                if (!(data.VitalSpo2 < 95)) return 0;
+                data.Status = new SolidColorBrush(Colors.Yellow);
+                data.Spo2BackGround = new SolidColorBrush(Colors.LightGoldenrodYellow);
+               // WarningData.Add(data);
+               return 1;
+            }
+        }
+
+        public int CheckRespRate(PatientDataMonitor data)
+        {
+            if (IsEmergency(data.VitalRespRate, 20, 9))
+            {
+                data.RespRateBackGround = new SolidColorBrush(Colors.LightGoldenrodYellow);
+                data.Status = new SolidColorBrush(Colors.Red);
+                //EmergencyData.Add(data);
+                return 2;
+            }
+            else
+            {
+                if (IsWarning(data.VitalRespRate, 17, 11))
+                {
+                    data.RespRateBackGround = new SolidColorBrush(Colors.LightGoldenrodYellow);
+                    data.Status = new SolidColorBrush(Colors.Yellow);
+                   // WarningData.Add(data);
+                    return 1;
+                }
+
+                return 0;
+            }
+            
+            
+            // ReSharper disable once InvertIf
+            
+            
+        }
+
+        public bool IsWarning(double reading, double upper, double lower)
+        {
+            return reading >= upper || reading <= lower;
+        }
+
+        public bool IsEmergency(double reading, double upper, double lower)
+        {
+            return reading >= upper || reading <= lower;
+        }
+
         #endregion
 
-        #region Commands
+        // #region Commands
 
+        //public ICommand SuppressCommand
+        //{
+        //    get;
+        //    set;
+        //}
 
+        //#endregion
 
-        #endregion
+        //public void SuppressCommandWrapper(object parameter)
+        //{
+        //    var obj = (PatientDataMonitor)parameter;
+        //}
 
-
-
+        //public bool CanExecuteWrapper(object parameter)
+        //{
+        //    return true;
+        //}
 
     }
 }

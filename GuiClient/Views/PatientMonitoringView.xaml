@@ -42,15 +42,31 @@
                             UpdateSourceTrigger=PropertyChanged}"
                           ></ComboBox>
             
-                    <StackPanel Height="100" MinWidth="100" HorizontalAlignment="Stretch" Background="Aquamarine"
+                    <StackPanel Height="100" MinWidth="100" HorizontalAlignment="Stretch" Background="Beige"
                                 Grid.Row="0" Grid.Column="1">
-                        
+                        <ListView ItemsSource="{Binding WarningData}">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Header="Pid" DisplayMemberBinding="{Binding PId}"></GridViewColumn>
+                                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}"></GridViewColumn>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
                     </StackPanel>
-                <StackPanel Height="100" MinWidth="100" HorizontalAlignment="Stretch" Background="BlueViolet"
-                            Grid.Row="0" Grid.Column="2"></StackPanel>
+                    <StackPanel Height="100" MinWidth="100" HorizontalAlignment="Stretch" Background="Beige"
+                                Grid.Row="0" Grid.Column="2">
+                        <ListView ItemsSource="{Binding EmergencyData}">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Header="Pid" DisplayMemberBinding="{Binding PId}"></GridViewColumn>
+                                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}"></GridViewColumn>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                    </StackPanel>
                 </Grid.Children>
-            </Grid>
-            <!--<DataGrid x:Name="PatientDataGrid" Grid.Row="1" Grid.Column="0" Background="Beige"
+                </Grid>
+                    <!--<DataGrid x:Name="PatientDataGrid" Grid.Row="1" Grid.Column="0" Background="Beige"
                       >
                 <DataGrid.Resources>
                     <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource DataGridColumnHeaderStyle}"></Style>
@@ -74,7 +90,10 @@
                 </DataGrid.Columns>
             </DataGrid>-->
             <ListView Grid.Row="1" Grid.ColumnSpan="3"
-                ItemsSource="{Binding PatientDataMonitors}" HorizontalAlignment="Stretch">
+                ItemsSource="{Binding PatientDataMonitors}" HorizontalAlignment="Stretch"
+                HorizontalContentAlignment="Stretch"
+                IsSynchronizedWithCurrentItem="True"
+                Name="ListViewPatientData">
                 <ListView.Resources>
                     <Style TargetType="ListView" BasedOn="{StaticResource DataGridColumnHeaderStyle}"></Style>
                 </ListView.Resources>
@@ -84,25 +103,35 @@
                         <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" Width="110"/>
                         <GridViewColumn Header="Gender" DisplayMemberBinding="{Binding Gender}" Width="110"/>
                         <GridViewColumn Header="Bed Number" DisplayMemberBinding="{Binding BedId}" Width="Auto"/>
-                        <GridViewColumn Header="BPM" DisplayMemberBinding="{Binding VitalBpm}" Width="110"/>
-                        <GridViewColumn Header="SPO2" DisplayMemberBinding="{Binding VitalSpo2}" Width="110"/>
-                        <GridViewColumn Header="RESP RATE" DisplayMemberBinding="{Binding VitalRespRate}" Width="110"/>
-                        <GridViewColumn Header="STATUS" DisplayMemberBinding="{Binding Status}" Width="110">
-                           
-                        </GridViewColumn>
-                        <GridViewColumn Header="Button1">
+                        <GridViewColumn Header="BPM" Width="110">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Button >Suppress Alert</Button>
+                                    <TextBlock Text="{Binding VitalBpm}" Background="{Binding BpmBackGround}"></TextBlock>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
-                        <GridViewColumn Header="Button2">
+                            
+                        <GridViewColumn Header="SPO2" Width="110">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Button >Undo Suppress</Button>
+                                    <TextBlock Text="{Binding VitalSpo2}" Background="{Binding Spo2BackGround}"></TextBlock>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="RESP RATE" Width="110">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding VitalRespRate}" Background="{Binding RespRateBackGround}"></TextBlock>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="STATUS"  Width="110">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="                   " Background="{Binding Status}"></TextBlock>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                            
                         </GridViewColumn>
                     </GridView>
                 </ListView.View>
