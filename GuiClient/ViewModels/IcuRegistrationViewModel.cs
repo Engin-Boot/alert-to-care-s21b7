@@ -31,8 +31,10 @@ namespace GuiClient.ViewModels
 
         public IcuRegistrationViewModel()
         {
+            SelectedIcu = "";
             ListOfIcu = _icuWrapper.GetAllIcu();
-            this.AddIcuCommand = new RelayCommand(this.AddIcuWrapper);
+            this.AddIcuCommand = new DelegateCommandClass(new Action<object>(this.AddIcuWrapper),
+                new Func<object, bool>(this.CanExecuteWrapper));
             
         }
 
@@ -83,10 +85,10 @@ namespace GuiClient.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        //public bool IsIcuAlreadyPresent()
-        //{
-        //    return ListOfIcu.Any(icuId => icuId.Equals(SelectedIcu));
-        //}
+        public bool IsIcuAlreadyPresent()
+        {
+            return ListOfIcu.Any(icuId => icuId.Equals(SelectedIcu));
+        }
         #endregion
 
         #region Commands
@@ -102,19 +104,23 @@ namespace GuiClient.ViewModels
 
         public void AddIcuWrapper(object parameter)
         {
-            //if (!IsIcuAlreadyPresent())
-            //{
-            //    MessageBox.Show("ICU is already present.");
-            //}
-            //else
-            //{
+            if (IsIcuAlreadyPresent())
+            {
+                MessageBox.Show("ICU is already present.");
+            }
+            else
+            {
                 _icuWrapper.AddIcu(new IcuModel(){BedCount = NumberOfBeds,IcuId = SelectedIcu});
-                NumberOfBeds = 0;
-                SelectedIcu = "";
                 ListOfIcu = _icuWrapper.GetAllIcu();
-            //}
+            }
+            NumberOfBeds = 0;
+            SelectedIcu = "";
         }
 
+        public bool CanExecuteWrapper(object parameter)
+        {
+            return true;
+        }
         #endregion
 
     }

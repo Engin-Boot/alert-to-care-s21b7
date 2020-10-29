@@ -3,13 +3,12 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:GuiClient"
         xmlns:views="clr-namespace:GuiClient.Views"
         mc:Ignorable="d"
-        Title="MainWindow"
-        MinHeight="550" MinWidth="700"
+        Title="MainWindow" MinHeight="550" MinWidth="700"
         ResizeMode="CanResize"
-    ><!--Height="450" Width="800"-->
+>
+    <!--Height="450" Width="800"-->
     <Grid Background="LightGray">
         <Grid.RowDefinitions>
             <!--<RowDefinition MaxHeight="50"></RowDefinition>-->
@@ -39,7 +38,7 @@
                 <TabItem Header="Bed" Name="BedTab" Style="{StaticResource TabStyle}">
                     <views:BedAddDeleteView></views:BedAddDeleteView>
                 </TabItem>
-                
+
             </TabControl>
 
         </Grid.Children>
