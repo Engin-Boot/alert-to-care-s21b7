@@ -22,6 +22,7 @@ namespace GuiClient.ViewModels
         #region Fields
 
         private List<int> _freeBedList;
+        private List<string> _icuList;
         #endregion
 
         #region Initializers
@@ -183,7 +184,17 @@ namespace GuiClient.ViewModels
                 FreeBedsInParticularIcu();
             }
         }
-        public List<string> IcuList { get; set; }
+
+        public List<string> IcuList
+        {
+            get => _icuList;
+
+            set
+            {
+                _icuList = value;
+                OnPropertyChanged(nameof(IcuList));
+            }
+        }
         private List<BedModel> bedList;
         public List<string> BedsInIcu { get; set; }
 
