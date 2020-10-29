@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Security.RightsManagement;
+using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -65,12 +66,17 @@ namespace GuiClient.ViewModels
 
         public PatientMonitoringViewModel()
         {
-            IcuList = _icuWrapper.GetAllIcu();
+
             WarningData = new ObservableHashSet<PatientDataMonitor>();
             EmergencyData=new ObservableHashSet<PatientDataMonitor>();
-            //this.SuppressCommand = new DelegateCommandClass(
-            //    new Action<object>(this.SuppressCommandWrapper),
-            //    new Func<object, bool>(this.CanExecuteWrapper));
+            
+            Action<object> actionObject = (object obj) =>
+            {
+                IcuList = _icuWrapper.GetAllIcu();
+            };
+            var refreshTask =  new Task(actionObject, "MonitorRefreshTask");
+            refreshTask.Start();
+            refreshTask.Wait(5000);
         }
 
         #endregion
@@ -84,6 +90,19 @@ namespace GuiClient.ViewModels
             {
                 _selectedIcuId = value;
                 OnPropertyChanged(nameof(IcuIdSelected));
+                //Action<object> actionObject = (object obj) =>
+                //{
+                //    PatientsInParticularIcu();
+                //};
+                //var refreshTask = new Task(actionObject, "MonitorRefreshTask");
+                //refreshTask.Start();
+                //while (true)
+                //{
+                //    PatientsInParticularIcu();
+                //    StatusSet();
+                //    refreshTask.Wait(5000);
+
+                //}
                 PatientsInParticularIcu();
                 StatusSet();
             }
