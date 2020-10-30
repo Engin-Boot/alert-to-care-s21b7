@@ -1,4 +1,4 @@
-﻿namespace GuiClient
+﻿namespace GuiClient.Models
 {
     public class BedModel
     {

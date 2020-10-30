@@ -16,6 +16,7 @@ namespace AlertToCare.DatabaseOperations
                 DbConnection.Open();
                 var allLayouts = new List<string>();
                 using var command = DbConnection.CreateCommand();
+                EnableForeignKey(command);
                 command.CommandText = "Select * from IcuLayouts;";
                 command.Prepare();
                 command.ExecuteNonQuery();

@@ -18,11 +18,12 @@ namespace GuiClient.Views
     /// </summary>
     public partial class IcuRegisterationView : UserControl
     {
-        readonly ViewModels.IcuRegistrationViewModel icuRegistrationViewModel = new ViewModels.IcuRegistrationViewModel();
+        // ReSharper disable once MemberCanBePrivate.Global
+        public readonly ViewModels.IcuRegistrationViewModel _icuRegistrationViewModel = new ViewModels.IcuRegistrationViewModel();
         public IcuRegisterationView()
         {
             InitializeComponent();
-            DataContext = icuRegistrationViewModel;
+            DataContext = _icuRegistrationViewModel;
         }
     }
 }

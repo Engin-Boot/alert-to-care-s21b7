@@ -56,7 +56,8 @@ namespace AlertToCare_Tests.Controller.Tests
             //var addBedModelStatusCode = addBedModel as OkResult;
 
             var addBedModel = _configurationController.PostBedModelData(_bedModel);
-            if (addBedModel is OkResult addBedModelStatusCode) Assert.Equal(200, addBedModelStatusCode.StatusCode);
+            if (addBedModel is OkResult addBedModelStatusCode) 
+                Assert.Equal(200, addBedModelStatusCode.StatusCode);
         }
 
         //[Fact]

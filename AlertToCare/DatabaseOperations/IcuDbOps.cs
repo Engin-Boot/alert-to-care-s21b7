@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Data.SQLite;
 using System.Net;
 using AlertToCare.Models;
@@ -38,12 +37,6 @@ namespace AlertToCare.DatabaseOperations
             {
                 CloseDb();
             }
-        }
-
-        private static void EnableForeignKey(IDbCommand sqlCommand)
-        {
-            sqlCommand.CommandText = "PRAGMA foreign_keys=ON";
-            sqlCommand.ExecuteNonQuery();
         }
 
         public object DeleteIcuFromDb(string icuId)

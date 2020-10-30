@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Net;
 using System.Windows;
+using GuiClient.Models;
 using RestSharp;
 using DataFormat = RestSharp.DataFormat;
 

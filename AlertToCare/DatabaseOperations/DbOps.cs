@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using System.Data.SQLite;
 using System.IO;
 using System.Reflection;
@@ -34,6 +35,11 @@ namespace AlertToCare.DatabaseOperations
         protected void CloseDb()
         {
             DbConnection.Close();
+        }
+        protected static void EnableForeignKey(IDbCommand sqlCommand)
+        {
+            sqlCommand.CommandText = "PRAGMA foreign_keys=ON";
+            sqlCommand.ExecuteNonQuery();
         }
     }
 }
