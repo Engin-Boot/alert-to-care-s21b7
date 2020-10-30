@@ -15,13 +15,6 @@ namespace AlertToCare.Controllers
             this._monitoring = monitoring;
         }
 
-        // GET: api/<UsersController>
-        [HttpGet]
-        //public IActionResult Get()
-        //{
-        //    var patientVitalData= this._monitoring.GetMonitoringInformation();
-        //    return Ok(patientVitalData);
-        //}
         [HttpGet]
         [Route("[action]")]
         public Dictionary<string, PatientVital> GeAllPatientVitals()
