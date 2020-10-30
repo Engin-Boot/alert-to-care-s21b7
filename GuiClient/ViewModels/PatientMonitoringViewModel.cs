@@ -4,7 +4,9 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Security.RightsManagement;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -33,17 +35,45 @@ namespace GuiClient.ViewModels
     {
         #region trying something
 
-        public ObservableHashSet<PatientDataMonitor> WarningData { get; set; }
+        public ObservableCollection<PatientDataMonitor> WarningData { get; set; }
 
-        public ObservableHashSet<PatientDataMonitor> EmergencyData { get; set; }
+        public ObservableCollection<PatientDataMonitor> EmergencyData { get; set; }
+        public ObservableCollection<PatientDataMonitor> UndoWarningData { get; set; }
+        public ObservableCollection<PatientDataMonitor> UndoEmergencyData { get; set; }
 
         #endregion
 
+        // ParameterizedThreadStart startRefresh = new ParameterizedThreadStart(Wrapper1());
 
 
+        //private  void Wrapper1()
+        //{
+        //    EmergencyData.Clear();
+        //    WarningData.Clear();
+        //    PatientsInParticularIcu();
+        //    StatusSet();
+        //}
+
+        private void Wrapper2()
+        {
+            Action<object> actionObject = (object obj) =>
+            {
+                while (true)
+                {
+                    EmergencyData.Clear();
+                    WarningData.Clear();
+                    PatientsInParticularIcu();
+                    StatusSet();
+                    Thread.Sleep(5000);
+
+                }
+
+            };
+            var refreshTask = new Task(actionObject, "MonitorRefreshTask");
+            refreshTask.Start();
+        }
 
 
-        private PatientModel _allPatientListInIcu;
         #region Fields
 
         private string _selectedIcuId;
@@ -58,7 +88,10 @@ namespace GuiClient.ViewModels
         private double _bpm;
         private double _spo2;
         private double _respRate;
+        private PatientModel _allPatientListInIcu;
         private List<PatientDataMonitor> _patientDataMonitors;
+        private PatientDataMonitor _selectedWarningDataMonitor;
+        private PatientDataMonitor _selectedEmergencyDataMonitor;
 
         #endregion
 
@@ -67,21 +100,61 @@ namespace GuiClient.ViewModels
         public PatientMonitoringViewModel()
         {
 
-            WarningData = new ObservableHashSet<PatientDataMonitor>();
-            EmergencyData=new ObservableHashSet<PatientDataMonitor>();
+            WarningData = new ObservableCollection<PatientDataMonitor>();
+            EmergencyData=new ObservableCollection<PatientDataMonitor>();
+            UndoEmergencyData=new ObservableCollection<PatientDataMonitor>();
+            UndoWarningData=new ObservableCollection<PatientDataMonitor>();
             
-            Action<object> actionObject = (object obj) =>
-            {
+            this.SuppressEmergencyCommand= new DelegateCommandClass(
+                new Action<object>(this.SuppressEmergencyCommandWrapper),
+                new Func<object, bool>(this.CanExecuteWrapper));
+
+            this.UndoEmergencyCommand= new DelegateCommandClass(
+                new Action<object>(this.UndoEmergencyCommandWrapper),
+                new Func<object, bool>(this.CanExecuteWrapper));
+
+            this.SuppressWarningCommand= new DelegateCommandClass(
+                new Action<object>(this.SuppressWarningCommandWrapper),
+                new Func<object, bool>(this.CanExecuteWrapper));
+
+            this.UndoWarningCommand = new DelegateCommandClass(
+                new Action<object>(this.UndoWarningCommandWrapper),
+                new Func<object, bool>(this.CanExecuteWrapper));
+
+            this.RefreshPatientCommand = new DelegateCommandClass(
+                new Action<object>(this.RefreshPatientCommandWrapper),
+                new Func<object, bool>(this.CanExecuteWrapper));
+
+           
                 IcuList = _icuWrapper.GetAllIcu();
-            };
-            var refreshTask =  new Task(actionObject, "MonitorRefreshTask");
-            refreshTask.Start();
-            refreshTask.Wait(5000);
+            
         }
+
+        
 
         #endregion
 
         #region Properties
+
+        
+        public PatientDataMonitor SelectedWarningDataMonitorForSuppress
+        {
+            get => _selectedWarningDataMonitor;
+            set
+            {
+                _selectedWarningDataMonitor = value;
+                OnPropertyChanged(nameof(SelectedWarningDataMonitorForSuppress));
+            }
+        }
+        public PatientDataMonitor SelectedEmergencyDataMonitorForSuppress
+        {
+            get => _selectedEmergencyDataMonitor;
+            set
+            {
+                _selectedEmergencyDataMonitor = value;
+                OnPropertyChanged(nameof(SelectedEmergencyDataMonitorForSuppress));
+            }
+        }
 
         public string IcuIdSelected
         {
@@ -90,21 +163,11 @@ namespace GuiClient.ViewModels
             {
                 _selectedIcuId = value;
                 OnPropertyChanged(nameof(IcuIdSelected));
-                //Action<object> actionObject = (object obj) =>
-                //{
-                //    PatientsInParticularIcu();
-                //};
-                //var refreshTask = new Task(actionObject, "MonitorRefreshTask");
-                //refreshTask.Start();
-                //while (true)
-                //{
-                //    PatientsInParticularIcu();
-                //    StatusSet();
-                //    refreshTask.Wait(5000);
-
-                //}
-                PatientsInParticularIcu();
-                StatusSet();
+                //EmergencyData.Clear();
+                //WarningData.Clear();
+                //PatientsInParticularIcu();
+                //StatusSet();
+                Wrapper2();
             }
         }
 
@@ -251,6 +314,7 @@ namespace GuiClient.ViewModels
         public void StatusSet()
         {
             var dictionaryIntColor = new Dictionary<int, SolidColorBrush>();
+            dictionaryIntColor.Add(0,new SolidColorBrush(Colors.Green));
             dictionaryIntColor.Add(1,new SolidColorBrush(Colors.Yellow));
             dictionaryIntColor.Add(2,new SolidColorBrush(Colors.Red));
 
@@ -264,6 +328,7 @@ namespace GuiClient.ViewModels
 
                 var highest = listOfStatus.Max();
                 data.Status = dictionaryIntColor[highest];
+                
                 if (highest == 1)
                     WarningData.Add(data);
                 if (highest == 2)
@@ -277,7 +342,7 @@ namespace GuiClient.ViewModels
 
         public int CheckBpm(PatientDataMonitor data)
         {
-            if (IsEmergency(data.VitalBpm, 120, 30))
+            if (IsEmergency(data.VitalBpm, 161, 59))
             {
                 data.BpmBackGround = new SolidColorBrush(Colors.LightGoldenrodYellow);
                 data.Status = new SolidColorBrush(Colors.Red);
@@ -286,7 +351,7 @@ namespace GuiClient.ViewModels
             }
             else
             {
-                if (IsWarning(data.VitalBpm, 101, 39))
+                if (IsWarning(data.VitalBpm, 151, 69))
                 {
                     data.BpmBackGround = new SolidColorBrush(Colors.LightGoldenrodYellow);
                     data.Status = new SolidColorBrush(Colors.Yellow);
@@ -303,7 +368,7 @@ namespace GuiClient.ViewModels
 
         public int CheckSpo2(PatientDataMonitor data)
         {
-            if (data.VitalSpo2 < 85)
+            if (data.VitalSpo2 < 90)
             {
                 data.Status = new SolidColorBrush(Colors.Red);
                 data.Spo2BackGround = new SolidColorBrush(Colors.LightGoldenrodYellow);
@@ -322,7 +387,7 @@ namespace GuiClient.ViewModels
 
         public int CheckRespRate(PatientDataMonitor data)
         {
-            if (IsEmergency(data.VitalRespRate, 20, 9))
+            if (IsEmergency(data.VitalRespRate, 101, 24))
             {
                 data.RespRateBackGround = new SolidColorBrush(Colors.LightGoldenrodYellow);
                 data.Status = new SolidColorBrush(Colors.Red);
@@ -331,7 +396,7 @@ namespace GuiClient.ViewModels
             }
             else
             {
-                if (IsWarning(data.VitalRespRate, 17, 11))
+                if (IsWarning(data.VitalRespRate, 96, 29))
                 {
                     data.RespRateBackGround = new SolidColorBrush(Colors.LightGoldenrodYellow);
                     data.Status = new SolidColorBrush(Colors.Yellow);
@@ -358,27 +423,125 @@ namespace GuiClient.ViewModels
             return reading >= upper || reading <= lower;
         }
 
+        public void RemoveFromObservableAndAddToUndo(PatientDataMonitor data,ObservableCollection<PatientDataMonitor> removeFrom ,
+            ObservableCollection<PatientDataMonitor>addTo)
+        {
+            foreach (var entry in removeFrom)
+            {
+                if (!entry.Equals(data)) continue;
+                removeFrom.Remove(data);
+                addTo.Add(data);
+                break;
+            }
+        }
+
+        public void RemoveLastFromUndoObservableAndAddBackToOriginal(
+            ObservableCollection<PatientDataMonitor> removeLastFrom,
+            ObservableCollection<PatientDataMonitor> addTo)
+        {
+            if (removeLastFrom.Count==0)
+                MessageBox.Show("Nothing To Undo.");
+            else
+            {
+                var lastData = removeLastFrom.Last();
+                removeLastFrom.Remove(lastData);
+                addTo.Add(lastData);
+                MessageBox.Show($"Undo successful. PID : {lastData.PId} , Name : {lastData.Name}");
+            }
+        }
         #endregion
 
-        // #region Commands
+        #region Commands
 
-        //public ICommand SuppressCommand
-        //{
-        //    get;
-        //    set;
-        //}
+        public ICommand SuppressEmergencyCommand
+        {
+            get;
+            set;
+        }
+        public ICommand UndoEmergencyCommand
+        {
+            get;
+            set;
+        }
+        public ICommand SuppressWarningCommand
+        {
+            get;
+            set;
+        }
+        public ICommand UndoWarningCommand
+        {
+            get;
+            set;
+        }
 
-        //#endregion
+        public ICommand RefreshPatientCommand
+        {
+            get;
+            set;
+        }
+        #endregion
 
-        //public void SuppressCommandWrapper(object parameter)
-        //{
-        //    var obj = (PatientDataMonitor)parameter;
-        //}
 
-        //public bool CanExecuteWrapper(object parameter)
-        //{
-        //    return true;
-        //}
+        #region helper command wrappers
+
+        
+
+        #endregion
+        public void SuppressWarningCommandWrapper(object parameter)
+        {
+            if (SelectedWarningDataMonitorForSuppress != null)
+            {
+                RemoveFromObservableAndAddToUndo(SelectedWarningDataMonitorForSuppress,
+                    WarningData, UndoWarningData);
+                SelectedWarningDataMonitorForSuppress = null;
+            }
+            else
+            {
+                MessageBox.Show("Nothing is Selected to Suppress.");
+            }
+        }
+        public void SuppressEmergencyCommandWrapper(object parameter)
+        {
+            if (SelectedEmergencyDataMonitorForSuppress != null)
+            {
+                RemoveFromObservableAndAddToUndo(SelectedEmergencyDataMonitorForSuppress,
+                    EmergencyData,UndoEmergencyData);
+                SelectedEmergencyDataMonitorForSuppress = null;
+            }
+            else
+            {
+                MessageBox.Show("Nothing is Selected to Suppress.");
+            }
+        }
+
+        public void UndoEmergencyCommandWrapper(object parameter)
+        {
+
+            RemoveLastFromUndoObservableAndAddBackToOriginal(
+                    UndoEmergencyData, EmergencyData);
+
+        }
+        public void UndoWarningCommandWrapper(object parameter)
+        {
+
+            RemoveLastFromUndoObservableAndAddBackToOriginal(
+                UndoWarningData, WarningData);
+
+        }
+
+        private void RefreshPatientCommandWrapper(object obj)
+        {
+            if (IcuIdSelected == null) return;
+            EmergencyData.Clear();
+            WarningData.Clear();
+            PatientsInParticularIcu();
+            StatusSet();
+        }
+
+        public bool CanExecuteWrapper(object parameter)
+        {
+            return true;
+        }
 
     }
 }

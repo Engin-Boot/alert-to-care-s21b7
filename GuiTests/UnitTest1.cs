@@ -6,8 +6,8 @@ namespace GuiTests
 {
     public class OccupancyTests
     {
-        [Fact]
-        public void 
+        //[Fact]
+       // public void 
     }
 }
 

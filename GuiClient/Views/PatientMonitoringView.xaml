@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:GuiClient.Views"
              xmlns:viewModels="clr-namespace:GuiClient.ViewModels"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800" >
+             d:DesignHeight="450" d:DesignWidth="950" >
     <!--<UserControl.DataContext>
          Instantiates ViewModel type using DefaultConstructor
         <viewModels:PatientMonitoringViewModel></viewModels:PatientMonitoringViewModel>
@@ -34,36 +34,76 @@
                         <ColumnDefinition Width="*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <Grid.Children>
-                    <ComboBox Name="IcuIds" Style="{StaticResource ComboBoxStyle}"
-                          HorizontalAlignment="Left" Grid.Row="0" Grid.Column="0"
-                          ItemsSource="{Binding IcuList}"
+                    <StackPanel Grid.Row="0" Grid.Column="0">
+                        <!--ScrollViewer.VerticalScrollBarVisibility="Visible"-->
+                        <ComboBox Name="IcuIds" Style="{StaticResource ComboBoxStyle}"
+                                  HorizontalAlignment="Left" 
+                                  ItemsSource="{Binding IcuList}"
                           
-                          SelectedValue="{Binding IcuIdSelected, 
+                                  SelectedValue="{Binding IcuIdSelected, 
                             UpdateSourceTrigger=PropertyChanged}"
-                          ></ComboBox>
-            
+                        ></ComboBox>
+                        <Button  Command="{Binding RefreshPatientCommand}"  Content="Refresh Patient" HorizontalAlignment="Center"></Button>
+                    </StackPanel>
+                    
                     <StackPanel Height="100" MinWidth="100" HorizontalAlignment="Stretch" Background="Beige"
                                 Grid.Row="0" Grid.Column="1">
-                        <ListView ItemsSource="{Binding WarningData}">
-                            <ListView.View>
-                                <GridView>
-                                    <GridViewColumn Header="Pid" DisplayMemberBinding="{Binding PId}"></GridViewColumn>
-                                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}"></GridViewColumn>
-                                </GridView>
-                            </ListView.View>
-                        </ListView>
-                    </StackPanel>
+                        
+                            <TextBlock Style="{StaticResource TextBlockStyle}" Text="WARNINGS"
+                                       HorizontalAlignment="Center"></TextBlock>
+                            <ComboBox ItemsSource="{Binding WarningData}" 
+                                      SelectedItem="{Binding SelectedWarningDataMonitorForSuppress}"
+                                      Style="{StaticResource ComboBoxStyle}">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock x:Name="PidW" Text="{Binding PId}" 
+                                                       Style="{StaticResource TextBlockStyle}"></TextBlock>
+                                            <TextBlock x:Name="NameW" Text="{Binding Name}"
+                                                       Style="{StaticResource TextBlockStyle}"
+                                                       Margin="10 ,0,0,0"></TextBlock>
+                                        </StackPanel>
+
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                            <WrapPanel HorizontalAlignment="Center">
+                            <Button Content="Suppress" Command="{Binding SuppressWarningCommand}"></Button>
+                            <Button Content="Undo" Margin="30,0,0,0" Command="{Binding UndoWarningCommand}"></Button>
+                            </WrapPanel>
+                        </StackPanel>
+                    
+
                     <StackPanel Height="100" MinWidth="100" HorizontalAlignment="Stretch" Background="Beige"
                                 Grid.Row="0" Grid.Column="2">
-                        <ListView ItemsSource="{Binding EmergencyData}">
-                            <ListView.View>
-                                <GridView>
-                                    <GridViewColumn Header="Pid" DisplayMemberBinding="{Binding PId}"></GridViewColumn>
-                                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}"></GridViewColumn>
-                                </GridView>
-                            </ListView.View>
-                        </ListView>
+                        
+                            <TextBlock Style="{StaticResource TextBlockStyle}" Text="EMERGENCIES"
+                                       HorizontalAlignment="Center"></TextBlock>
+                            <ComboBox ItemsSource="{Binding EmergencyData}" 
+                                      SelectedItem="{Binding SelectedEmergencyDataMonitorForSuppress}"
+                                      Style="{StaticResource ComboBoxStyle}"
+                            >
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock x:Name="PidE" Text="{Binding PId}" 
+                                                       Style="{StaticResource TextBlockStyle}"></TextBlock>
+                                            <TextBlock x:Name="NameE" Text="{Binding Name}"
+                                                       Style="{StaticResource TextBlockStyle}"
+                                                       Margin="10 ,0,0,0"></TextBlock>
+                                        </StackPanel>
+
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                        <WrapPanel HorizontalAlignment="Center">
+                            <Button Content="Suppress" Command="{Binding SuppressEmergencyCommand}"></Button>
+                            <Button Content="Undo" Margin="30,0,0,0" Command="{Binding UndoEmergencyCommand}"></Button>
+                        </WrapPanel>
                     </StackPanel>
+                    
+                    
+                   
                 </Grid.Children>
                 </Grid>
                     <!--<DataGrid x:Name="PatientDataGrid" Grid.Row="1" Grid.Column="0" Background="Beige"
@@ -100,7 +140,7 @@
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="Patient ID" DisplayMemberBinding="{Binding PId}" Width="110"/>
-                        <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" Width="110"/>
+                        <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" Width="160"/>
                         <GridViewColumn Header="Gender" DisplayMemberBinding="{Binding Gender}" Width="110"/>
                         <GridViewColumn Header="Bed Number" DisplayMemberBinding="{Binding BedId}" Width="Auto"/>
                         <GridViewColumn Header="BPM" Width="110">
