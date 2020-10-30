@@ -52,10 +52,10 @@ namespace GuiClient.ViewModels
 
         public List<string> AllPatients
         {
-            get => allPatients;
+            get => _allPatients;
             set
             {
-                allPatients = value;
+                _allPatients = value;
                 OnPropertyChanged(nameof(AllPatients));
             }
         }
@@ -68,7 +68,7 @@ namespace GuiClient.ViewModels
         #region PrivateVariables
 
         private string _selectedPatient;
-        private List<string> allPatients;
+        private List<string> _allPatients;
 
         #endregion
 

@@ -7,13 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlertToCare", "AlertToCare\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlertToCare-Tests", "AlertToCare-Tests\AlertToCare-Tests.csproj", "{4B6028CD-5A04-48DB-9B0A-FA59BDCE1EC8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiAlertToCare-AutomateTest", "ApiAlertToCare-AutomateTest\ApiAlertToCare-AutomateTest.csproj", "{BE1AACE3-A4D8-4A88-A761-655D7827B8A8}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GuiTests", "GuiTests\GuiTests.csproj", "{D1DEE68F-32AF-48A2-800A-0292886B7C8F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutomationTests", "AutomationTests\AutomationTests.csproj", "{494F0D8C-BCAF-4C3B-B731-63AB8BFF4E71}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GuiClient", "GuiClient\GuiClient.csproj", "{BA35CD9C-357F-4B2E-937D-BF14BF65F5A1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GuiClient", "GuiClient\GuiClient.csproj", "{BA35CD9C-357F-4B2E-937D-BF14BF65F5A1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +27,6 @@ Global
 		{4B6028CD-5A04-48DB-9B0A-FA59BDCE1EC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4B6028CD-5A04-48DB-9B0A-FA59BDCE1EC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4B6028CD-5A04-48DB-9B0A-FA59BDCE1EC8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BE1AACE3-A4D8-4A88-A761-655D7827B8A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BE1AACE3-A4D8-4A88-A761-655D7827B8A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BE1AACE3-A4D8-4A88-A761-655D7827B8A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BE1AACE3-A4D8-4A88-A761-655D7827B8A8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D1DEE68F-32AF-48A2-800A-0292886B7C8F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D1DEE68F-32AF-48A2-800A-0292886B7C8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D1DEE68F-32AF-48A2-800A-0292886B7C8F}.Release|Any CPU.ActiveCfg = Release|Any CPU

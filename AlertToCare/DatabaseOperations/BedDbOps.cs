@@ -42,6 +42,7 @@ namespace AlertToCare.DatabaseOperations
         private object AddBedStatusWhenBedAdded()
         {
             var command = DbConnection.CreateCommand();
+            EnableForeignKey(command);
             command.CommandText = @"INSERT INTO BEDSTATUS(OCCUPIED) VALUES ( @OCCUPIED);";
             command.Parameters.AddWithValue(@"OCCUPIED", bool.Parse("false"));
             command.Prepare();
@@ -54,6 +55,7 @@ namespace AlertToCare.DatabaseOperations
         {
             DbConnection.Open();
             using var command = DbConnection.CreateCommand();
+            EnableForeignKey(command);
             DeleteBedStatus(bedId);
             command.CommandText = $"Delete FROM Beds WHERE BEDID = {bedId}";
             command.Prepare();
@@ -67,11 +69,8 @@ namespace AlertToCare.DatabaseOperations
             try
             {
                 DbConnection.Open();
-                DeleteBedStatus(bedId);
                 var command = DbConnection.CreateCommand();
-                command.CommandText = @"INSERT INTO BEDSTATUS(BEDID, OCCUPIED) VALUES (@BEDID , @OCCUPIED);";
-                command.Parameters.AddWithValue(@"BEDID", bedId);
-                command.Parameters.AddWithValue(@"OCCUPIED", bool.Parse("false"));
+                command.CommandText = $"UPDATE BEDSTATUS SET OCCUPIED={false} WHERE BEDID = {bedId};";
                 command.Prepare();
                 command.ExecuteNonQuery();
                 return HttpStatusCode.OK;
@@ -143,14 +142,10 @@ namespace AlertToCare.DatabaseOperations
             try
             {
                 DbConnection.Open();
-                DeleteBedStatus(bedId);
                 var command = DbConnection.CreateCommand();
-                command.CommandText = "INSERT INTO BEDSTATUS VALUES (@BEDID, @OCCUPIED)";
-                command.Parameters.AddWithValue(@"BEDID", bedId);
-                command.Parameters.AddWithValue(@"OCCUPIED", bool.Parse("true"));
+                command.CommandText = $"UPDATE BEDSTATUS SET OCCUPIED = {true} WHERE BEDID = {bedId} ;";
                 command.Prepare();
                 command.ExecuteNonQuery();
-
                 return HttpStatusCode.OK;
             }
             catch (Exception e)
