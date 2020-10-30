@@ -9,16 +9,10 @@ namespace AlertToCare.Monitoring
     public class MonitoringRepository : IMonitoringRepository
     {
 
-        public MonitoringRepository()
-        {
-            if (_status != 0) return;
-            var patientsObj = new PatientDbOps(DbOps.GetDbPath());
-            Patients = patientsObj.GetAllPatientsFromDb();
-            _status = 1;
-        }
-
         public Dictionary<string, PatientVital> CheckVitalOfAllPatients()
         {
+            var patientsObj = new PatientDbOps(DbOps.GetDbPath());
+            Patients = patientsObj.GetAllPatientsFromDb();
             var vitals = new Dictionary<string, PatientVital>();
             foreach (var var1 in Patients)
             {
@@ -64,9 +58,8 @@ namespace AlertToCare.Monitoring
             return _random.Next(min, max);
         }
 
-        private static Dictionary<string, PatientModel> Patients { get; set; }
+        private Dictionary<string, PatientModel> Patients { get; set; }
         public readonly Alerter.IAlerter Alerter = new Alerter.EmailAlert();
-        private static int _status;
         private static readonly int[] RespRateLimits = {15, 110};
         private static readonly int[] Spo2Limits = { 87, 100 };
         private static readonly int[] BpmLimits = { 55, 165 };

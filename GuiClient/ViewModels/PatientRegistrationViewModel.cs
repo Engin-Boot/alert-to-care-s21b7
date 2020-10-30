@@ -31,9 +31,15 @@ namespace GuiClient.ViewModels
                 "Male" , "Female" , "Others"
             };
             Admit = new RelayCommand(AdmitPatient);
-            IcuList = GetAllIcusFromServer();
-        }
+            InitDetails();
 
+        }
+        public void InitDetails()
+        {
+            var icus = GetAllIcusFromServer();
+            IcuList = icus.OrderBy(a => a).ToList();
+            Clear();
+        }
         private void AdmitPatient(object obj)
         {
             var patientObj = new PatientWrapper();
@@ -72,7 +78,6 @@ namespace GuiClient.ViewModels
             get => Patient.IcuId;
             set
             {
-                if (value.Equals(Patient.IcuId)) return;
                 Patient.IcuId = value;
                 GetAllBedsForIcu(value);
                 OnPropertyChanged(nameof(SelectedIcuId));

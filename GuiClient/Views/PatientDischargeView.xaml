@@ -11,6 +11,7 @@
 
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
@@ -26,8 +27,14 @@
                       SelectedItem="{Binding SelectedPatient}"></ComboBox>
 
 
-            <Button x:Name="DischargePatientButton" Style="{StaticResource ButtonStyle}" 
-                    Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Command ="{Binding DischargePatientCommand}">Discharge Patient</Button>
+            <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal">
+                <Button x:Name="DischargePatientButton" Style="{StaticResource ButtonStyle}" 
+                        Command ="{Binding DischargePatientCommand}">Discharge Patient</Button>
+                <Button x:Name="Refresh" Style="{StaticResource ButtonStyle}" Click="Refresh_Click" 
+                       >Refresh</Button>
+            </StackPanel>
+            
+            
         </Grid.Children>
     </Grid>
 </UserControl>

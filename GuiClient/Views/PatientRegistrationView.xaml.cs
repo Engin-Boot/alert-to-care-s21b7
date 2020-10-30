@@ -9,7 +9,7 @@ namespace GuiClient.Views
     public partial class PatientRegistrationView
     {
         // ReSharper disable once MemberCanBePrivate.Global
-        public readonly PatientRegistrationViewModel
+        public PatientRegistrationViewModel
             PatientRegistrationViewModel;
         //private AccessingData _accessing = new AccessingData();
 
@@ -19,6 +19,7 @@ namespace GuiClient.Views
             PatientRegistrationViewModel = new PatientRegistrationViewModel();
             DataContext = PatientRegistrationViewModel;
         }
+
 
         private void FrameworkElement_OnLoaded(object sender, RoutedEventArgs e)
         {
@@ -30,7 +31,12 @@ namespace GuiClient.Views
             PhoneBox.Text = "";
         }
 
-        
+        private void RefreshButton_Click(object sender, RoutedEventArgs e)
+        {
+            PatientRegistrationViewModel.InitDetails();
+        }
+
+
         //private void IcuListDropDown_OnLostFocus(object sender, RoutedEventArgs e)
         //{
         //    this._patientRegistrationViewModel.FreeBedIdsOfSelectedIcu;

@@ -14,6 +14,10 @@ namespace GuiClient.ViewModels
         public PatientDischargeViewModel()
         {
             DischargePatientCommand = new RelayCommand(DischargePatient);
+            Init();
+        }
+        public void Init()
+        {
             var patients = new PatientWrapper().GetAllPatients();
             AllPatients = patients.Keys.ToList();
         }
