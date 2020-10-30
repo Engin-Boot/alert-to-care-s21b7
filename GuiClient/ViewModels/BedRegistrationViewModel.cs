@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows;
@@ -31,11 +30,23 @@ namespace GuiClient.ViewModels
 
             public BedRegistrationViewModel()
             {
+                InitializeIcusAndLayouts();
+                this.AddBedCommand = new DelegateCommandClass(AddBedWrapper,
+                    CanExecuteWrapper);
+                RefreshCommand = new RelayCommand(RefreshIcusFromServer);
+
+            }
+
+            private void RefreshIcusFromServer(object obj)
+            {
+                InitializeIcusAndLayouts();
+            }
+
+            public void InitializeIcusAndLayouts()
+            {
                 GetAllIcu();
                 GetAllLayouts();
-                this.AddBedCommand = new DelegateCommandClass(new Action<object>(this.AddBedWrapper),
-                    new Func<object, bool>(this.CanExecuteWrapper));
-            }
+        }
 
             #endregion
 
@@ -133,6 +144,7 @@ namespace GuiClient.ViewModels
             #region Commands
 
             public ICommand AddBedCommand { get; set; }
+            public ICommand RefreshCommand { get; set; }
 
             #endregion
 

@@ -1,5 +1,4 @@
-﻿using System.Windows.Controls;
-using GuiClient.ViewModels;
+﻿using GuiClient.ViewModels;
 
 namespace GuiClient.Views
 {
@@ -7,13 +6,15 @@ namespace GuiClient.Views
     /// Interaction logic for BedRegistrationForm.xaml
     /// </summary>
     
-    public partial class BedRegistrationForm : UserControl
+    public partial class BedRegistrationForm
     {
+        // ReSharper disable once MemberCanBePrivate.Global
         public BedRegistrationViewModel BedRegistrationVm = new BedRegistrationViewModel();
         public BedRegistrationForm()
         {
             InitializeComponent();
             DataContext = BedRegistrationVm;
         }
+
     }
 }
