@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Security.RightsManagement;
 using System.Threading;
 using System.Threading.Tasks;
@@ -34,13 +35,11 @@ namespace GuiClient.ViewModels
     public class PatientMonitoringViewModel :INotifyPropertyChanged
     {
         #region trying something
-
-        public ObservableCollection<PatientDataMonitor> WarningData { get; set; }
-
-        public ObservableCollection<PatientDataMonitor> EmergencyData { get; set; }
-        public ObservableCollection<PatientDataMonitor> UndoWarningData { get; set; }
-        public ObservableCollection<PatientDataMonitor> UndoEmergencyData { get; set; }
-
+        public void Try()
+        {
+            if (IcuIdSelected != null)
+                GetPatientsInParticularIcu();
+        }
         #endregion
 
         // ParameterizedThreadStart startRefresh = new ParameterizedThreadStart(Wrapper1());
@@ -54,24 +53,24 @@ namespace GuiClient.ViewModels
         //    StatusSet();
         //}
 
-        private void Wrapper2()
-        {
-            Action<object> actionObject = (object obj) =>
-            {
-                while (true)
-                {
-                    EmergencyData.Clear();
-                    WarningData.Clear();
-                    PatientsInParticularIcu();
-                    StatusSet();
-                    Thread.Sleep(5000);
+        //private void Wrapper2()
+        //{
+        //    Action<object> actionObject = (object obj) =>
+        //    {
+        //        while (true)
+        //        {
+        //            EmergencyData.Clear();
+        //            WarningData.Clear();
+        //            PatientsInParticularIcu();
+        //            StatusSet();
+        //            Thread.Sleep(5000);
 
-                }
+        //        }
 
-            };
-            var refreshTask = new Task(actionObject, "MonitorRefreshTask");
-            refreshTask.Start();
-        }
+        //    };
+        //    var refreshTask = new Task(actionObject, "MonitorRefreshTask");
+        //    refreshTask.Start();
+        //}
 
 
         #region Fields
@@ -79,19 +78,24 @@ namespace GuiClient.ViewModels
         private string _selectedIcuId;
         private readonly IcuWrapper _icuWrapper = new IcuWrapper();
         private readonly PatientWrapper _patientWrapper = new PatientWrapper();
-        //private GuiClient.ServerWrapper.PatientVitalsWrapper _patientVitalsWrapper = new PatientVitalsWrapper();
         private List<string> _icuList = new List<string>();
-        private string _patientId;
+       /* private string _patientId;
         private string _name;
         private string _gender;
         private string _bedId;
         private double _bpm;
         private double _spo2;
         private double _respRate;
-        private PatientModel _allPatientListInIcu;
+       */
+        private List<PatientModel> _allPatientListInIcu;
+        private List<PatientVital> _allPatientVitals;
         private List<PatientDataMonitor> _patientDataMonitors;
         private PatientDataMonitor _selectedWarningDataMonitor;
         private PatientDataMonitor _selectedEmergencyDataMonitor;
+        public ObservableCollection<PatientDataMonitor> WarningData { get; set; }
+        public ObservableCollection<PatientDataMonitor> EmergencyData { get; set; }
+        public ObservableCollection<PatientDataMonitor> UndoWarningData { get; set; }
+        public ObservableCollection<PatientDataMonitor> UndoEmergencyData { get; set; }
 
         #endregion
 
@@ -127,6 +131,8 @@ namespace GuiClient.ViewModels
 
            
                 IcuList = _icuWrapper.GetAllIcu();
+
+            
             
         }
 
@@ -163,23 +169,11 @@ namespace GuiClient.ViewModels
             {
                 _selectedIcuId = value;
                 OnPropertyChanged(nameof(IcuIdSelected));
-                //EmergencyData.Clear();
-                //WarningData.Clear();
-                //PatientsInParticularIcu();
-                //StatusSet();
-                Wrapper2();
+                GetPatientsInParticularIcu();
+                // Wrapper2();
             }
         }
 
-        public PatientModel PatientsOfSelectedIcu
-        {
-            get => _allPatientListInIcu;
-            set
-            {
-                _allPatientListInIcu = value;
-                OnPropertyChanged(nameof(PatientsOfSelectedIcu));
-            }
-        }
         public List<string> IcuList
        {
            get => _icuList;
@@ -190,7 +184,7 @@ namespace GuiClient.ViewModels
            }
        }
 
-        public string PatientId
+     /*   public string PatientId
         {
             get => _patientId;
             set
@@ -256,6 +250,30 @@ namespace GuiClient.ViewModels
                 OnPropertyChanged(nameof(RespRate));
             }
         }
+     */
+
+     public List<PatientModel> PatientsInParticularIcu
+     {
+         get => _allPatientListInIcu;
+         set
+         {
+             _allPatientListInIcu = value;
+             OnPropertyChanged(nameof(PatientsInParticularIcu));
+             GetAllPatientVitals();
+         }
+        }
+
+     public List<PatientVital> AllPatientVitals
+     {
+         get => _allPatientVitals;
+         set
+         {
+             _allPatientVitals = value;
+             OnPropertyChanged(nameof(AllPatientVitals));
+             GetPatientDataToMonitor();
+             StatusSet();
+         }
+     }
 
         public List<PatientDataMonitor> PatientDataMonitors
         {
@@ -266,9 +284,6 @@ namespace GuiClient.ViewModels
                 OnPropertyChanged(nameof(PatientDataMonitors));
             }
         }
-
-        
-
         #endregion
 
         #region Event
@@ -284,23 +299,34 @@ namespace GuiClient.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public void PatientsInParticularIcu()
+
+        public void GetPatientsInParticularIcu()
         {
-            var dictOfAllPatients = _patientWrapper.GetPatientsFromIcu(IcuIdSelected);
-            var vitals = _patientWrapper.GetPatientVitals();
-            if (dictOfAllPatients == null || vitals == null) return;
-            var theDataGridList = from data in dictOfAllPatients // outer sequence
-                join vital in vitals //inner sequence 
-                    on data.Value.PId equals vital.Value.PId // key selector 
+            EmergencyData.Clear();
+            WarningData.Clear();
+            PatientsInParticularIcu = _patientWrapper.GetPatientsFromIcu(IcuIdSelected).Values.ToList();
+        }
+
+        public void GetAllPatientVitals()
+        {
+            AllPatientVitals = _patientWrapper.GetPatientVitals().Values.ToList();
+        }
+
+        public void GetPatientDataToMonitor()
+        {
+            if (PatientsInParticularIcu == null || AllPatientVitals == null) return;
+            var theDataGridList = from PatientData in PatientsInParticularIcu // outer sequence
+                join vital in AllPatientVitals //inner sequence 
+                    on PatientData.PId equals vital.PId // key selector 
                 select new PatientDataMonitor()
                 { // result selector 
-                    PId = data.Value.PId,
-                    BedId = data.Value.BedId,
-                    Gender = data.Value.Gender,
-                    Name = data.Value.Name,
-                    VitalBpm = vital.Value.VitalBpm,
-                    VitalSpo2 = vital.Value.VitalSpo2,
-                    VitalRespRate = vital.Value.VitalRespRate,
+                    PId = PatientData.PId,
+                    BedId = PatientData.BedId,
+                    Gender = PatientData.Gender,
+                    Name = PatientData.Name,
+                    VitalBpm = vital.VitalBpm,
+                    VitalSpo2 = vital.VitalSpo2,
+                    VitalRespRate = vital.VitalRespRate,
                     RespRateBackGround = new SolidColorBrush(Colors.White),
                     Spo2BackGround = new SolidColorBrush(Colors.White),
                     BpmBackGround = new SolidColorBrush(Colors.White),
@@ -308,8 +334,6 @@ namespace GuiClient.ViewModels
                 };
             PatientDataMonitors = theDataGridList.ToList();
         }
-
-
 
         public void StatusSet()
         {
@@ -336,9 +360,6 @@ namespace GuiClient.ViewModels
             }
 
         }
-
-        
-
 
         public int CheckBpm(PatientDataMonitor data)
         {
@@ -484,9 +505,6 @@ namespace GuiClient.ViewModels
 
         #region helper command wrappers
 
-        
-
-        #endregion
         public void SuppressWarningCommandWrapper(object parameter)
         {
             if (SelectedWarningDataMonitorForSuppress != null)
@@ -505,7 +523,7 @@ namespace GuiClient.ViewModels
             if (SelectedEmergencyDataMonitorForSuppress != null)
             {
                 RemoveFromObservableAndAddToUndo(SelectedEmergencyDataMonitorForSuppress,
-                    EmergencyData,UndoEmergencyData);
+                    EmergencyData, UndoEmergencyData);
                 SelectedEmergencyDataMonitorForSuppress = null;
             }
             else
@@ -518,7 +536,7 @@ namespace GuiClient.ViewModels
         {
 
             RemoveLastFromUndoObservableAndAddBackToOriginal(
-                    UndoEmergencyData, EmergencyData);
+                UndoEmergencyData, EmergencyData);
 
         }
         public void UndoWarningCommandWrapper(object parameter)
@@ -532,16 +550,16 @@ namespace GuiClient.ViewModels
         private void RefreshPatientCommandWrapper(object obj)
         {
             if (IcuIdSelected == null) return;
-            EmergencyData.Clear();
-            WarningData.Clear();
-            PatientsInParticularIcu();
-            StatusSet();
+            GetPatientsInParticularIcu();
         }
 
         public bool CanExecuteWrapper(object parameter)
         {
             return true;
         }
+
+        #endregion
+
 
     }
 }

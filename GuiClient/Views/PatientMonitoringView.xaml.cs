@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 using GuiClient.ViewModels;
 
 namespace GuiClient.Views
@@ -31,9 +32,16 @@ namespace GuiClient.Views
         {
             InitializeComponent();
             DataContext = PatientMonitoringVm;
-
+            DispatcherTimer timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromSeconds(10);
+            timer.Tick += timer_Tick;
+            timer.Start();
         }
 
-        
+        void timer_Tick(object sender, EventArgs e)
+        {
+            PatientMonitoringVm.Try();
+        }
+
     }
 }
