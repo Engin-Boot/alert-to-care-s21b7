@@ -2,9 +2,7 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:GuiClient.Views"
-             xmlns:viewModels="clr-namespace:GuiClient.ViewModels"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="950" >
     <!--<UserControl.DataContext>
@@ -36,7 +34,7 @@
                 <Grid.Children>
                     <StackPanel Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
                         <!--ScrollViewer.VerticalScrollBarVisibility="Visible"-->
-                        <ComboBox Name="IcuIds" Style="{StaticResource ComboBoxStyle}"
+                        <ComboBox  Style="{StaticResource ComboBoxStyle}"
                                   HorizontalAlignment="Left" 
                                   ItemsSource="{Binding IcuList}"
                           
@@ -50,17 +48,21 @@
                     <StackPanel Height="100" MinWidth="100" HorizontalAlignment="Stretch" Background="Beige"
                                 Grid.Row="0" Grid.Column="1">
                         
-                            <TextBlock Style="{StaticResource TextBlockStyle}" Text="WARNINGS"
-                                       HorizontalAlignment="Center"></TextBlock>
-                            <ComboBox ItemsSource="{Binding WarningData}" 
-                                      SelectedItem="{Binding SelectedWarningDataMonitorForSuppress}"
-                                      Style="{StaticResource ComboBoxStyle}">
+                        <!-- ReSharper disable once Xaml.RedundantStyledValue -->
+                        <TextBlock Style="{StaticResource TextBlockStyle}" Text="WARNINGS"
+                                   HorizontalAlignment="Center"></TextBlock>
+                        <!-- ReSharper disable once Xaml.BindingWithoutContextNotResolved -->
+                        <ComboBox ItemsSource="{Binding WarningData}" 
+                                  SelectedItem="{Binding SelectedWarningDataMonitorForSuppress}"
+                                  Style="{StaticResource ComboBoxStyle}">
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal">
+                                            <!-- ReSharper disable once Xaml.BindingWithContextNotResolved -->
                                             <TextBlock x:Name="PidW" Text="{Binding PId}" 
                                                        Style="{StaticResource TextBlockStyle}"></TextBlock>
-                                            <TextBlock x:Name="NameW" Text="{Binding Name}"
+                                            <!-- ReSharper disable once Xaml.BindingWithContextNotResolved -->
+                                        <TextBlock x:Name="NameW" Text="{Binding Name}"
                                                        Style="{StaticResource TextBlockStyle}"
                                                        Margin="10 ,0,0,0"></TextBlock>
                                         </StackPanel>
@@ -75,30 +77,31 @@
                                     Style="{StaticResource ButtonForMonitoring}"></Button>
                             </WrapPanel>
                         </StackPanel>
-                    
+
 
                     <StackPanel Height="100" MinWidth="100" HorizontalAlignment="Stretch" Background="Beige"
                                 Grid.Row="0" Grid.Column="2">
-                        
-                            <TextBlock Style="{StaticResource TextBlockStyle}" Text="EMERGENCIES"
-                                       HorizontalAlignment="Center"></TextBlock>
-                            <ComboBox ItemsSource="{Binding EmergencyData}" 
+
+                        <TextBlock Style="{StaticResource TextBlockStyle}" Text="EMERGENCIES"></TextBlock>
+                        <ComboBox ItemsSource="{Binding EmergencyData}" 
                                       SelectedItem="{Binding SelectedEmergencyDataMonitorForSuppress}"
                                       Style="{StaticResource ComboBoxStyle}"
                             >
-                                <ComboBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <StackPanel Orientation="Horizontal">
-                                            <TextBlock x:Name="PidE" Text="{Binding PId}" 
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <!-- ReSharper disable once Xaml.BindingWithContextNotResolved -->
+                                        <TextBlock x:Name="PidE" Text="{Binding PId}" 
                                                        Style="{StaticResource TextBlockStyle}"></TextBlock>
-                                            <TextBlock x:Name="NameE" Text="{Binding Name}"
+                                        <!-- ReSharper disable once Xaml.BindingWithContextNotResolved -->
+                                        <TextBlock x:Name="NameE" Text="{Binding Name}"
                                                        Style="{StaticResource TextBlockStyle}"
                                                        Margin="10 ,0,0,0"></TextBlock>
-                                        </StackPanel>
+                                    </StackPanel>
 
-                                    </DataTemplate>
-                                </ComboBox.ItemTemplate>
-                            </ComboBox>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
                         <WrapPanel HorizontalAlignment="Center">
                             <Button Content="Suppress" Command="{Binding SuppressEmergencyCommand}"
                                     Style="{StaticResource ButtonForMonitoring}"></Button>
@@ -106,40 +109,14 @@
                                     Style="{StaticResource ButtonForMonitoring}"></Button>
                         </WrapPanel>
                     </StackPanel>
-                    
-                    
-                   
                 </Grid.Children>
                 </Grid>
-                    <!--<DataGrid x:Name="PatientDataGrid" Grid.Row="1" Grid.Column="0" Background="Beige"
-                      >
-                <DataGrid.Resources>
-                    <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource DataGridColumnHeaderStyle}"></Style>
-                </DataGrid.Resources>
-                <DataGrid.Columns >
-                    <DataGridTextColumn Header="Patient Id" Width="*" 
-                                        Binding="{Binding PatientId}"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Name"  Width="*"
-                                        Binding="{Binding Name}"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Gender" Width="*"
-                                        Binding="{Binding Gender}"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Bed Number" Width="*"
-                                        ></DataGridTextColumn>
-                    <DataGridTextColumn Header="BPM" Width="*"
-                                        Binding="{Binding Bpm}"></DataGridTextColumn>
-                    <DataGridTextColumn Header="SPO2" Width="*"
-                                        Binding="{Binding Spo2}"></DataGridTextColumn>
-                    <DataGridTextColumn Header="RespRate" Width="*"
-                                        Binding="{Binding RespRate}"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Status" Width="*"></DataGridTextColumn>
-                </DataGrid.Columns>
-            </DataGrid>-->
+                    
             <ListView Grid.Row="1" Grid.ColumnSpan="3"
                 ItemsSource="{Binding PatientDataMonitors}" 
                 HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                 HorizontalContentAlignment="Stretch"
-                IsSynchronizedWithCurrentItem="True"
-                Name="ListViewPatientData">
+                IsSynchronizedWithCurrentItem="True">
                 <ListView.Resources>
                     <Style TargetType="GridViewColumnHeader" BasedOn="{StaticResource GridColumnHeaderStyle}"></Style>
                 </ListView.Resources>
@@ -152,7 +129,9 @@
                         <GridViewColumn Header="BPM" Width="110">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding VitalBpm}" Background="{Binding BpmBackGround}"></TextBlock>
+                                    <!-- ReSharper disable Xaml.BindingWithContextNotResolved -->
+                                    <TextBlock Text="{Binding VitalBpm}" Background="{Binding BpmBackGround}" />
+                                    <!-- ReSharper restore Xaml.BindingWithContextNotResolved -->
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
@@ -160,21 +139,26 @@
                         <GridViewColumn Header="SPO2" Width="110">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
+                                    <!-- ReSharper disable Xaml.BindingWithContextNotResolved -->
                                     <TextBlock Text="{Binding VitalSpo2}" Background="{Binding Spo2BackGround}"></TextBlock>
+                                    <!-- ReSharper restore Xaml.BindingWithContextNotResolved -->
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
                         <GridViewColumn Header="RESP RATE" Width="110" >
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
+                                    <!-- ReSharper disable Xaml.BindingWithContextNotResolved -->
                                     <TextBlock Text="{Binding VitalRespRate}" Background="{Binding RespRateBackGround}"></TextBlock>
+                                    <!-- ReSharper restore Xaml.BindingWithContextNotResolved -->
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
                         <GridViewColumn Header="STATUS"  Width="110" >
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="                   " Background="{Binding Status}"></TextBlock>
+                                    <!-- ReSharper disable once Xaml.BindingWithContextNotResolved -->
+                                    <TextBlock Background="{Binding Status}" Text="                   " ></TextBlock>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                             

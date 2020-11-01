@@ -1,4 +1,5 @@
-﻿namespace AlertToCare.Models
+﻿// ReSharper disable All
+namespace AlertToCare.Models
 {
     public class PatientModel
     {

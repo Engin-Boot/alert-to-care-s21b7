@@ -15,10 +15,10 @@
         </Grid.ColumnDefinitions>
         <Grid.Children>
             <TabControl Grid.Row="0" Grid.Column="0" Style="{StaticResource TabControlBack}" >
-                <TabItem Header="Add" Name="AddBedTab" Style="{StaticResource AddDelTab}">
+                <TabItem Header="Add" Style="{StaticResource AddDelTab}">
                         <local:BedRegistrationForm ></local:BedRegistrationForm>
                 </TabItem>
-                <TabItem Header="Delete" Name="DeleteBedTab" Style="{StaticResource AddDelTab}">
+                <TabItem Header="Delete"  Style="{StaticResource AddDelTab}">
                         <local:BedDeletionView></local:BedDeletionView>
                 </TabItem>
 

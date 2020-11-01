@@ -8,21 +8,21 @@ namespace AutomationTests
 {
     public class MonitoringTest
     {
-        private RestClient Client { get; set; }
+        private readonly RestClient _client;
         private RestRequest _request;
-        private JsonDeserializer Deserializer { get; set; }
+        private readonly JsonDeserializer _deserializer;
 
         public MonitoringTest()
         {
-            Client = new RestClient("http://localhost:5000/api");
-            Deserializer = new JsonDeserializer();
+            _client = new RestClient("http://localhost:5000/api");
+            _deserializer = new JsonDeserializer();
         }
         [Fact]
         public void GetAllPatientVitals()
         {
             _request = new RestRequest("Monitor/GeAllPatientVitals", Method.GET){RequestFormat = DataFormat.Json};
-            var response = Client.Execute(_request);
-            var result = Deserializer.Deserialize<Dictionary<string, PatientVital>>(response);
+            var response = _client.Execute(_request);
+            var result = _deserializer.Deserialize<Dictionary<string, PatientVital>>(response);
             Assert.NotNull(result);
         }
     }

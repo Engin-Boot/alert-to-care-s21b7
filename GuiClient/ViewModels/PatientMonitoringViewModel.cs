@@ -8,6 +8,7 @@ using System.Windows.Media;
 using GuiClient.Commands;
 using GuiClient.Models;
 using GuiClient.ServerWrapper;
+// ReSharper disable All
 
 namespace GuiClient.ViewModels
 {
@@ -328,10 +329,12 @@ namespace GuiClient.ViewModels
 
         public void StatusSet()
         {
-            var dictionaryIntColor = new Dictionary<int, SolidColorBrush>();
-            dictionaryIntColor.Add(0,new SolidColorBrush(Colors.Green));
-            dictionaryIntColor.Add(1,new SolidColorBrush(Colors.Yellow));
-            dictionaryIntColor.Add(2,new SolidColorBrush(Colors.Red));
+            var dictionaryIntColor = new Dictionary<int, SolidColorBrush>
+            {
+                {0, new SolidColorBrush(Colors.Green)},
+                {1, new SolidColorBrush(Colors.Yellow)},
+                {2, new SolidColorBrush(Colors.Red)}
+            };
 
             foreach (var data in PatientDataMonitors)
             {

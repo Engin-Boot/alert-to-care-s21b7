@@ -9,7 +9,7 @@ namespace GuiClient.Views
     public partial class BedRegistrationForm
     {
         // ReSharper disable once MemberCanBePrivate.Global
-        public BedRegistrationViewModel BedRegistrationVm = new BedRegistrationViewModel();
+        public readonly BedRegistrationViewModel BedRegistrationVm = new BedRegistrationViewModel();
         public BedRegistrationForm()
         {
             InitializeComponent();

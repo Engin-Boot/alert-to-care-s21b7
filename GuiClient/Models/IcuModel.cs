@@ -1,4 +1,5 @@
-﻿namespace GuiClient.Models
+﻿// ReSharper disable All
+namespace GuiClient.Models
 {
     public class IcuModel
     {

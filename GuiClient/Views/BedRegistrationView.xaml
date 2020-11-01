@@ -33,22 +33,22 @@
 
         <Grid.Children >
             <TextBlock Grid.Row="0" Grid.Column="0" Text="ICU" Style="{StaticResource TextBlockStyle}"></TextBlock>
-            <ComboBox x:Name="IcuListDropDown" Style="{StaticResource ComboBoxStyle}"  Grid.Row="0" Grid.Column="1" Margin ="30"
+            <ComboBox  Style="{StaticResource ComboBoxStyle}"  Grid.Row="0" Grid.Column="1" Margin ="30"
                       ItemsSource="{Binding ListOfIcu }"
                       SelectedValue="{Binding SelectedIcu}"></ComboBox>
             <TextBlock Grid.Row="1" Grid.Column="0" Text="Bed Number" Style="{StaticResource TextBlockStyle}"></TextBlock>
-            <TextBox x:Name="BedNumber" Style="{StaticResource ErrorFeedbackStyle}" 
+            <TextBox  Style="{StaticResource ErrorFeedbackStyle}" 
                      Grid.Row="1" Grid.Column="1" Margin ="30"
                      Text="{Binding BedNumber}"></TextBox>
             <TextBlock Grid.Row="2" Grid.Column="0" Text="Bed Layout" Style="{StaticResource TextBlockStyle}"></TextBlock>
-            <ComboBox x:Name="LayoutListDropDown" Style="{StaticResource ComboBoxStyle}"  
+            <ComboBox  Style="{StaticResource ComboBoxStyle}"  
                       Grid.Row="2" Grid.Column="1" Margin ="30" 
                       ItemsSource="{Binding StatusOfBeds}"
                       SelectedValue="{Binding SelectedBedLayOut}"></ComboBox>
             
-            <Button x:Name="AddBed" Grid.Row ="3"  Style="{StaticResource ButtonStyle}"  
+            <Button  Grid.Row ="3"  Style="{StaticResource ButtonStyle}"  
                     Grid.ColumnSpan="3" Command="{Binding AddBedCommand}">Add Bed</Button>
-            <Button x:Name="Refresh" Grid.Row="0" Grid.Column="2" Width="75" Style="{StaticResource ButtonStyle}" 
+            <Button  Grid.Row="0" Grid.Column="2" Width="75" Style="{StaticResource ButtonStyle}" 
                     Grid.ColumnSpan="2" Command="{Binding RefreshCommand}" >Refresh</Button>
             
         </Grid.Children>

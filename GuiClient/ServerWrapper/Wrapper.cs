@@ -1,5 +1,4 @@
 ﻿using RestSharp;
-using RestSharp.Deserializers;
 using RestSharp.Serialization.Json;
 
 namespace GuiClient.ServerWrapper

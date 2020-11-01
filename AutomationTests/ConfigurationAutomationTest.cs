@@ -9,22 +9,22 @@ namespace AutomationTests
 {
     public class ConfigurationAutomationTest
     {
-        private RestClient Client { get; set; }
+        private readonly RestClient _client;
         private RestRequest _request;
-        private JsonDeserializer Deserializer { get; set; }
+        private readonly JsonDeserializer _deserializer;
 
         public ConfigurationAutomationTest()
         {
-            Client = new RestClient("http://localhost:5000/api");
-            Deserializer = new JsonDeserializer();
+            _client = new RestClient("http://localhost:5000/api");
+            _deserializer = new JsonDeserializer();
         }
 
         [Fact]
         public void GetBedModelInfoTest()
         {
             _request = new RestRequest("Configuration/GetBedModelInformation", Method.GET) { RequestFormat = DataFormat.Json };
-            var response = Client.Execute(_request);
-            var result = Deserializer.Deserialize<Dictionary<int, BedModel>>(response);
+            var response = _client.Execute(_request);
+            var result = _deserializer.Deserialize<Dictionary<int, BedModel>>(response);
             Assert.NotNull(result);
         }
 
@@ -32,8 +32,8 @@ namespace AutomationTests
         public void GetIcuModelInfoTest()
         {
             _request = new RestRequest("Configuration/GetIcuModelInformation", Method.GET) { RequestFormat = DataFormat.Json };
-            var response = Client.Execute(_request);
-            var result = Deserializer.Deserialize<Dictionary<string, IcuModel>>(response);
+            var response = _client.Execute(_request);
+            var result = _deserializer.Deserialize<Dictionary<string, IcuModel>>(response);
             Assert.NotNull(result);
         }
 
@@ -49,8 +49,8 @@ namespace AutomationTests
             };
             _request = new RestRequest("Configuration/PostBedModelData", Method.POST) { RequestFormat = DataFormat.Json };
             _request.AddJsonBody(bedModel);
-            var response = Client.Execute(_request);
-            var result = Deserializer.Deserialize<object>(response);
+            var response = _client.Execute(_request);
+            var result = _deserializer.Deserialize<object>(response);
             Assert.NotNull(result);
             RemoveBed(bedModel.BedId);
         }
@@ -58,7 +58,7 @@ namespace AutomationTests
         private void RemoveBed(int bedId)
         {
             _request = new RestRequest($"Configuration/RemoveBed/{bedId}", Method.DELETE) { RequestFormat = DataFormat.Json };
-            var response = Client.Execute(_request);
+            var response = _client.Execute(_request);
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         }
 
@@ -72,7 +72,7 @@ namespace AutomationTests
             };
             _request = new RestRequest("Configuration/PostIcuModelData", Method.POST) { RequestFormat = DataFormat.Json };
             _request.AddJsonBody(icuModel);
-            var response = Client.Execute(_request);
+            var response = _client.Execute(_request);
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
             RemoveIcu(icuModel.IcuId);
         }
@@ -80,7 +80,7 @@ namespace AutomationTests
         private void RemoveIcu(string icuId)
         {
             _request = new RestRequest($"Configuration/RemoveIcu/{icuId}", Method.DELETE) { RequestFormat = DataFormat.Json };
-            var response = Client.Execute(_request);
+            var response = _client.Execute(_request);
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         }
 
@@ -88,7 +88,7 @@ namespace AutomationTests
         public void GetAllBedLayoutsTest()
         {
             _request = new RestRequest("Configuration/GetAllBedLayouts", Method.GET) { RequestFormat = DataFormat.Json };
-            var response = Client.Execute(_request);
+            var response = _client.Execute(_request);
             //var result = Deserializer.Deserialize<List<string>>(response);
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         }

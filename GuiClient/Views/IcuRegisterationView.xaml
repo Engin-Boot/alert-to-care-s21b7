@@ -21,7 +21,7 @@
 
         <Grid.Children >
             <TextBlock Grid.Row="0" Grid.Column="0" Text="ICU Number" Style="{StaticResource TextBlockStyle}"></TextBlock>
-            <TextBox x:Name="IcuNumber" Style="{StaticResource ErrorFeedbackStyle}"  Grid.Row="0" Grid.Column="1" Margin ="30"
+            <TextBox  Style="{StaticResource ErrorFeedbackStyle}"  Grid.Row="0" Grid.Column="1" Margin ="30"
                      >
                 <TextBox.Text>
                     <Binding Path="SelectedIcu" ValidatesOnExceptions="True" 
@@ -36,10 +36,10 @@
 
             <TextBlock Grid.Row="1" Grid.Column="0" Text="Number of Beds" Style="{StaticResource TextBlockStyle}"></TextBlock>
 
-            <TextBox x:Name="IcuBedsNumber" Style="{StaticResource ErrorFeedbackStyle}"  Grid.Row="1" Grid.Column="1" Margin ="30"
+            <TextBox  Style="{StaticResource ErrorFeedbackStyle}"  Grid.Row="1" Grid.Column="1" Margin ="30"
                      Text="{Binding NumberOfBeds ,UpdateSourceTrigger=LostFocus}"></TextBox>
 
-            <Button x:Name="AddBed" Style="{StaticResource ButtonStyle}" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
+            <Button  Style="{StaticResource ButtonStyle}" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
                     Command="{Binding AddIcuCommand}">Add ICU</Button>
         </Grid.Children>
     </Grid>

@@ -9,22 +9,22 @@ namespace AutomationTests
 {
     public class OccupancyAutomationTests
     {
-        private RestClient Client { get; set; }
+        private readonly RestClient _client;
         private RestRequest _request;
-        private JsonDeserializer Deserializer { get; set; }
+        private readonly JsonDeserializer _deserializer;
 
         public OccupancyAutomationTests()
         {
-            Client = new RestClient("http://localhost:5000/api");
-            Deserializer = new JsonDeserializer();
+            _client = new RestClient("http://localhost:5000/api");
+            _deserializer = new JsonDeserializer();
         }
 
         [Fact]
         public void GetAllPatients()
         {
             _request = new RestRequest("Occupancy/GetAllPatients", Method.GET){RequestFormat = DataFormat.Json};
-            var response = Client.Execute(_request);
-            var result = Deserializer.Deserialize<Dictionary<string, PatientModel>>(response);
+            var response = _client.Execute(_request);
+            var result = _deserializer.Deserialize<Dictionary<string, PatientModel>>(response);
             Assert.NotNull(result);
         }
 
@@ -32,8 +32,8 @@ namespace AutomationTests
         public void GetPatientsInIcu()
         {
             _request = new RestRequest("Occupancy/ICU01", Method.GET) { RequestFormat = DataFormat.Json };
-            var response = Client.Execute(_request);
-            var result = Deserializer.Deserialize<Dictionary<string, PatientModel>>(response);
+            var response = _client.Execute(_request);
+            var result = _deserializer.Deserialize<Dictionary<string, PatientModel>>(response);
             Assert.NotNull(result);
         }
 
@@ -41,8 +41,8 @@ namespace AutomationTests
         public void GetAllBeds()
         {
             _request = new RestRequest("Occupancy/GetBedDetails", Method.GET) { RequestFormat = DataFormat.Json };
-            var response = Client.Execute(_request);
-            var result = Deserializer.Deserialize<Dictionary<string, PatientModel>>(response);
+            var response = _client.Execute(_request);
+            var result = _deserializer.Deserialize<Dictionary<string, PatientModel>>(response);
             Assert.NotEmpty(result);
         }
 
@@ -50,8 +50,8 @@ namespace AutomationTests
         public void GetBedStatus()
         {
             _request = new RestRequest("Occupancy/GetBedStatus/1", Method.GET) { RequestFormat = DataFormat.Json };
-            var response = Client.Execute(_request);
-            var result = Deserializer.Deserialize<bool>(response);
+            var response = _client.Execute(_request);
+            var result = _deserializer.Deserialize<bool>(response);
             Assert.True(result);
         }
         [Fact]
@@ -72,8 +72,8 @@ namespace AutomationTests
             _request = new RestRequest("Occupancy", Method.POST) { RequestFormat = DataFormat.Json };
             _request.AddJsonBody(newPatient);
             //_request.AddQueryParameter("newPatient", newPatient.ToString());
-            var response = Client.Execute(_request);
-            var result = Deserializer.Deserialize<object>(response);
+            var response = _client.Execute(_request);
+            var result = _deserializer.Deserialize<object>(response);
             Assert.NotNull(result);
             DischargePatient(newPatient.PId);
         }
@@ -81,7 +81,7 @@ namespace AutomationTests
         private void DischargePatient(string pid)
         {
             _request = new RestRequest($"Occupancy/Discharge/{pid}", Method.DELETE) {RequestFormat = DataFormat.Json};
-            var response = Client.Execute(_request);
+            var response = _client.Execute(_request);
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         }
 
@@ -89,7 +89,7 @@ namespace AutomationTests
         public void GetBedStatusFor()
         {
             _request = new RestRequest("Occupancy/GetBedDetailsForIcu/ICU01", Method.GET) { RequestFormat = DataFormat.Json };
-            var response = Client.Execute(_request);
+            var response = _client.Execute(_request);
             //var result = Deserializer.Deserialize<List<BedModel>>(response);
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         }

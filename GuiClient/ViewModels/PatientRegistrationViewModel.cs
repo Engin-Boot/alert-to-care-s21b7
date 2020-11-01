@@ -7,13 +7,11 @@ using System.Windows.Input;
 using GuiClient.Commands;
 using GuiClient.Models;
 using GuiClient.ServerWrapper;
-
+// ReSharper disable All
 namespace GuiClient.ViewModels
 {
     public class PatientRegistrationViewModel  : INotifyPropertyChanged
     {
-        
-        //private readonly AccessingData _accessing = new AccessingData();
 
         #region Initializers
 
@@ -137,10 +135,8 @@ namespace GuiClient.ViewModels
             }
         }
 
-        // ReSharper disable once MemberCanBePrivate.Global
         public List<string> GenderList
         {
-            // ReSharper disable once UnusedAutoPropertyAccessor.Global
             get;
         }
 
@@ -223,20 +219,6 @@ namespace GuiClient.ViewModels
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-        public void Admit_Executed()
-        {
-            //if (Save_CanExecute(parameter))
-            //{
-            //    //add the patient in the database
-            //      set occupied and stuff.
-            //}
-        }
-        //public bool Admit_CanExecute()
-        //{
-        //   return !(string.IsNullOrEmpty(SelectedIcuId) || SelectedBedId<0 || string.IsNullOrEmpty(FullName) ||
-        //             Age <= 0 || Age > 150 || string.IsNullOrEmpty(SelectedGender) || string.IsNullOrEmpty(Address) ||
-        //             string.IsNullOrEmpty(PhoneNumber) || string.IsNullOrEmpty(Email));
-        //}
 
         private void Clear()
         {
@@ -248,23 +230,20 @@ namespace GuiClient.ViewModels
             SelectedGender = "";
             PhoneNumber = "";
             Email = "";
+            Pid = "";
         }
         #endregion
 
         #region Commands
 
-        // ReSharper disable once MemberCanBePrivate.Global
         public ICommand Admit
         {
-            // ReSharper disable once UnusedAutoPropertyAccessor.Global
             get;
-            set;
         }
 
         public ICommand RefreshCommand
         {
             get;
-            set;
         }
 
 
@@ -274,6 +253,7 @@ namespace GuiClient.ViewModels
 
         private List<int> _freeBedList;
         private List<string> _icuList;
+        // ReSharper disable once AutoPropertyCanBeMadeGetOnly.Local
         private PatientModel Patient { get; set; }
         #endregion
     }

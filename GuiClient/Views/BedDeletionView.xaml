@@ -19,22 +19,22 @@
         </Grid.ColumnDefinitions>
         <Grid.Children>
             <TextBlock Grid.Row="0" Grid.Column="0" Text="ICU" Style="{StaticResource TextBlockStyle}"></TextBlock>
-            <ComboBox x:Name="IcuListDropDown" Style="{StaticResource ComboBoxStyle}"
+            <ComboBox  Style="{StaticResource ComboBoxStyle}"
                       Grid.Row="0" Grid.Column="1" Margin="30"
                       ItemsSource="{Binding ListOfIcu}"
                       SelectedValue="{Binding SelectedIcu, UpdateSourceTrigger=PropertyChanged}"></ComboBox>
 
 
             <TextBlock Grid.Row="1" Grid.Column="0" Text="Bed" Style="{StaticResource TextBlockStyle}"></TextBlock>
-            <ComboBox x:Name="FreeBedListDropDown"  Style="{StaticResource ComboBoxStyle}"
+            <ComboBox   Style="{StaticResource ComboBoxStyle}"
                           Grid.Row="1" Grid.Column="1" Margin="30"
                           ItemsSource="{Binding FreeBedList}"
                           SelectedValue="{Binding SelectedBedId}"></ComboBox>
 
-            <Button x:Name="BedDelete" Style="{StaticResource ButtonStyle}"
+            <Button  Style="{StaticResource ButtonStyle}"
                         Grid.Row="2" Grid.Column="1" 
                         Command="{Binding DeleteBedCommand}">Delete Bed</Button>
-            <Button x:Name="RefreshIcu" Style="{StaticResource ButtonStyle}"
+            <Button  Style="{StaticResource ButtonStyle}"
                     Grid.Row="2" Grid.Column="0"
                     Command="{Binding RefreshCommand}">Refresh ICU</Button>
         </Grid.Children>

@@ -4,14 +4,14 @@ using System.Linq;
 using System.Windows.Input;
 using GuiClient.Commands;
 using GuiClient.ServerWrapper;
-
+// ReSharper disable All
 namespace GuiClient.ViewModels
 {
    public class BedDeletionViewModel :INotifyPropertyChanged
    {
         #region Fields
 
-        private BedsWrapper _bedsWrapper = new BedsWrapper();
+        private readonly BedsWrapper _bedsWrapper = new BedsWrapper();
         private readonly IcuWrapper _icuWrapper = new IcuWrapper();
         private string _selectedIcu;
         private List<int> _freeBedModelsIds;
@@ -90,7 +90,7 @@ namespace GuiClient.ViewModels
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-        public void GetAllBedsOfSpecificIcu()
+        private void GetAllBedsOfSpecificIcu()
         {
             var bedWrapper = new BedsWrapper();
             var allBedsInIcu = bedWrapper.GetListOfBedsForIcu(SelectedIcu);

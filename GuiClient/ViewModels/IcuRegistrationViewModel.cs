@@ -6,7 +6,7 @@ using System.Windows.Input;
 using GuiClient.Commands;
 using GuiClient.Models;
 using GuiClient.ServerWrapper;
-
+// ReSharper disable All
 namespace GuiClient.ViewModels
 {
     public class IcuRegistrationViewModel : INotifyPropertyChanged

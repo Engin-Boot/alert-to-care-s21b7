@@ -16,10 +16,10 @@
         </Grid.ColumnDefinitions>
         <Grid.Children>
             <TabControl Grid.Row="0" Grid.Column="0" Style="{StaticResource TabControlBack}">
-                <TabItem Header="Add" Name="AddIcuTab" Style="{StaticResource AddDelTab}">
+                <TabItem Header="Add"  Style="{StaticResource AddDelTab}">
                     <local:IcuRegisterationView></local:IcuRegisterationView>
                 </TabItem>
-                <TabItem Header="Delete" Name="DeleteIcuTab" Style="{StaticResource AddDelTab}">
+                <TabItem Header="Delete" Style="{StaticResource AddDelTab}">
                     <local:IcuDeletionView></local:IcuDeletionView>
                 </TabItem>
 

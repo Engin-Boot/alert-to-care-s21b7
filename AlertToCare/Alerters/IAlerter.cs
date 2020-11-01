@@ -1,6 +1,6 @@
-﻿namespace AlertToCare.Alerters
-{
-    public interface IAlerter
-    {
-    }
-}
+﻿//namespace AlertToCare.Alerters
+//{
+//    public interface IAlerter
+//    {
+//    }
+//}

@@ -16,26 +16,22 @@
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"></ColumnDefinition>
-            <!--<ColumnDefinition Width="Auto"></ColumnDefinition>
-            <ColumnDefinition Width="Auto"></ColumnDefinition>
-            <ColumnDefinition Width="Auto"></ColumnDefinition>
-            <ColumnDefinition Width="Auto"></ColumnDefinition>-->
         </Grid.ColumnDefinitions>
         <Grid.Children>
             <TabControl Grid.Row="0" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Style="{DynamicResource TabControlStyle}" >
-                <TabItem Header="Patient Monitoring" Name="Pm" Style="{StaticResource TabStyle}">
+                <TabItem Header="Patient Monitoring"  Style="{StaticResource TabStyle}">
                     <views:PatientMonitoringView></views:PatientMonitoringView>
                 </TabItem>
-                <TabItem Header="Patient Admission" Name="Pa" Style="{StaticResource TabStyle}">
+                <TabItem Header="Patient Admission"  Style="{StaticResource TabStyle}">
                     <views:PatientRegistrationView></views:PatientRegistrationView>
                 </TabItem>
-                <TabItem Header="Patient Discharge" Name="Pd" Style="{StaticResource TabStyle}">
+                <TabItem Header="Patient Discharge"  Style="{StaticResource TabStyle}">
                     <views:PatientDischargeView></views:PatientDischargeView>
                 </TabItem>
-                <TabItem Header="ICU" Name="IcuTab" Style="{StaticResource TabStyle}">
+                <TabItem Header="ICU"  Style="{StaticResource TabStyle}">
                     <views:IcuAddDeleteView></views:IcuAddDeleteView>
                 </TabItem>
-                <TabItem Header="Bed" Name="BedTab" Style="{StaticResource TabStyle}">
+                <TabItem Header="Bed"  Style="{StaticResource TabStyle}">
                     <views:BedAddDeleteView></views:BedAddDeleteView>
                 </TabItem>
 

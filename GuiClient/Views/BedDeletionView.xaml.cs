@@ -1,5 +1,5 @@
 ﻿using GuiClient.ViewModels;
-
+// ReSharper disable All
 namespace GuiClient.Views
 {
     /// <summary>
@@ -7,7 +7,7 @@ namespace GuiClient.Views
     /// </summary>
     public partial class BedDeletionView
     {
-        //bed list get
+        
         public readonly BedDeletionViewModel BedDeletionVm  =  new BedDeletionViewModel();
         public BedDeletionView()
         {

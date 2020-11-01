@@ -5,7 +5,7 @@ using System.Windows;
 using System.Windows.Input;
 using GuiClient.Commands;
 using GuiClient.ServerWrapper;
-
+// ReSharper disable All
 namespace GuiClient.ViewModels
 {
     public sealed class PatientDischargeViewModel: INotifyPropertyChanged

@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
 using GuiClient.Commands;
 using GuiClient.ServerWrapper;
-
+// ReSharper disable All
 namespace GuiClient.ViewModels
 {
     public class IcuDeletionViewModel : INotifyPropertyChanged

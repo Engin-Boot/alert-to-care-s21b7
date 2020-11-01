@@ -20,15 +20,15 @@
 
         <Grid.Children >
             <TextBlock Grid.Row="0" Grid.Column="0" Text="Patient" Style="{StaticResource TextBlockStyle}"></TextBlock>
-            <ComboBox x:Name="PatientListDropDown" Style="{StaticResource ComboBoxStyle}"  
+            <ComboBox  Style="{StaticResource ComboBoxStyle}"  
                       Grid.Row="0" Grid.Column="1" Margin ="30"
                       ItemsSource="{Binding AllPatients}"
                       SelectedItem="{Binding SelectedPatient}">
 
             </ComboBox>
-            <Button x:Name="DischargePatientButton" Grid.Row="1" Grid.Column="1" Style="{StaticResource ButtonStyle}" 
+            <Button  Grid.Row="1" Grid.Column="1" Style="{StaticResource ButtonStyle}" 
                     Command ="{Binding DischargePatientCommand}">Discharge Patient</Button>
-            <Button x:Name="Refresh" Grid.Row="1" Grid.Column="0" Style="{StaticResource ButtonStyle}" Command="{Binding Path=RefreshCommand}">Refresh</Button>
+            <Button Grid.Row="1" Grid.Column="0" Style="{StaticResource ButtonStyle}" Command="{Binding Path=RefreshCommand}">Refresh</Button>
 
         </Grid.Children>
     </Grid>

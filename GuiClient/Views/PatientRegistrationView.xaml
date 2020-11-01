@@ -33,7 +33,7 @@
 
         <Grid.Children>
             <TextBlock Grid.Row="0" Grid.Column="0" Text="ICU" Style="{StaticResource TextBlockStyle}" ></TextBlock>
-            <ComboBox Text="{Binding IcuList}" x:Name="IcuListDropDown" Style="{StaticResource ComboBoxStyle}"
+            <ComboBox Text="{Binding IcuList}"  Style="{StaticResource ComboBoxStyle}"
                       Grid.Row="0" Grid.Column="1" 
                       ItemsSource="{Binding IcuList}"
                       SelectedValue="{Binding SelectedIcuId}">
@@ -41,7 +41,7 @@
 
 
             <TextBlock Grid.Row="1" Grid.Column="0" Text="Bed" Style="{StaticResource TextBlockStyle}" ></TextBlock>
-            <ComboBox x:Name="FreeBedListDropDown" Style="{StaticResource ComboBoxStyle}" 
+            <ComboBox  Style="{StaticResource ComboBoxStyle}" 
                       Grid.Row="1" Grid.Column="1"
                       IsSynchronizedWithCurrentItem="True"
                       ItemsSource="{Binding FreeBedIdsOfSelectedIcu}"
@@ -82,7 +82,7 @@
 
 
             <TextBlock Grid.Row="4" Grid.Column="0" Text="Gender" Style="{StaticResource TextBlockStyle}" ></TextBlock>
-            <ComboBox x:Name="GenderDropDown" Style="{StaticResource ComboBoxStyle}"
+            <ComboBox  Style="{StaticResource ComboBoxStyle}"
                       Grid.Row="4" Grid.Column="1" 
                       ItemsSource="{Binding GenderList}"
                       SelectedValue="{Binding SelectedGender,
@@ -136,7 +136,7 @@
             </TextBox>
 
             <TextBlock Grid.Row="8" Grid.Column="0" Text="Pid" Style="{StaticResource TextBlockStyle}" ></TextBlock>
-            <TextBox Grid.Row="8" Grid.Column="1" x:Name="Pid" Style="{StaticResource ErrorFeedbackStyle}" >
+            <TextBox Grid.Row="8" Grid.Column="1" Style="{StaticResource ErrorFeedbackStyle}" >
                 <TextBox.Text>
                     <Binding Path="Pid" ValidatesOnExceptions="True" 
                              ValidatesOnDataErrors="True" 
@@ -144,11 +144,11 @@
                     </Binding>
                 </TextBox.Text>
             </TextBox>
-            <Button Grid.Row="9" Grid.Column="0" HorizontalAlignment="Center"  Style="{StaticResource ButtonStyle}"
-                    Margin="10" Name="RefreshButton" Content="Refresh" Command="{Binding Path=RefreshCommand}">
+            <Button Grid.Row="9" Grid.Column="0" Style="{StaticResource ButtonStyle}"
+                    Margin="10"  Content="Refresh" Command="{Binding Path=RefreshCommand}">
             </Button>
-            <Button Grid.Row="9" Grid.Column="1" HorizontalAlignment="Center" Command="{Binding Admit}" Style="{StaticResource ButtonStyle}"
-                    Margin="10" Name="AdmitButton" Content="Admit Patient">
+            <Button Grid.Row="9" Grid.Column="1" Command="{Binding Admit}" Style="{StaticResource ButtonStyle}"
+                    Margin="10"  Content="Admit Patient">
             </Button>
         </Grid.Children>
 

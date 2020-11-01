@@ -3,11 +3,10 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
-
 using GuiClient.Commands;
 using GuiClient.Models;
 using GuiClient.ServerWrapper;
-
+// ReSharper disable All
 namespace GuiClient.ViewModels
 {
     public class BedRegistrationViewModel : INotifyPropertyChanged
@@ -42,7 +41,7 @@ namespace GuiClient.ViewModels
                 InitializeIcusAndLayouts();
             }
 
-            public void InitializeIcusAndLayouts()
+            private void InitializeIcusAndLayouts()
             {
                 GetAllIcu();
                 GetAllLayouts();
@@ -118,19 +117,19 @@ namespace GuiClient.ViewModels
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
             }
 
-            public void GetAllIcu()
+            private void GetAllIcu()
             {
                 var icuWrapper = new IcuWrapper();
                 ListOfIcu = icuWrapper.GetAllIcu();
             }
 
-            public void GetAllLayouts()
+            private void GetAllLayouts()
             {
                 var bedWrapper = new BedsWrapper();
                 StatusOfBeds = bedWrapper.GetBedLayouts();
             }
 
-            public bool GetAllBedsOfSpecificIcu()
+            private bool GetAllBedsOfSpecificIcu()
             {
 
                 var bedWrapper = new BedsWrapper();
