@@ -18,8 +18,8 @@ jobs:
       - name: Add package
         run: dotnet add AlertToCare-Tests/AlertToCare-Tests.csproj package xunit --version 2.4.1
         
-      - name: Add package
-        run: dotnet add ApiAlertToCare-AutomateTest/ApiAlertToCare-AutomateTest.csproj package xunit --version 2.4.1
+      #- name: Add package
+      #  run: dotnet add ApiAlertToCare-AutomateTest/ApiAlertToCare-AutomateTest.csproj package xunit --version 2.4.1
         
              
       - name: Run resharper inspection
