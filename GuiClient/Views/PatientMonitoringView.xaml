@@ -11,7 +11,7 @@
          Instantiates ViewModel type using DefaultConstructor
         <viewModels:PatientMonitoringViewModel></viewModels:PatientMonitoringViewModel>
     </UserControl.DataContext>-->
-    <Grid>
+    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
@@ -43,7 +43,8 @@
                                   SelectedValue="{Binding IcuIdSelected, 
                             UpdateSourceTrigger=PropertyChanged}"
                         ></ComboBox>
-                        <Button  Command="{Binding RefreshPatientCommand}"  Content="Refresh ICU" HorizontalAlignment="Center"></Button>
+                        <Button  Command="{Binding RefreshPatientCommand}"  Content="Refresh ICU"
+                                 Style="{StaticResource ButtonForMonitoring}"></Button>
                     </StackPanel>
                     
                     <StackPanel Height="100" MinWidth="100" HorizontalAlignment="Stretch" Background="Beige"
@@ -68,8 +69,10 @@
                                 </ComboBox.ItemTemplate>
                             </ComboBox>
                             <WrapPanel HorizontalAlignment="Center">
-                            <Button Content="Suppress" Command="{Binding SuppressWarningCommand}"></Button>
-                            <Button Content="Undo" Margin="30,0,0,0" Command="{Binding UndoWarningCommand}"></Button>
+                            <Button Content="Suppress" Command="{Binding SuppressWarningCommand}"
+                                    Style="{StaticResource ButtonForMonitoring}"></Button>
+                            <Button Content="Undo" Margin="30,0,0,0" Command="{Binding UndoWarningCommand}"
+                                    Style="{StaticResource ButtonForMonitoring}"></Button>
                             </WrapPanel>
                         </StackPanel>
                     
@@ -97,8 +100,10 @@
                                 </ComboBox.ItemTemplate>
                             </ComboBox>
                         <WrapPanel HorizontalAlignment="Center">
-                            <Button Content="Suppress" Command="{Binding SuppressEmergencyCommand}"></Button>
-                            <Button Content="Undo" Margin="30,0,0,0" Command="{Binding UndoEmergencyCommand}"></Button>
+                            <Button Content="Suppress" Command="{Binding SuppressEmergencyCommand}"
+                                    Style="{StaticResource ButtonForMonitoring}"></Button>
+                            <Button Content="Undo" Margin="30,0,0,0" Command="{Binding UndoEmergencyCommand}"
+                                    Style="{StaticResource ButtonForMonitoring}"></Button>
                         </WrapPanel>
                     </StackPanel>
                     
@@ -130,17 +135,18 @@
                 </DataGrid.Columns>
             </DataGrid>-->
             <ListView Grid.Row="1" Grid.ColumnSpan="3"
-                ItemsSource="{Binding PatientDataMonitors}" HorizontalAlignment="Stretch"
+                ItemsSource="{Binding PatientDataMonitors}" 
+                HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                 HorizontalContentAlignment="Stretch"
                 IsSynchronizedWithCurrentItem="True"
                 Name="ListViewPatientData">
                 <ListView.Resources>
-                    <Style TargetType="ListView" BasedOn="{StaticResource DataGridColumnHeaderStyle}"></Style>
+                    <Style TargetType="GridViewColumnHeader" BasedOn="{StaticResource GridColumnHeaderStyle}"></Style>
                 </ListView.Resources>
                 <ListView.View>
-                    <GridView>
-                        <GridViewColumn Header="Patient ID" DisplayMemberBinding="{Binding PId}" Width="110"/>
-                        <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" Width="160"/>
+                    <GridView AllowsColumnReorder="True" >
+                        <GridViewColumn Header="Patient ID" DisplayMemberBinding="{Binding PId}" Width="150" />
+                        <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" Width="250"/>
                         <GridViewColumn Header="Gender" DisplayMemberBinding="{Binding Gender}" Width="110"/>
                         <GridViewColumn Header="Bed Number" DisplayMemberBinding="{Binding BedId}" Width="Auto"/>
                         <GridViewColumn Header="BPM" Width="110">
@@ -158,14 +164,14 @@
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
-                        <GridViewColumn Header="RESP RATE" Width="110">
+                        <GridViewColumn Header="RESP RATE" Width="110" >
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock Text="{Binding VitalRespRate}" Background="{Binding RespRateBackGround}"></TextBlock>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
-                        <GridViewColumn Header="STATUS"  Width="110">
+                        <GridViewColumn Header="STATUS"  Width="110" >
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock Text="                   " Background="{Binding Status}"></TextBlock>

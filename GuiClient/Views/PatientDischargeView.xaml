@@ -24,16 +24,13 @@
             <ComboBox x:Name="PatientListDropDown" Style="{StaticResource ComboBoxStyle}"  
                       Grid.Row="0" Grid.Column="1" Margin ="30"
                       ItemsSource="{Binding AllPatients}"
-                      SelectedItem="{Binding SelectedPatient}"></ComboBox>
+                      SelectedItem="{Binding SelectedPatient}">
 
+            </ComboBox>
+            <Button x:Name="DischargePatientButton" Grid.Row="1" Grid.Column="0" Style="{StaticResource ButtonStyle}" 
+                    Command ="{Binding DischargePatientCommand}">Discharge Patient</Button>
+            <Button x:Name="Refresh" Grid.Row="1" Grid.Column="1" Style="{StaticResource ButtonStyle}" Command="{Binding Path=RefreshCommand}">Refresh</Button>
 
-            <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal">
-                <Button x:Name="DischargePatientButton" Style="{StaticResource ButtonStyle}" 
-                        Command ="{Binding DischargePatientCommand}">Discharge Patient</Button>
-                <Button x:Name="Refresh" Style="{StaticResource ButtonStyle}" Command="{Binding Path=RefreshCommand}">Refresh</Button>
-            </StackPanel>
-            
-            
         </Grid.Children>
     </Grid>
 </UserControl>

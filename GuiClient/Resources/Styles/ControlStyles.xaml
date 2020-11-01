@@ -4,11 +4,12 @@
     <Style x:Key="TextBlockStyle"  TargetType="TextBlock">
         <Style.Setters>
             <Setter Property="Width" Value="auto"></Setter>
-            <Setter Property="Height" Value="20"></Setter>
+            <Setter Property="Height" Value="22"></Setter>
             <!--<Setter Property="TextAlignment" Value="Right"></Setter>-->
             <Setter Property="Foreground" Value="DarkSlateBlue"></Setter>
             <Setter Property="FontWeight" Value="ExtraBold"></Setter>
-            <Setter Property="FontSize" Value="15"></Setter>
+            <Setter Property="FontSize" Value="17"></Setter>
+            <Setter Property="HorizontalAlignment" Value="Center"></Setter>
         </Style.Setters>
     </Style>
 
@@ -55,6 +56,14 @@
           </Trigger>
       </Style.Triggers>
     </Style>
+
+    <Style x:Key="ButtonForMonitoring" BasedOn="{StaticResource ButtonStyle}" TargetType="Button">
+        <Style.Setters>
+            <Setter Property="Margin" Value="10,0,0,0"></Setter>
+            <Setter Property="Width" Value="100"></Setter>
+        </Style.Setters>
+    </Style>
+
 
     <Style x:Key="AddDelTab" TargetType="TabItem">
         <Style.Setters>
@@ -180,11 +189,13 @@
         </Style.Triggers>
     </Style>
 
-    <Style x:Key="DataGridColumnHeaderStyle" TargetType="ListView">
+    <Style x:Key="GridColumnHeaderStyle" TargetType="GridViewColumnHeader">
         <Style.Setters>
             
             <Setter Property="FontSize" Value="20"></Setter>
-            <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
+            <Setter Property="HorizontalAlignment" Value="Stretch"></Setter>
+            <Setter Property="VerticalAlignment" Value="Stretch"></Setter>
             <Setter Property="Foreground" Value="Black"></Setter>
             <Setter Property="FontWeight" Value ="SemiBold"></Setter>
         </Style.Setters>
