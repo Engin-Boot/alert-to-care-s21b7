@@ -34,7 +34,7 @@
                         <ColumnDefinition Width="*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <Grid.Children>
-                    <StackPanel Grid.Row="0" Grid.Column="0">
+                    <StackPanel Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
                         <!--ScrollViewer.VerticalScrollBarVisibility="Visible"-->
                         <ComboBox Name="IcuIds" Style="{StaticResource ComboBoxStyle}"
                                   HorizontalAlignment="Left" 
@@ -43,7 +43,7 @@
                                   SelectedValue="{Binding IcuIdSelected, 
                             UpdateSourceTrigger=PropertyChanged}"
                         ></ComboBox>
-                        <Button  Command="{Binding RefreshPatientCommand}"  Content="Refresh Patient" HorizontalAlignment="Center"></Button>
+                        <Button  Command="{Binding RefreshPatientCommand}"  Content="Refresh ICU" HorizontalAlignment="Center"></Button>
                     </StackPanel>
                     
                     <StackPanel Height="100" MinWidth="100" HorizontalAlignment="Stretch" Background="Beige"

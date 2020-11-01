@@ -549,8 +549,7 @@ namespace GuiClient.ViewModels
 
         private void RefreshPatientCommandWrapper(object obj)
         {
-            if (IcuIdSelected == null) return;
-            GetPatientsInParticularIcu();
+            IcuList = _icuWrapper.GetAllIcu();
         }
 
         public bool CanExecuteWrapper(object parameter)

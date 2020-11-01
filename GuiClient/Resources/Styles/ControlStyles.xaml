@@ -48,7 +48,7 @@
           <!-- Property Trigger-->
           <Trigger Property="IsMouseOver" Value="true">
               <Trigger.Setters>
-                  <Setter Property="Width" Value="220"></Setter>
+                  <!--<Setter Property="Width" Value="220"></Setter>-->
                   <!--<Setter Property="Height" Value="35"></Setter>-->
                   <Setter Property ="FontSize" Value="17"></Setter>
               </Trigger.Setters>
