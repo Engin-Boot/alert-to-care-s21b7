@@ -12,14 +12,8 @@ namespace GuiClient.ViewModels
 {
     public class PatientRegistrationViewModel  : INotifyPropertyChanged
     {
-        private PatientModel Patient { get; set; }
+        
         //private readonly AccessingData _accessing = new AccessingData();
-
-        #region Fields
-
-        private List<int> _freeBedList;
-        private List<string> _icuList;
-        #endregion
 
         #region Initializers
 
@@ -31,43 +25,17 @@ namespace GuiClient.ViewModels
                 "Male" , "Female" , "Others"
             };
             Admit = new RelayCommand(AdmitPatient);
+            RefreshCommand = new RelayCommand(RefreshView);
             InitDetails();
 
         }
-        public void InitDetails()
+        private void InitDetails()
         {
             var icus = GetAllIcusFromServer();
             IcuList = icus.OrderBy(a => a).ToList();
             Clear();
         }
-        private void AdmitPatient(object obj)
-        {
-            var patientObj = new PatientWrapper();
-            if (patientObj.AddPatient(Patient) == 1)
-            {
-                GetAllBedsForIcu(SelectedIcuId);
-                FreeBedsInParticularIcu();
-                this.Clear();
-                MessageBox.Show("Patient Added successfully!");
-            }
-            else
-            {
-                MessageBox.Show("Unable to add patient");
-            }
-        }
-
-        private List<string> GetAllIcusFromServer()
-        {
-            var wrapperObj = new IcuWrapper();
-            return wrapperObj.GetAllIcu();
-        }
-
-        private void GetAllBedsForIcu(string icuId)
-        {
-            var wrapperObj = new BedsWrapper();
-            var ret = wrapperObj.GetListOfBedsForIcu(icuId);
-            BedList = ret;
-        }
+        
 
         #endregion
 
@@ -211,6 +179,38 @@ namespace GuiClient.ViewModels
 
         #region Logic
 
+        private void AdmitPatient(object obj)
+        {
+            var patientObj = new PatientWrapper();
+            if (patientObj.AddPatient(Patient) == 1)
+            {
+                GetAllBedsForIcu(SelectedIcuId);
+                FreeBedsInParticularIcu();
+                this.Clear();
+                MessageBox.Show("Patient Added successfully!");
+            }
+            else
+            {
+                MessageBox.Show("Unable to add patient");
+            }
+        }
+
+        private List<string> GetAllIcusFromServer()
+        {
+            var wrapperObj = new IcuWrapper();
+            return wrapperObj.GetAllIcu();
+        }
+
+        private void GetAllBedsForIcu(string icuId)
+        {
+            var wrapperObj = new BedsWrapper();
+            var ret = wrapperObj.GetListOfBedsForIcu(icuId);
+            BedList = ret;
+        }
+        private void RefreshView(object obj)
+        {
+            InitDetails();
+        }
         private void FreeBedsInParticularIcu()
         {
             if(BedList == null) return;
@@ -261,7 +261,20 @@ namespace GuiClient.ViewModels
             set;
         }
 
+        public ICommand RefreshCommand
+        {
+            get;
+            set;
+        }
 
+
+        #endregion
+
+        #region Private
+
+        private List<int> _freeBedList;
+        private List<string> _icuList;
+        private PatientModel Patient { get; set; }
         #endregion
     }
 }

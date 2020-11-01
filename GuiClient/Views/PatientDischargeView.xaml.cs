@@ -28,9 +28,5 @@ namespace GuiClient.Views
             DataContext = _patientDischargeViewModel;
         }
 
-        private void Refresh_Click(object sender, RoutedEventArgs e)
-        {
-            _patientDischargeViewModel.Init();
-        }
     }
 }

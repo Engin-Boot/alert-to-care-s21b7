@@ -14,9 +14,10 @@ namespace GuiClient.ViewModels
         public PatientDischargeViewModel()
         {
             DischargePatientCommand = new RelayCommand(DischargePatient);
-            Init();
+            RefreshCommand = new RelayCommand(RefreshView);
+            InitView();
         }
-        public void Init()
+        private void InitView()
         {
             var patients = new PatientWrapper().GetAllPatients();
             AllPatients = patients.Keys.ToList();
@@ -24,7 +25,10 @@ namespace GuiClient.ViewModels
         #endregion
 
         #region Logic
-
+        private void RefreshView(object obj)
+        {
+            InitView();
+        }
         private void DischargePatient(object obj)
         {
             var wrapperObj = new PatientWrapper();
@@ -67,6 +71,7 @@ namespace GuiClient.ViewModels
 
         #region Commands
         public ICommand DischargePatientCommand { get; set; }
+        public ICommand RefreshCommand { get; set; }
         #endregion
 
         #region PrivateVariables

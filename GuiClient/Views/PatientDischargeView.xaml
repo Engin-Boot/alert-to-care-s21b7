@@ -30,8 +30,7 @@
             <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal">
                 <Button x:Name="DischargePatientButton" Style="{StaticResource ButtonStyle}" 
                         Command ="{Binding DischargePatientCommand}">Discharge Patient</Button>
-                <Button x:Name="Refresh" Style="{StaticResource ButtonStyle}" Click="Refresh_Click" 
-                       >Refresh</Button>
+                <Button x:Name="Refresh" Style="{StaticResource ButtonStyle}" Command="{Binding Path=RefreshCommand}">Refresh</Button>
             </StackPanel>
             
             
