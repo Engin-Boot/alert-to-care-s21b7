@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Net;
-using System.Windows.Navigation;
 using GuiClient.Models;
 using RestSharp;
 

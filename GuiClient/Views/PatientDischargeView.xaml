@@ -2,8 +2,7 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:GuiClient.Views"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
@@ -27,9 +26,9 @@
                       SelectedItem="{Binding SelectedPatient}">
 
             </ComboBox>
-            <Button x:Name="DischargePatientButton" Grid.Row="1" Grid.Column="0" Style="{StaticResource ButtonStyle}" 
+            <Button x:Name="DischargePatientButton" Grid.Row="1" Grid.Column="1" Style="{StaticResource ButtonStyle}" 
                     Command ="{Binding DischargePatientCommand}">Discharge Patient</Button>
-            <Button x:Name="Refresh" Grid.Row="1" Grid.Column="1" Style="{StaticResource ButtonStyle}" Command="{Binding Path=RefreshCommand}">Refresh</Button>
+            <Button x:Name="Refresh" Grid.Row="1" Grid.Column="0" Style="{StaticResource ButtonStyle}" Command="{Binding Path=RefreshCommand}">Refresh</Button>
 
         </Grid.Children>
     </Grid>

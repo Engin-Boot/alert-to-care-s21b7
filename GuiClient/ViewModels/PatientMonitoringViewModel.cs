@@ -1,20 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Security.RightsManagement;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using GuiClient.Commands;
 using GuiClient.Models;
 using GuiClient.ServerWrapper;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace GuiClient.ViewModels
 {
@@ -110,30 +103,28 @@ namespace GuiClient.ViewModels
             UndoWarningData=new ObservableCollection<PatientDataMonitor>();
             
             this.SuppressEmergencyCommand= new DelegateCommandClass(
-                new Action<object>(this.SuppressEmergencyCommandWrapper),
-                new Func<object, bool>(this.CanExecuteWrapper));
+                SuppressEmergencyCommandWrapper,
+                CanExecuteWrapper);
 
             this.UndoEmergencyCommand= new DelegateCommandClass(
-                new Action<object>(this.UndoEmergencyCommandWrapper),
-                new Func<object, bool>(this.CanExecuteWrapper));
+                UndoEmergencyCommandWrapper,
+                CanExecuteWrapper);
 
             this.SuppressWarningCommand= new DelegateCommandClass(
-                new Action<object>(this.SuppressWarningCommandWrapper),
-                new Func<object, bool>(this.CanExecuteWrapper));
+                SuppressWarningCommandWrapper,
+                CanExecuteWrapper);
 
             this.UndoWarningCommand = new DelegateCommandClass(
-                new Action<object>(this.UndoWarningCommandWrapper),
-                new Func<object, bool>(this.CanExecuteWrapper));
+                UndoWarningCommandWrapper,
+                CanExecuteWrapper);
 
             this.RefreshPatientCommand = new DelegateCommandClass(
-                new Action<object>(this.RefreshPatientCommandWrapper),
-                new Func<object, bool>(this.CanExecuteWrapper));
+                RefreshPatientCommandWrapper,
+                CanExecuteWrapper);
 
            
                 IcuList = _icuWrapper.GetAllIcu();
 
-            
-            
         }
 
         
@@ -315,15 +306,15 @@ namespace GuiClient.ViewModels
         public void GetPatientDataToMonitor()
         {
             if (PatientsInParticularIcu == null || AllPatientVitals == null) return;
-            var theDataGridList = from PatientData in PatientsInParticularIcu // outer sequence
+            var theDataGridList = from patientData in PatientsInParticularIcu // outer sequence
                 join vital in AllPatientVitals //inner sequence 
-                    on PatientData.PId equals vital.PId // key selector 
+                    on patientData.PId equals vital.PId // key selector 
                 select new PatientDataMonitor()
                 { // result selector 
-                    PId = PatientData.PId,
-                    BedId = PatientData.BedId,
-                    Gender = PatientData.Gender,
-                    Name = PatientData.Name,
+                    PId = patientData.PId,
+                    BedId = patientData.BedId,
+                    Gender = patientData.Gender,
+                    Name = patientData.Name,
                     VitalBpm = vital.VitalBpm,
                     VitalSpo2 = vital.VitalSpo2,
                     VitalRespRate = vital.VitalRespRate,

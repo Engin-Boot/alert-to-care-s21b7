@@ -47,7 +47,7 @@
                       SelectedValue="{Binding SelectedBedLayOut}"></ComboBox>
             
             <Button x:Name="AddBed" Grid.Row ="3"  Style="{StaticResource ButtonStyle}"  
-                    Grid.ColumnSpan="2" Command="{Binding AddBedCommand}">Add Bed</Button>
+                    Grid.ColumnSpan="3" Command="{Binding AddBedCommand}">Add Bed</Button>
             <Button x:Name="Refresh" Grid.Row="0" Grid.Column="2" Width="75" Style="{StaticResource ButtonStyle}" 
                     Grid.ColumnSpan="2" Command="{Binding RefreshCommand}" >Refresh</Button>
             

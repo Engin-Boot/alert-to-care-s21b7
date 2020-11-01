@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using GuiClient.Commands;
@@ -27,8 +24,8 @@ namespace GuiClient.ViewModels
         {
             ListOfIcu = _icuWrapper.GetAllIcu();
             this.IcuDeleteCommand=new DelegateCommandClass(
-                new Action<object>(this.IcuDeleteWrapper),
-                new Func<object, bool>(this.CanExecuteWrapper));
+                IcuDeleteWrapper,
+                CanExecuteWrapper);
         }
 
         #endregion

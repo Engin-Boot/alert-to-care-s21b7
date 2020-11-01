@@ -32,8 +32,11 @@
                           SelectedValue="{Binding SelectedBedId}"></ComboBox>
 
             <Button x:Name="BedDelete" Style="{StaticResource ButtonStyle}"
-                        Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
+                        Grid.Row="2" Grid.Column="1" 
                         Command="{Binding DeleteBedCommand}">Delete Bed</Button>
+            <Button x:Name="RefreshIcu" Style="{StaticResource ButtonStyle}"
+                    Grid.Row="2" Grid.Column="0"
+                    Command="{Binding RefreshCommand}">Refresh ICU</Button>
         </Grid.Children>
     </Grid>
 

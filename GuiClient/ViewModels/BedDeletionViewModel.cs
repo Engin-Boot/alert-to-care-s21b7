@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using GuiClient.Commands;
 using GuiClient.ServerWrapper;
@@ -20,6 +16,7 @@ namespace GuiClient.ViewModels
         private string _selectedIcu;
         private List<int> _freeBedModelsIds;
         private int _selectedBedId;
+        private List<string> _listOfIcu;
 
         #endregion
 
@@ -30,6 +27,7 @@ namespace GuiClient.ViewModels
             ListOfIcu = _icuWrapper.GetAllIcu();
             //this.DeleteBedCommand = new DelegateCommandClass(new Action<object>(this.DeleteBedWrapper),
               //  new Func<object, bool>(this.CanExecuteWrapper));
+              this.RefreshCommand = new RelayCommand(this.RefreshCommandWrapper);
               this.DeleteBedCommand=new RelayCommand(this.DeleteBedWrapper);
             //this.IcuSelectionChangedCommand = new DelegateCommandClass(new Action<object>(this.IcuSelectionChangedWrapper),
               //  new Func<object, bool>(this.CanExecuteWrapper));
@@ -39,7 +37,15 @@ namespace GuiClient.ViewModels
 
         #region Properties
 
-        public List<string> ListOfIcu { get; set; }
+        public List<string> ListOfIcu
+        {
+            get => _listOfIcu;
+            set
+            {
+                _listOfIcu = value;
+                OnPropertyChanged(nameof(ListOfIcu));
+            }
+        }
         public string SelectedIcu
         {
             get => _selectedIcu;
@@ -105,9 +111,19 @@ namespace GuiClient.ViewModels
             set;
         }
 
+        public ICommand RefreshCommand
+        {
+            get;
+            set;
+        }
 
         #endregion
         #region Command Helper Methods
+
+        public void RefreshCommandWrapper(object parameter)
+        {
+            ListOfIcu = _icuWrapper.GetAllIcu();
+        }
 
         public void DeleteBedWrapper(object parameter)
         {

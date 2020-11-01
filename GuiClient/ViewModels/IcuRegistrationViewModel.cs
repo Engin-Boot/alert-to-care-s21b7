@@ -1,18 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using GuiClient.Commands;
 using GuiClient.Models;
 using GuiClient.ServerWrapper;
-using RestSharp;
-using RestSharp.Deserializers;
-using RestSharp.Serialization.Json;
 
 namespace GuiClient.ViewModels
 {
@@ -33,8 +26,9 @@ namespace GuiClient.ViewModels
         {
             SelectedIcu = "";
             ListOfIcu = _icuWrapper.GetAllIcu();
-            this.AddIcuCommand = new DelegateCommandClass(new Action<object>(this.AddIcuWrapper),
-                new Func<object, bool>(this.CanExecuteWrapper));
+            this.AddIcuCommand = new DelegateCommandClass(
+                AddIcuWrapper,
+                CanExecuteWrapper);
             
         }
 
