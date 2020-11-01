@@ -1,6 +1,4 @@
-﻿using System.IO;
-using System.Net;
-using System.Reflection;
+﻿using System.Net;
 using AlertToCare.Configuration;
 using AlertToCare.DatabaseOperations;
 using Xunit;
@@ -8,14 +6,8 @@ using AlertToCare.Models;
 
 namespace AlertToCare_Tests.Configuration.Tests
 {
-   public  class ConfigurationTest
+   public  class ConfigurationTest: DbPath
    {
-       private static string GetDbPathForTesting()
-       {
-           var path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-           var dbPath = Path.GetFullPath(Path.Combine(path ?? string.Empty, @"..\..\..\Hospital.db"));
-           return dbPath;
-       }
        private readonly ConfigurationRepository _configRepo = new ConfigurationRepository();
 
         //private readonly RemovedBedThenUpdateIcu _updateBedCountInIcu = new RemovedBedThenUpdateIcu();

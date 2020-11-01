@@ -1,49 +1,19 @@
 ﻿using Xunit;
 using AlertToCare.Models;
-using System.IO;
 using System.Net;
-using System.Reflection;
 using AlertToCare.DatabaseOperations;
 using AlertToCare.Occupancy;
 
 namespace AlertToCare_Tests.OccupancyTests
 {
-    public class OccupancyServiceTests
+    public class OccupancyServiceTests : DbPath
     {
-        private static string GetDbPathForTesting()
-        {
-            var path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            var dbPath = Path.GetFullPath(Path.Combine(path ?? string.Empty, @"..\..\..\Hospital.db"));
-            return dbPath;
-        }
+        
 
         private OccupancyService GetOccupancyObject()
         {
             return new OccupancyService();
         }
-        //        private readonly OccupancyService _occupancyService = new OccupancyService();
-        //        private readonly List<PatientModel> _patientListExpected = new List<PatientModel>();
-        //        private static readonly List<PatientVital> PatientVitalListExpected = new List<PatientVital>();
-        //        private const string Layout = "right";
-        //        private static readonly PatientModel PatientModel = new PatientModel();
-
-        //        public OccupancyServiceTests()
-        //        {
-        //            _occupancyService.PatientList.Clear();
-        //            PatientModel.Name = "XYZ";
-        //            PatientModel.Address = "Dharwad";
-        //            PatientModel.Age = 24;
-        //            PatientModel.BedId = "B0002";
-        //            PatientModel.Email = "XYZ@123.com";
-        //            PatientModel.Gender = "Male";
-        //            PatientModel.IcuId = "I0001";
-        //            PatientModel.PhoneNumber = "1234567890";
-        //            PatientModel.PId = "147852";
-        //            PatientModel.VitalBpm = 80;
-        //            PatientModel.VitalRespRate = 98;
-        //            PatientModel.VitalSpo2 = 65;
-        //            var output = _occupancyService.AddNewPatient(PatientModel,Layout);
-        //        }
 
         [Fact]
         public void AddNewPatientTest1()
