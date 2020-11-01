@@ -47,6 +47,8 @@ namespace GuiClient.ServerWrapper
             Client = new RestClient(BaseUrl);
             Request = new RestRequest($"Occupancy/{icuId}", Method.GET) { RequestFormat = DataFormat.Json };
             var response = Client.Execute(Request);
+            if (response.StatusCode.Equals(HttpStatusCode.InternalServerError) ||
+                response.StatusCode.Equals(HttpStatusCode.NotFound)) return null;
             return Deserializer.Deserialize<Dictionary<string, PatientModel>>(response);
         }
     }

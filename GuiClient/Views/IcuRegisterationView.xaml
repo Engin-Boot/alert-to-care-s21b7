@@ -33,7 +33,6 @@
                     </Binding>
                 </TextBox.Text>
             </TextBox>
-
             <TextBlock Grid.Row="1" Grid.Column="0" Text="Number of Beds" Style="{StaticResource TextBlockStyle}"></TextBlock>
 
             <TextBox  Style="{StaticResource ErrorFeedbackStyle}"  Grid.Row="1" Grid.Column="1" Margin ="30"

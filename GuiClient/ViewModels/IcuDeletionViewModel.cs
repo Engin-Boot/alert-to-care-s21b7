@@ -21,10 +21,19 @@ namespace GuiClient.ViewModels
 
         public IcuDeletionViewModel()
         {
-            ListOfIcu = _icuWrapper.GetAllIcu();
+            
             this.IcuDeleteCommand=new DelegateCommandClass(
                 IcuDeleteWrapper,
                 CanExecuteWrapper);
+            RefreshCommand = new RelayCommand(RefreshView);
+            InitView();
+        }
+
+        
+
+        private void InitView()
+        {
+            ListOfIcu = _icuWrapper.GetAllIcu();
         }
 
         #endregion
@@ -60,6 +69,11 @@ namespace GuiClient.ViewModels
         #endregion
 
         #region Logic
+
+        private void RefreshView(object obj)
+        {
+            InitView();
+        }
         protected virtual void OnPropertyChanged(string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
@@ -71,6 +85,12 @@ namespace GuiClient.ViewModels
         #region Commands
 
         public ICommand IcuDeleteCommand
+        {
+            get;
+            set;
+        }
+
+        public ICommand RefreshCommand
         {
             get;
             set;

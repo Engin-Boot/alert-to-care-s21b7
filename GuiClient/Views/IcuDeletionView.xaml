@@ -17,6 +17,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
         <Grid.Children >
@@ -26,7 +27,9 @@
                       ItemsSource="{Binding ListOfIcu}"
                       SelectedValue="{Binding SelectedIcu,
                 UpdateSourceTrigger=PropertyChanged}"></ComboBox>
-
+            <Button  Style="{StaticResource ButtonStyle}" 
+                     Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2"
+                     Command="{Binding RefreshCommand}" Width ="100">Refresh</Button>
 
             <Button  Style="{StaticResource ButtonStyle}" 
                     Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"

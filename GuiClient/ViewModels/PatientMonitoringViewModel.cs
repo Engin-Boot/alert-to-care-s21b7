@@ -36,36 +36,6 @@ namespace GuiClient.ViewModels
         }
         #endregion
 
-        // ParameterizedThreadStart startRefresh = new ParameterizedThreadStart(Wrapper1());
-
-
-        //private  void Wrapper1()
-        //{
-        //    EmergencyData.Clear();
-        //    WarningData.Clear();
-        //    PatientsInParticularIcu();
-        //    StatusSet();
-        //}
-
-        //private void Wrapper2()
-        //{
-        //    Action<object> actionObject = (object obj) =>
-        //    {
-        //        while (true)
-        //        {
-        //            EmergencyData.Clear();
-        //            WarningData.Clear();
-        //            PatientsInParticularIcu();
-        //            StatusSet();
-        //            Thread.Sleep(5000);
-
-        //        }
-
-        //    };
-        //    var refreshTask = new Task(actionObject, "MonitorRefreshTask");
-        //    refreshTask.Start();
-        //}
-
 
         #region Fields
 
@@ -176,73 +146,6 @@ namespace GuiClient.ViewModels
            }
        }
 
-     /*   public string PatientId
-        {
-            get => _patientId;
-            set
-            {
-                _patientId = value;
-                OnPropertyChanged(nameof(PatientId));
-            }
-        }
-
-        public string Name
-        {
-            get => _name;
-            set
-            {
-                _name = value;
-                OnPropertyChanged(nameof(Name));
-            }
-        }
-        public string Gender
-        {
-            get => _gender;
-            set
-            {
-                _gender = value;
-                OnPropertyChanged(nameof(Gender));
-            }
-        }
-
-        public string BedNumber
-        {
-            get => _bedId;
-            set
-            {
-                _bedId = value;
-                OnPropertyChanged(nameof(BedNumber));
-            }
-        }
-
-        public double Bpm
-        {
-            get => _bpm;
-            set
-            {
-                _bpm = value;
-                OnPropertyChanged(nameof(Bpm));
-            }
-        }
-        public double Spo2
-        {
-            get => _spo2;
-            set
-            {
-                _spo2 = value;
-                OnPropertyChanged(nameof(Spo2));
-            }
-        }
-        public double RespRate
-        {
-            get => _respRate;
-            set
-            {
-                _respRate = value;
-                OnPropertyChanged(nameof(RespRate));
-            }
-        }
-     */
 
      public List<PatientModel> PatientsInParticularIcu
      {
@@ -296,7 +199,11 @@ namespace GuiClient.ViewModels
         {
             EmergencyData.Clear();
             WarningData.Clear();
-            PatientsInParticularIcu = _patientWrapper.GetPatientsFromIcu(IcuIdSelected).Values.ToList();
+            var patientMonitoringList = _patientWrapper.GetPatientsFromIcu(IcuIdSelected).Values.ToList();
+            if (patientMonitoringList != null)
+            {
+                PatientsInParticularIcu = patientMonitoringList;
+            }
         }
 
         public void GetAllPatientVitals()
@@ -495,7 +402,6 @@ namespace GuiClient.ViewModels
             set;
         }
         #endregion
-
 
         #region helper command wrappers
 
