@@ -9,12 +9,12 @@ namespace AlertToCare.Controllers
     public class AlertServiceController : ControllerBase
     {
         private readonly IEmailAlerter _alerter;
-        public AlertServiceController(EmailAlertService alerter)
+        public AlertServiceController(IEmailAlerter alerter)
         {
             _alerter = alerter;
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("[action]")]
         public object SendEmailAlert(VitalAlertEmailFormat email)
         {

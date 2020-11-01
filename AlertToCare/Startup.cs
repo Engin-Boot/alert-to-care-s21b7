@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using AlertToCare.Alerters;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -25,7 +26,8 @@ namespace AlertToCare
             services.AddSingleton<Configuration.IConfigurationRepository, Configuration.ConfigurationRepository>();
             services.AddSingleton<Monitoring.IMonitoringRepository, Monitoring.MonitoringRepository>();
             services.AddSingleton<Occupancy.IOccupancyService, Occupancy.OccupancyService>();
-        
+            services.AddSingleton<IEmailAlerter, EmailAlertService>() ;
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

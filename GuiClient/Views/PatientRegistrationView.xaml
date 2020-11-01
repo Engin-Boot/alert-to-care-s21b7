@@ -145,7 +145,7 @@
                 </TextBox.Text>
             </TextBox>
             <Button Grid.Row="9" Grid.Column="0" HorizontalAlignment="Center"  Style="{StaticResource ButtonStyle}"
-                    Margin="10" Name="RefreshButton" Content="Refresh" Click="RefreshButton_Click">
+                    Margin="10" Name="RefreshButton" Content="Refresh" Command="{Binding Path=RefreshCommand}">
             </Button>
             <Button Grid.Row="9" Grid.Column="1" HorizontalAlignment="Center" Command="{Binding Admit}" Style="{StaticResource ButtonStyle}"
                     Margin="10" Name="AdmitButton" Content="Admit Patient">

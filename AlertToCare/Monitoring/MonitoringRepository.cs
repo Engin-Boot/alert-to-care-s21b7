@@ -59,7 +59,6 @@ namespace AlertToCare.Monitoring
         }
 
         private Dictionary<string, PatientModel> Patients { get; set; }
-        public readonly Alerter.IAlerter Alerter = new Alerter.EmailAlert();
         private static readonly int[] RespRateLimits = {15, 110};
         private static readonly int[] Spo2Limits = { 87, 100 };
         private static readonly int[] BpmLimits = { 55, 165 };

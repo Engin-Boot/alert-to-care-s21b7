@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Net;
 using AlertToCare.Alerters;
 using RestSharp;
-using RestSharp.Serialization.Json;
 using Xunit;
 
 namespace AutomationTests
@@ -12,12 +9,10 @@ namespace AutomationTests
     {
         private RestClient Client { get; set; }
         private RestRequest _request;
-        private JsonDeserializer Deserializer { get; set; }
 
         public AlerterTests()
         {
             Client = new RestClient("http://localhost:5000/api");
-            Deserializer = new JsonDeserializer();
         }
         [Fact]
         public void TestEmailAlert()
@@ -26,7 +21,7 @@ namespace AutomationTests
             _request = new RestRequest("AlertService/SendEmailAlert", Method.POST){RequestFormat = DataFormat.Json};
             _request.AddJsonBody(email);
             var response = Client.Execute(_request);
-            Assert.NotNull(response);
+            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         }
     }
 }

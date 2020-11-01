@@ -48,7 +48,7 @@ namespace AlertToCare.Alerters
             var smtpClient = new SmtpClient
             {
                 Port = 587,
-                Host = "smtp-mail.outlook.com",
+                Host = "smtp.gmail.com",
                 EnableSsl = true,
                 UseDefaultCredentials = false,
                 Credentials = GetSenderEmailCredentials(),

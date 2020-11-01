@@ -4,11 +4,11 @@
     {
         public VitalAlertEmailFormat(string patientName, string pid,string icuId, int bedId, string status)
         {
+            _vitalStatus = status;
+            _icuId = icuId;
             _pid = pid;
             PatientName = patientName;
-            _icuId = icuId;
             _bedId = bedId;
-            _vitalStatus = status;
             InitBodyOfEmail();
         }
         private void InitBodyOfEmail()
