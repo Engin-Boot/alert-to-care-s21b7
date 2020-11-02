@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:views="clr-namespace:GuiClient.Views"
         mc:Ignorable="d"
-        Title="MainWindow" MinHeight="550" MinWidth="950"
+        Title="MainWindow" MinHeight="550" MinWidth="1180"
         ResizeMode="CanResize"
 >
     <!--Height="450" Width="800"-->

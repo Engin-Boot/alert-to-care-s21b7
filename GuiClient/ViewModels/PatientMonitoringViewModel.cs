@@ -18,6 +18,7 @@ namespace GuiClient.ViewModels
         public string Name { get; set; }
         public string Gender { get; set; }
         public int BedId { get; set; }
+        public string BedLayout { get; set; }
         public double VitalBpm { get; set; }
         public double VitalSpo2 { get; set; }
         public double VitalRespRate { get; set; }
@@ -41,6 +42,7 @@ namespace GuiClient.ViewModels
 
         private string _selectedIcuId;
         private readonly IcuWrapper _icuWrapper = new IcuWrapper();
+        private  readonly  BedsWrapper _bedsWrapper = new BedsWrapper();
         private readonly PatientWrapper _patientWrapper = new PatientWrapper();
         private List<string> _icuList = new List<string>();
        /* private string _patientId;
@@ -52,6 +54,7 @@ namespace GuiClient.ViewModels
         private double _respRate;
        */
         private List<PatientModel> _allPatientListInIcu;
+        private List<BedModel> _allBedsInIcu;
         private List<PatientVital> _allPatientVitals;
         private List<PatientDataMonitor> _patientDataMonitors;
         private PatientDataMonitor _selectedWarningDataMonitor;
@@ -156,7 +159,8 @@ namespace GuiClient.ViewModels
              OnPropertyChanged(nameof(PatientsInParticularIcu));
              GetAllPatientVitals();
          }
-        }
+     }
+
 
      public List<PatientVital> AllPatientVitals
      {
@@ -165,6 +169,17 @@ namespace GuiClient.ViewModels
          {
              _allPatientVitals = value;
              OnPropertyChanged(nameof(AllPatientVitals));
+             GetBedsInParticularIcu();
+         }
+     }
+
+     public List<BedModel> BedsInParticularIcu
+     {
+         get => _allBedsInIcu;
+         set
+         {
+             _allBedsInIcu = value;
+             OnPropertyChanged(nameof(BedsInParticularIcu));
              GetPatientDataToMonitor();
              StatusSet();
          }
@@ -206,6 +221,11 @@ namespace GuiClient.ViewModels
             }
         }
 
+        public void GetBedsInParticularIcu()
+        {
+            BedsInParticularIcu = _bedsWrapper.GetListOfBedsForIcu(IcuIdSelected);
+        }
+
         public void GetAllPatientVitals()
         {
             AllPatientVitals = _patientWrapper.GetPatientVitals().Values.ToList();
@@ -215,12 +235,13 @@ namespace GuiClient.ViewModels
         {
             if (PatientsInParticularIcu == null || AllPatientVitals == null) return;
             var theDataGridList = from patientData in PatientsInParticularIcu // outer sequence
-                join vital in AllPatientVitals //inner sequence 
-                    on patientData.PId equals vital.PId // key selector 
+                join vital in AllPatientVitals on patientData.PId equals vital.PId // key selector 
+                join beds in BedsInParticularIcu on patientData.BedId equals beds.BedId
                 select new PatientDataMonitor()
                 { // result selector 
                     PId = patientData.PId,
                     BedId = patientData.BedId,
+                    BedLayout = beds.BedLayout,
                     Gender = patientData.Gender,
                     Name = patientData.Name,
                     VitalBpm = vital.VitalBpm,

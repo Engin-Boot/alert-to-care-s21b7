@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="950" >
+             d:DesignHeight="450" d:DesignWidth="1000" >
     <!--<UserControl.DataContext>
          Instantiates ViewModel type using DefaultConstructor
         <viewModels:PatientMonitoringViewModel></viewModels:PatientMonitoringViewModel>
@@ -123,9 +123,10 @@
                 <ListView.View>
                     <GridView AllowsColumnReorder="True" >
                         <GridViewColumn Header="Patient ID" DisplayMemberBinding="{Binding PId}" Width="150" />
-                        <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" Width="250"/>
+                        <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" Width="200"/>
                         <GridViewColumn Header="Gender" DisplayMemberBinding="{Binding Gender}" Width="110"/>
                         <GridViewColumn Header="Bed Number" DisplayMemberBinding="{Binding BedId}" Width="Auto"/>
+                        <GridViewColumn Header="Bed Layout" DisplayMemberBinding="{Binding BedLayout}" Width="130"/>
                         <GridViewColumn Header="BPM" Width="110">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
