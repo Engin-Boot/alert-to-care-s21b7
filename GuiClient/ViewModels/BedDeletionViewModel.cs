@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Windows;
 using System.Windows.Input;
 using GuiClient.Commands;
 using GuiClient.Models;
@@ -128,6 +129,11 @@ namespace GuiClient.ViewModels
 
         public void DeleteBedWrapper(object parameter)
         {
+            if (SelectedBed == null)
+            {
+                MessageBox.Show("No Bed Selected.");
+                return;
+            }
             _bedsWrapper.RemoveBed(SelectedBed.BedId);
             GetAllBedsOfSpecificIcu();
         }

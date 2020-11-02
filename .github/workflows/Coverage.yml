@@ -36,7 +36,7 @@ jobs:
 
       - name: Generate coverage report
 
-        run: dotnet test --collect:"XPlat Code Coverage"
+        run: dotnet test AlertToCare-Tests --collect:"XPlat Code Coverage" 
 
       
 
