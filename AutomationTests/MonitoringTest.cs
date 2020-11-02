@@ -18,7 +18,7 @@ namespace AutomationTests
             _deserializer = new JsonDeserializer();
         }
         [Fact]
-        public void GetAllPatientVitals()
+        public void WhenQueryServerToGetAllPatientsVitalsAssertNotNull()
         {
             _request = new RestRequest("Monitor/GeAllPatientVitals", Method.GET){RequestFormat = DataFormat.Json};
             var response = _client.Execute(_request);

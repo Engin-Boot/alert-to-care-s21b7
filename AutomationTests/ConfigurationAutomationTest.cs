@@ -20,7 +20,7 @@ namespace AutomationTests
         }
 
         [Fact]
-        public void GetBedModelInfoTest()
+        public void WhenQueryServerToGetAllBedModelInformationAssertNotNull()
         {
             _request = new RestRequest("Configuration/GetBedModelInformation", Method.GET) { RequestFormat = DataFormat.Json };
             var response = _client.Execute(_request);
@@ -29,7 +29,7 @@ namespace AutomationTests
         }
 
         [Fact]
-        public void GetIcuModelInfoTest()
+        public void WhenQueryServerToGetAllIcusAssertNotNull()
         {
             _request = new RestRequest("Configuration/GetIcuModelInformation", Method.GET) { RequestFormat = DataFormat.Json };
             var response = _client.Execute(_request);
@@ -38,7 +38,7 @@ namespace AutomationTests
         }
 
         [Fact]
-        public void AddBedTest()
+        public void WhenQueryServerToAddNewBedAndRemoveAddedBedAssertNoException()
         {
             var bedModel = new BedModel()
             {
@@ -63,7 +63,7 @@ namespace AutomationTests
         }
 
         [Fact]
-        public void AddIcuTest()
+        public void WhenQueryServerToAddNewIcuAndRemoveAddedIcuAssertNoException()
         {
             var icuModel = new IcuModel()
             {
@@ -85,7 +85,7 @@ namespace AutomationTests
         }
 
         [Fact]
-        public void GetAllBedLayoutsTest()
+        public void WhenQueryServerToGetAllBedLayoutsAssertNoException()
         {
             _request = new RestRequest("Configuration/GetAllBedLayouts", Method.GET) { RequestFormat = DataFormat.Json };
             var response = _client.Execute(_request);

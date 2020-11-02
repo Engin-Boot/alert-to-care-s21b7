@@ -15,7 +15,7 @@ namespace AutomationTests
             _client = new RestClient("http://localhost:5000/api");
         }
         [Fact]
-        public void TestEmailAlert()
+        public void WhenQueryServerToSendEmailAlertAssertNoException()
         {
             var email = new VitalAlertEmailFormat("TestPatient", "100", "ICU01", 1, "WARNING");
             _request = new RestRequest("AlertService/SendEmailAlert", Method.POST){RequestFormat = DataFormat.Json};

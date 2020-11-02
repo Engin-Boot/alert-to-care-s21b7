@@ -1,5 +1,6 @@
 ﻿namespace GuiClient.Models
 {
+    // ReSharper disable once ClassNeverInstantiated.Global
     public class VitalAlertEmailFormat
     {
         public VitalAlertEmailFormat(string patientName, string pid,string icuId, int bedId, string status)

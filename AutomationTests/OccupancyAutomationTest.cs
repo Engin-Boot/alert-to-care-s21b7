@@ -20,7 +20,7 @@ namespace AutomationTests
         }
 
         [Fact]
-        public void GetAllPatients()
+        public void WhenQueryServerToGetAllPatientsAssertNoException()
         {
             _request = new RestRequest("Occupancy/GetAllPatients", Method.GET){RequestFormat = DataFormat.Json};
             var response = _client.Execute(_request);
@@ -29,7 +29,7 @@ namespace AutomationTests
         }
 
         [Fact]
-        public void GetPatientsInIcu()
+        public void WhenQueryServerToGetAllPatientsInParticularIcuAssertNoException()
         {
             _request = new RestRequest("Occupancy/ICU01", Method.GET) { RequestFormat = DataFormat.Json };
             var response = _client.Execute(_request);
@@ -38,7 +38,7 @@ namespace AutomationTests
         }
 
         [Fact]
-        public void GetAllBeds()
+        public void WhenQueryServerToGetAllBedsAssertNotEmpty()
         {
             _request = new RestRequest("Occupancy/GetBedDetails", Method.GET) { RequestFormat = DataFormat.Json };
             var response = _client.Execute(_request);
@@ -47,7 +47,7 @@ namespace AutomationTests
         }
 
         [Fact]
-        public void GetBedStatus()
+        public void WhenQueryServerToCheckBedStatusOfOccupiedBedReturnFalse()
         {
             _request = new RestRequest("Occupancy/GetBedStatus/1", Method.GET) { RequestFormat = DataFormat.Json };
             var response = _client.Execute(_request);
@@ -55,7 +55,7 @@ namespace AutomationTests
             Assert.False(result);
         }
         [Fact]
-        public void AddNewPatient()
+        public void WhenQueryServerToAddAndRemoveAddedPatientAssertNoException()
         {
             var newPatient = new PatientModel()
             {
@@ -86,7 +86,7 @@ namespace AutomationTests
         }
 
         [Fact]
-        public void GetBedStatusFor()
+        public void WhenQueryServerToBedBedDetailsForGivenIcuAssertHttpStatusOk()
         {
             _request = new RestRequest("Occupancy/GetBedDetailsForIcu/ICU01", Method.GET) { RequestFormat = DataFormat.Json };
             var response = _client.Execute(_request);
