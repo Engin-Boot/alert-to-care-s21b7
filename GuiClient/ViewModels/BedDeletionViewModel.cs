@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows.Input;
 using GuiClient.Commands;
+using GuiClient.Models;
 using GuiClient.ServerWrapper;
 // ReSharper disable All
 namespace GuiClient.ViewModels
@@ -14,8 +15,8 @@ namespace GuiClient.ViewModels
         private readonly BedsWrapper _bedsWrapper = new BedsWrapper();
         private readonly IcuWrapper _icuWrapper = new IcuWrapper();
         private string _selectedIcu;
-        private List<int> _freeBedModelsIds;
-        private int _selectedBedId;
+        private List<BedModel> _freeBedModelsIds;
+        private BedModel _selectedBed;
         private List<string> _listOfIcu;
 
         #endregion
@@ -57,7 +58,7 @@ namespace GuiClient.ViewModels
             }
         }
 
-        public List<int> FreeBedList
+        public List<BedModel> FreeBedList
         {
             get => _freeBedModelsIds;
             set
@@ -67,13 +68,13 @@ namespace GuiClient.ViewModels
             }
         }
 
-        public int SelectedBedId
+        public BedModel SelectedBed
         {
-            get => _selectedBedId;
+            get => _selectedBed;
             set
             {
-                _selectedBedId = value;
-                OnPropertyChanged(nameof(SelectedBedId));
+                _selectedBed = value;
+                OnPropertyChanged(nameof(SelectedBed));
             }
         }
 
@@ -97,7 +98,7 @@ namespace GuiClient.ViewModels
             if (allBedsInIcu == null) return;
             var result = from bed in allBedsInIcu
                 where bed.BedStatus == "False"
-                select bed.BedId;
+                select bed;
             FreeBedList = result.ToList();
         }
 
@@ -127,7 +128,7 @@ namespace GuiClient.ViewModels
 
         public void DeleteBedWrapper(object parameter)
         {
-            _bedsWrapper.RemoveBed(SelectedBedId);
+            _bedsWrapper.RemoveBed(SelectedBed.BedId);
             GetAllBedsOfSpecificIcu();
         }
 

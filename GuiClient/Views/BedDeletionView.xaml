@@ -25,11 +25,27 @@
                       SelectedValue="{Binding SelectedIcu, UpdateSourceTrigger=PropertyChanged}"></ComboBox>
 
 
-            <TextBlock Grid.Row="1" Grid.Column="0" Text="Bed" Style="{StaticResource TextBlockStyle}"></TextBlock>
+            <TextBlock Grid.Row="1" Grid.Column="0" Text="Bed Id : Bed Number" Style="{StaticResource TextBlockStyle}"></TextBlock>
             <ComboBox   Style="{StaticResource ComboBoxStyle}"
                           Grid.Row="1" Grid.Column="1" Margin="30"
                           ItemsSource="{Binding FreeBedList}"
-                          SelectedValue="{Binding SelectedBedId}"></ComboBox>
+                          SelectedItem="{Binding SelectedBed}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <!-- ReSharper disable once Xaml.BindingWithContextNotResolved -->
+                            <TextBlock Text="{Binding BedId}" 
+                                       Style="{StaticResource TextBlockStyle}"></TextBlock>
+                            <TextBlock Text="   :   "/>
+                            <!-- ReSharper disable once Xaml.BindingWithContextNotResolved -->
+                            <TextBlock Text="{Binding BedNumber}"
+                                       Style="{StaticResource TextBlockStyle}"
+                                       Margin="10 ,0,0,0"></TextBlock>
+                        </StackPanel>
+
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
 
             <Button  Style="{StaticResource ButtonStyle}"
                         Grid.Row="2" Grid.Column="1" 
