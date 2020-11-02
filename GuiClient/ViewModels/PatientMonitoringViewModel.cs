@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
+using AlertToCare.Alerters;
 using GuiClient.Commands;
 using GuiClient.Models;
 using GuiClient.ServerWrapper;
@@ -36,7 +37,6 @@ namespace GuiClient.ViewModels
                 GetPatientsInParticularIcu();
         }
         #endregion
-
 
         #region Fields
 
@@ -276,9 +276,19 @@ namespace GuiClient.ViewModels
                 data.Status = dictionaryIntColor[highest];
                 
                 if (highest == 1)
+                {
                     WarningData.Add(data);
+                    var email = new VitalAlertEmailFormat(data.Name, data.PId, IcuIdSelected, data.BedId, "Warning");
+                    var emailAlertWrapper = new EmailAleterWrapper();
+                    emailAlertWrapper.SendEmailAlert(email);
+                }
                 if (highest == 2)
+                {
                     EmergencyData.Add(data);
+                    var email = new VitalAlertEmailFormat(data.Name, data.PId, IcuIdSelected, data.BedId, "Emergency");
+                    var emailAlertWrapper = new EmailAleterWrapper();
+                    emailAlertWrapper.SendEmailAlert(email);
+                }
             }
 
         }
