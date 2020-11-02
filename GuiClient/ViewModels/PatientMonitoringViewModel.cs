@@ -5,7 +5,6 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
-using AlertToCare.Alerters;
 using GuiClient.Commands;
 using GuiClient.Models;
 using GuiClient.ServerWrapper;

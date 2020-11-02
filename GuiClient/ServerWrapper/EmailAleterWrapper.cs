@@ -1,4 +1,4 @@
-﻿using AlertToCare.Alerters;
+﻿using GuiClient.Models;
 using RestSharp;
 
 namespace GuiClient.ServerWrapper
