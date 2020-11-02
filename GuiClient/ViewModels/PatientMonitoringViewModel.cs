@@ -29,8 +29,8 @@ namespace GuiClient.ViewModels
     }
     public class PatientMonitoringViewModel :INotifyPropertyChanged
     {
-        #region trying something
-        public void Try()
+        #region Continuous Update
+        public void UpdatePatientData()
         {
             if (IcuIdSelected != null)
                 GetPatientsInParticularIcu();

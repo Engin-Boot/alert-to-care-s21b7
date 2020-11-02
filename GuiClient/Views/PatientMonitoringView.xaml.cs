@@ -26,7 +26,7 @@ namespace GuiClient.Views
 
         private void timer_Tick(object sender, EventArgs e)
         {
-            PatientMonitoringVm.Try();
+            PatientMonitoringVm.UpdatePatientData();
         }
 
     }
