@@ -104,6 +104,11 @@ namespace GuiClient.ViewModels
             }
             else
             {
+                if (string.IsNullOrWhiteSpace(SelectedIcu))
+                {
+                    MessageBox.Show("NO ICU Entered.");
+                    return;
+                }
                 _icuWrapper.AddIcu(new IcuModel(){BedCount = NumberOfBeds,IcuId = SelectedIcu});
                 ListOfIcu = _icuWrapper.GetAllIcu();
             }
