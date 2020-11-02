@@ -39,7 +39,7 @@ namespace GuiClient.ViewModels
             }
             else
             {
-                MessageBox.Show("Internal Server Error");
+                MessageBox.Show("Unable to delete ICU as there are beds in the ICU.");
             }
 
             
