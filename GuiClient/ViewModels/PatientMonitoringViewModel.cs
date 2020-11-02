@@ -277,16 +277,16 @@ namespace GuiClient.ViewModels
                 if (highest == 1)
                 {
                     WarningData.Add(data);
-                    var email = new VitalAlertEmailFormat(data.Name, data.PId, IcuIdSelected, data.BedId, "Warning");
-                    var emailAlertWrapper = new EmailAleterWrapper();
-                    emailAlertWrapper.SendEmailAlert(email);
+                    //var email = new VitalAlertEmailFormat(data.Name, data.PId, IcuIdSelected, data.BedId, "Warning");
+                    //var emailAlertWrapper = new EmailAleterWrapper();
+                    //emailAlertWrapper.SendEmailAlert(email);
                 }
                 if (highest == 2)
                 {
                     EmergencyData.Add(data);
-                    var email = new VitalAlertEmailFormat(data.Name, data.PId, IcuIdSelected, data.BedId, "Emergency");
-                    var emailAlertWrapper = new EmailAleterWrapper();
-                    emailAlertWrapper.SendEmailAlert(email);
+                    //var email = new VitalAlertEmailFormat(data.Name, data.PId, IcuIdSelected, data.BedId, "Emergency");
+                    //var emailAlertWrapper = new EmailAleterWrapper();
+                    //emailAlertWrapper.SendEmailAlert(email);
                 }
             }
 

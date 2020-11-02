@@ -52,7 +52,7 @@ namespace AutomationTests
             _request = new RestRequest("Occupancy/GetBedStatus/1", Method.GET) { RequestFormat = DataFormat.Json };
             var response = _client.Execute(_request);
             var result = _deserializer.Deserialize<bool>(response);
-            Assert.True(result);
+            Assert.False(result);
         }
         [Fact]
         public void AddNewPatient()

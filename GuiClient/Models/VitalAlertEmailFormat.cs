@@ -30,11 +30,15 @@
             Subject = $"{_vitalStatus} in {_icuId} for {PatientName}";
         }
 
+        // ReSharper disable once MemberCanBePrivate.Global
+        // ReSharper disable once NotAccessedField.Global
         public string Subject;
         private readonly string _icuId;
         private readonly int _bedId;
         private readonly string _pid;
         private string _patientName;
+        // ReSharper disable once MemberCanBePrivate.Global
+        // ReSharper disable once NotAccessedField.Global
         public string Body;
         private readonly string _vitalStatus;
     }
