@@ -29,7 +29,7 @@ namespace GuiClient.ServerWrapper
             Response = Client.Execute(Request);
             MessageBox.Show(Response.StatusCode.Equals(HttpStatusCode.OK)
                 ? "ICU is Added."
-                : "Internal Server Error.");
+                : "Unable To Add ICU");
 
         }
 
@@ -40,7 +40,7 @@ namespace GuiClient.ServerWrapper
             Response = Client.Execute(Request);
             MessageBox.Show(Response.StatusCode.Equals(HttpStatusCode.OK)
                 ? "ICU is Removed."
-                : "Internal Server Error.");
+                : "Unable to remove ICU");
         }
     }
 }
